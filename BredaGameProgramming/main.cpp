@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 class Circle {
 public:
@@ -11,7 +12,19 @@ public:
         circle.setPosition({ circleX, circleY });
     }
 
-    
+    void go_up() {
+        circle.move({ 0,-10 });
+    }
+    void go_down() {
+        circle.move({ 0,10 });
+    }
+    void go_right() {
+        circle.move({ 10,0 });
+    }
+    void go_left() {
+        circle.move({ -10,0 });
+    }
+
     void draw_circle(sf::RenderWindow& window) {
         window.draw(this->circle);
     }
@@ -33,11 +46,31 @@ int main()
             if (event->is<sf::Event::Closed>())
                 window.close(); 
             else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
-                
-                if (keyPressed->scancode == sf::Keyboard::Scancode::Escape){
+
+                if (keyPressed->scancode == sf::Keyboard::Scancode::Escape) {
+                    std::cout << "Exit";
                     window.close();
                 }
-                
+                else if (keyPressed->scancode == sf::Keyboard::Scancode::W) {
+                    std::cout << "W";
+                    myCircle.go_up();
+
+                }
+                else if (keyPressed->scancode == sf::Keyboard::Scancode::A) {
+                    std::cout << "W";
+                    myCircle.go_left();
+
+                }
+                else if (keyPressed->scancode == sf::Keyboard::Scancode::S) {
+                    std::cout << "W";
+                    myCircle.go_down();
+
+                }
+                else if (keyPressed->scancode == sf::Keyboard::Scancode::D) {
+                    std::cout << "W";
+                    myCircle.go_right();
+
+                }
             }
         }
 
