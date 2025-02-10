@@ -1,17 +1,30 @@
 #include <SFML/Graphics.hpp>
 
+class Circle {
+public:
+    float radius = 7.0;
+    sf::CircleShape circle;
+    Circle(float circleX, float circleY) {
+        circle.setRadius(radius);
+        circle.setOrigin(circle.getGeometricCenter());
+        circle.setFillColor(sf::Color::Cyan);
+        circle.setPosition({ circleX, circleY });
+    }
+
+    
+    void draw_circle(sf::RenderWindow& window) {
+        window.draw(this->circle);
+    }
+};
+
 int main()
-{
-    unsigned width = 750;
-    unsigned int height = 960;
-    sf::RenderWindow window(sf::VideoMode({ width, height }), "Shmobus!");
-    window.setFramerateLimit(60);
-    sf::CircleShape shape(100.f);
-    sf::RectangleShape shmobs({ 100.f, 50.f });
-    shape.setOrigin(shape.getGeometricCenter());
-    shape.setFillColor(sf::Color::Red);
-    shmobs.setFillColor(sf::Color::Yellow);
-    shmobs.setPosition({ width/2.0f, height/2.0f });
+{   
+    unsigned int height = 950;
+    unsigned int width = 750;
+    sf::RenderWindow window(sf::VideoMode({ width, height }), "SFML Circle");
+    Circle myCircle(width/2, height/2);
+    
+
 
     while (window.isOpen())
     {
@@ -29,8 +42,7 @@ int main()
         }
 
         window.clear();
-        window.draw(shmobs);
-        window.draw(shape);
+        myCircle.draw_circle(window);
         window.display();
     }
     return 0;
