@@ -21,3 +21,15 @@ public:
 
     void draw_circle(sf::RenderWindow& window);
 };
+class Character {
+public:
+    enum directions;
+    sf::Texture texture;
+    sf::Sprite character;
+
+
+    void 
+    
+
+    void draw_character(sf::RenderWindow& window);
+};

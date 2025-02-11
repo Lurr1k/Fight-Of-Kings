@@ -6,6 +6,7 @@ public:
 
 	unsigned int height;
 	unsigned int width;
+	int frameLimit;
 	std::string windowTitle;
 	sf::VideoMode resolution;
 	Circle circle;

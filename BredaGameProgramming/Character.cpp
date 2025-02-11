@@ -3,7 +3,7 @@
 sf::CircleShape circle;
 
 void Circle::go_up() {
-    circle.move({ 0,-10 });
+    circle.move({ 0, -1 });
 }
 
 void Circle::go_down() {
