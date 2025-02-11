@@ -3,6 +3,7 @@
 #include "Character.h"
 class Game {
 public:
+
 	unsigned int height;
 	unsigned int width;
 	std::string windowTitle;
