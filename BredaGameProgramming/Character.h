@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <iostream>
 class Circle {
 public:
     float radius = 7.0;
@@ -22,14 +23,15 @@ public:
     void draw_circle(sf::RenderWindow& window);
 };
 class Character {
-public:
-    enum directions;
+private:
     sf::Texture texture;
     sf::Sprite character;
+public:
+    Character(const std::string& TEXTUREPATH);
 
 
-    void 
-    
+
+    void set_position(float x, float y);
 
     void draw_character(sf::RenderWindow& window);
-};
+}

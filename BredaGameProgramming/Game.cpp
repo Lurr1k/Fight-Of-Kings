@@ -15,6 +15,7 @@ void Game::init_window(){
 
 void Game::instantiate_characters() {
     circle = Circle(700, 940);
+    character = Character("images\LookingUp.png");
 }
 
 void Game::poll_events() {
@@ -40,6 +41,7 @@ void Game::poll_events() {
 void Game::update_screen() {
     window.clear();
     circle.draw_circle(window);
+    character.draw_character(window);
 	window.display();
 
 }

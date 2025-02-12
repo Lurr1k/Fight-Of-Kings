@@ -1,5 +1,6 @@
 #include "Character.h"
 #include "SFML/Graphics.hpp"
+#include <iostream>
 sf::CircleShape circle;
 
 void Circle::go_up() {
@@ -17,4 +18,21 @@ void Circle::go_left() {
 }
 void Circle::draw_circle(sf::RenderWindow& window) {
     window.draw(this->circle);
+}
+
+Character::Character(const std::string& TEXTUREPATH) {
+    if (!texture.loadFromFile("images\lookingUp.png")) {
+
+    }
+    else {
+        character.setTexture(texture);
+
+    }
+}
+void Character::set_position(float x, float y) {
+    character.setPosition({ x,y });
+}
+
+void Character::draw_character(sf::RenderWindow& window) {
+    window.draw(this->character);
 }

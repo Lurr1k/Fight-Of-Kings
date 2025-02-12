@@ -10,6 +10,7 @@ public:
 	std::string windowTitle;
 	sf::VideoMode resolution;
 	Circle circle;
+	Character character;
 
 	sf::RenderWindow window;
 
