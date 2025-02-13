@@ -22,16 +22,18 @@ public:
 
     void draw_circle(sf::RenderWindow& window);
 };
+
 class Character {
 private:
     sf::Texture texture;
-    sf::Sprite character;
+
 public:
+    sf::Sprite character;
     Character(const std::string& TEXTUREPATH);
-
-
+    
+    void move_towards_enemy(shmobus);
 
     void set_position(float x, float y);
 
     void draw_character(sf::RenderWindow& window);
-}
+};

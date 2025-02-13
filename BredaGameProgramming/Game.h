@@ -9,7 +9,7 @@ public:
 	int frameLimit;
 	std::string windowTitle;
 	sf::VideoMode resolution;
-	Circle circle;
+	Circle bob;
 	Character character;
 
 	sf::RenderWindow window;
