@@ -19,6 +19,7 @@ public:
     void go_down();
     void go_right();
     void go_left();
+    sf::Vector2f get_position();
 
     void draw_circle(sf::RenderWindow& window);
 };
@@ -31,7 +32,7 @@ public:
     sf::Sprite character;
     Character(const std::string& TEXTUREPATH);
     
-    void move_towards_enemy(shmobus);
+    void move_towards_enemy(sf::Vector2f target);
 
     void set_position(float x, float y);
 

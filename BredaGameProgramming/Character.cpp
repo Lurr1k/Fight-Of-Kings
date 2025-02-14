@@ -19,6 +19,11 @@ void Circle::go_left() {
 void Circle::draw_circle(sf::RenderWindow& window) {
     window.draw(circle);
 }
+sf::Vector2f Circle::get_position() {
+    sf::Vector2f position = circle.getPosition();
+    
+    return position;
+}
 
 Character::Character(const std::string& TEXTUREPATH) : texture(), character(texture) {
     if (!texture.loadFromFile(TEXTUREPATH)) {
@@ -35,27 +40,24 @@ void Character::set_position(float x, float y) {
     character.setPosition({ x,y });
 }
 
-void Character::move_towards_enemy(Circle& shmobus) {
-    sf::Vector2 target = shmobus.getPosition();
+void Character::move_towards_enemy(sf::Vector2f target) {
     std::cout << target.x << target.y;
     sf::Vector2 currentPosition = character.getPosition();
-    if (target.x > currentPosition.x) {
-        std::cout << "x+";
+    if (target.x < currentPosition.x) {
         character.move({ -1,0 });
     }
-    else if (target.x < currentPosition.x) {
+    else if (target.x > currentPosition.x) {
 
         character.move({ 1,0 });
     }
-    if (target.y > currentPosition.y) {
-        std::cout << "y+";
+    if (target.y < currentPosition.y) {
         character.move({ 0, -1 });
     }
-    else if (target.y < currentPosition.y) {
+    else if (target.y > currentPosition.y) {
         character.move({ 0,1 });
 
     }
-    if (target == currentPosition) {
+    if ( target == currentPosition) {
         std::cout << "Yay";
     }
 }

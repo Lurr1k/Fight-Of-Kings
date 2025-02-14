@@ -55,7 +55,8 @@ Game::Game() : character("images/LookingUp.png") {
 void Game::running() {
     while (window.isOpen()) {
         update_screen();
-        character.move_towards_enemy();
+        sf::Vector2f position = bob.get_position();
+        character.move_towards_enemy(position);
         poll_events();
     }
 }
