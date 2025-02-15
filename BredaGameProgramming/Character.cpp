@@ -41,8 +41,8 @@ void Character::set_position(float x, float y) {
 }
 
 void Character::move_towards_enemy(sf::Vector2f target) {
-    std::cout << target.x << target.y;
-    sf::Vector2 currentPosition = character.getPosition();
+
+    sf::Vector2f currentPosition = character.getPosition();
     if (target.x < currentPosition.x) {
         character.move({ -1,0 });
     }
@@ -55,10 +55,10 @@ void Character::move_towards_enemy(sf::Vector2f target) {
     }
     else if (target.y > currentPosition.y) {
         character.move({ 0,1 });
-
+        character.setRotation(sf::degrees(90));
     }
     if ( target == currentPosition) {
-        std::cout << "Yay";
+
     }
 }
 
