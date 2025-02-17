@@ -14,7 +14,7 @@ void Game::init_window(){
 }
 
 void Game::instantiate_characters() {
-    bob = Circle(700, 940);
+    bob = Circle(700, 640);
     character.set_position(width / 2, height / 2);
 }
 
@@ -40,7 +40,14 @@ void Game::poll_events() {
 
 void Game::update_screen() {
     window.clear();
-    bob.draw_circle(window);
+    try {
+        bob.draw_circle(window);
+        throw;
+    }
+    catch(){
+
+    }
+
     character.draw_character(window);
 	window.display();
 
@@ -55,8 +62,7 @@ Game::Game() : character("images/LookingUp.png") {
 void Game::running() {
     while (window.isOpen()) {
         update_screen();
-        sf::Vector2f position = bob.get_position();
-        character.move_towards_enemy(position);
+        character.move_towards_enemy(bob);
         poll_events();
     }
 }
