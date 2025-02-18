@@ -9,7 +9,7 @@ public:
 	int frameLimit;
 	std::string windowTitle;
 	sf::VideoMode resolution;
-	Circle bob;
+	std::vector<Circle> enemies;
 	Character character;
 
 	sf::RenderWindow window;

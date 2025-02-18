@@ -14,7 +14,8 @@ void Game::init_window(){
 }
 
 void Game::instantiate_characters() {
-    bob = Circle(700, 640);
+    enemies.emplace_back(700,400);
+    enemies.emplace_back(400, 200);
     character.set_position(width / 2, height / 2);
 }
 
@@ -29,9 +30,6 @@ void Game::poll_events() {
             if (keyPressed->scancode == sf::Keyboard::Scancode::Escape) {
                 window.close();
             }
-            else if (keyPressed->scancode == sf::Keyboard::Scancode::W) {
-                bob.go_up();
-            }
         }
 
     }
@@ -40,12 +38,10 @@ void Game::poll_events() {
 
 void Game::update_screen() {
     window.clear();
-    try {
-        bob.draw_circle(window);
-        throw;
-    }
-    catch(){
-
+    
+    for (int i = 0; i < enemies.size(); i++) {
+        enemies[i].draw_circle(window);
+        
     }
 
     character.draw_character(window);
@@ -62,7 +58,10 @@ Game::Game() : character("images/LookingUp.png") {
 void Game::running() {
     while (window.isOpen()) {
         update_screen();
-        character.move_towards_enemy(bob);
+        for (int i = 0; i < enemies.size(); i++) {
+            character.move_towards_enemy(enemies[0], enemies);
+        }
+        
         poll_events();
     }
 }

@@ -20,6 +20,11 @@ void Circle::draw_circle(sf::RenderWindow& window) {
     window.draw(circle);
 }
 
+sf::Vector2f Circle::get_position() {
+
+    return (circle.getPosition());
+}
+
 Character::Character(const std::string& TEXTUREPATH) : texture(), character(texture) {
     if (!texture.loadFromFile(TEXTUREPATH)) {
 
@@ -35,14 +40,14 @@ void Character::set_position(float x, float y) {
     character.setPosition({ x,y });
 }
 
-void Character::move_towards_enemy(Circle& enemy) {
+void Character::move_towards_enemy(Circle& enemy, std::vector<Circle>& enemies) {
     std::string moving = "";
     sf::Vector2f target = enemy.get_position();
     sf::Vector2f currentPosition = character.getPosition();
     if (target.x < currentPosition.x) {
         moving = "left";
         character.move({ -1,0 });
-        character.setRotation(sf::degrees(90));
+        character.setRotation(sf::degrees(-90));
     }
     else if (target.x > currentPosition.x) {
         moving = "right";
@@ -76,11 +81,18 @@ void Character::move_towards_enemy(Circle& enemy) {
         }
     }
     if ( target == currentPosition) {
-        delete_target(&enemy);
+        delete_target(&enemy, enemies);
     }
 }
-void Character::delete_target(Circle* target) {
-    delete target;
+void Character::delete_target(Circle* target, std::vector<Circle>& enemies) {
+    for (std::size_t i = 0; i < enemies.size(); i++) {
+        if (&enemies[i] == target) {
+            enemies.erase(enemies.begin()+i);
+
+            break;
+        }
+    }
+    
 }
 
 void Character::draw_character(sf::RenderWindow& window) {
