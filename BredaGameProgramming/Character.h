@@ -27,7 +27,9 @@ public:
 class Character {
 private:
     sf::Texture texture;
-
+    double hp;
+    std::unordered_map<int, std::string> characters;
+    
 public:
     sf::Sprite character;
     Character(const std::string& TEXTUREPATH);
@@ -35,6 +37,8 @@ public:
     void move_towards_enemy(Circle& enemy, std::vector<Circle>& enemies);
 
     void set_position(float x, float y);
+    
+    void take_damage();
 
     void delete_target(Circle* target, std::vector<Circle>& enemies);
 

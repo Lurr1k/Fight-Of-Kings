@@ -44,6 +44,7 @@ void Character::move_towards_enemy(Circle& enemy, std::vector<Circle>& enemies) 
     std::string moving = "";
     sf::Vector2f target = enemy.get_position();
     sf::Vector2f currentPosition = character.getPosition();
+
     if (target.x < currentPosition.x) {
         moving = "left";
         character.move({ -1,0 });
@@ -84,6 +85,14 @@ void Character::move_towards_enemy(Circle& enemy, std::vector<Circle>& enemies) 
         delete_target(&enemy, enemies);
     }
 }
+
+void Character::take_damage() {
+    if (hp > 0) {
+        hp -= 1;
+    }
+    
+}
+
 void Character::delete_target(Circle* target, std::vector<Circle>& enemies) {
     for (std::size_t i = 0; i < enemies.size(); i++) {
         if (&enemies[i] == target) {

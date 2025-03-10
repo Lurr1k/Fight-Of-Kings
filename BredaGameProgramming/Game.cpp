@@ -15,7 +15,7 @@ void Game::init_window(){
 
 void Game::instantiate_characters() {
     enemies.emplace_back(700,400);
-    enemies.emplace_back(400, 200);
+    enemies.emplace_back(400,200);
     character.set_position(width / 2, height / 2);
 }
 
