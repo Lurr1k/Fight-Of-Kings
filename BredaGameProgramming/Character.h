@@ -31,28 +31,43 @@ private:
     float hp;
     float attackRange;
     std::string name;
-
+    float damage;
+    float coolDown;
+    float velocity;
 
 public:
     sf::Sprite character;
-    Character(const std::string& TEXTUREPATH, std::string characterName, float healthLimit, float range);
+    Character(const std::string& TEXTUREPATH, std::string characterName, float healthLimit, float range, float attackDamage, float attackCoolDown, float characterVelocity);
     
     
     void move_towards_enemy(Circle& enemy, std::vector<Circle>& enemies);
 
     void set_position(float x, float y);
     
-    void take_damage();
+    void take_damage(float damageTaken);
 
     void delete_target(Circle* target, std::vector<Circle>& enemies);
 
     void draw_character(sf::RenderWindow& window);
     
-    void character_setup(float healthLimit, float range);
+    float get_velocity();
+    
+    float get_damage();
+
+    float get_cooldown();
+
+    float get_range();
+
 };
 
 class Goblin : public Character {
 public: 
-    Goblin(const std::string& TEXTUREPATH) : Character(TEXTUREPATH, "Goblin", 500, 200) {}
+    Goblin(const std::string& TEXTUREPATH) : Character(TEXTUREPATH, "Goblin", 50, 50, 10, 1, 1) {}
+    
+};
+
+class Giant : public Character {
+public:
+    Giant(const std::string& TEXTUREPATH) : Character(TEXTUREPATH, "Giant", 1000, 200, 40, 3, 0.2) {}
 
 };

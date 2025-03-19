@@ -25,11 +25,15 @@ sf::Vector2f Circle::get_position() {
     return (circle.getPosition());
 }
 
-Character::Character(const std::string& TEXTUREPATH, std::string characterName, float healthLimit, float range) : texture(), character(texture) {
+Character::Character(const std::string& TEXTUREPATH, std::string characterName, float healthLimit, float range, float attackDamage, float attackCoolDown, float characterVelocity) : texture(), character(texture) {
     
     hp = healthLimit;
     attackRange = range;
     name = characterName;
+    damage = attackDamage;
+    coolDown = attackCoolDown;
+    velocity = characterVelocity;
+
     
     if (!texture.loadFromFile(TEXTUREPATH)) {
 
@@ -75,7 +79,7 @@ void Character::move_towards_enemy(Circle& enemy, std::vector<Circle>& enemies) 
     }
 
     else if (target.y > currentPosition.y) {
-        character.move({ 0,1 });
+        character.move({ 0, velocity });
         if (moving == "left") {
             character.setRotation(sf::degrees(-135));
         }
@@ -106,7 +110,12 @@ void Character::draw_character(sf::RenderWindow& window) {
     window.draw(character);
 }
 
-void Character::character_setup(float health, float range) {
-    hp = health;
-    attackRange = range;
+void Character::take_damage(float damageTaken) {
+    hp -= damageTaken;
+    std::cout << hp;
+}
+
+float Character::get_velocity() {
+
+    return velocity;
 }
