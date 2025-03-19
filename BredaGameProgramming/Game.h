@@ -10,7 +10,7 @@ public:
 	std::string windowTitle;
 	sf::VideoMode resolution;
 	std::vector<Circle> enemies;
-	Character character;
+	Goblin character;
 
 	sf::RenderWindow window;
 
