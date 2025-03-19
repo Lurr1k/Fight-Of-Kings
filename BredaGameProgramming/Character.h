@@ -27,12 +27,16 @@ public:
 class Character {
 private:
     sf::Texture texture;
-    double hp;
     std::unordered_map<int, std::string> characters;
-    
+    float hp;
+    float attackRange;
+    std::string name;
+
+
 public:
     sf::Sprite character;
-    Character(const std::string& TEXTUREPATH);
+    Character(const std::string& TEXTUREPATH, std::string characterName, float healthLimit, float range);
+    
     
     void move_towards_enemy(Circle& enemy, std::vector<Circle>& enemies);
 
@@ -43,4 +47,12 @@ public:
     void delete_target(Circle* target, std::vector<Circle>& enemies);
 
     void draw_character(sf::RenderWindow& window);
+    
+    void character_setup(float healthLimit, float range);
+};
+
+class Goblin : public Character {
+public: 
+    Goblin(const std::string& TEXTUREPATH) : Character(TEXTUREPATH, "Goblin", 500, 200) {}
+
 };
