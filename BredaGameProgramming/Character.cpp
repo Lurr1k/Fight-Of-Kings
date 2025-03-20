@@ -56,17 +56,17 @@ void Character::move_towards_enemy(Circle& enemy, std::vector<Circle>& enemies) 
 
     if (target.x < currentPosition.x) {
         moving = "left";
-        character.move({ -1,0 });
+        character.move({ -velocity,0 });
         character.setRotation(sf::degrees(-90));
     }
     else if (target.x > currentPosition.x) {
         moving = "right";
-        character.move({ 1,0 });
+        character.move({ velocity,0 });
         character.setRotation(sf::degrees(90));
     }
 
     if (target.y < currentPosition.y) {
-        character.move({ 0, -1 });
+        character.move({ 0, -velocity });
         if (moving == "left") {
             character.setRotation(sf::degrees(-45));
         }

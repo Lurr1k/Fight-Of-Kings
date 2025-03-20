@@ -40,7 +40,7 @@ void Game::update_screen() {
     window.clear();
     
     for (int i = 0; i < enemies.size(); i++) {
-        enemies[i].draw_circle(window);
+        enemies[i].draw_character(window);
         
     }
 
@@ -50,7 +50,7 @@ void Game::update_screen() {
 }
 
 
-Game::Game() : character("images/LookingUp.png") {
+Game::Game() : character(500, 750) {
     init_window();
     instantiate_characters();
 }

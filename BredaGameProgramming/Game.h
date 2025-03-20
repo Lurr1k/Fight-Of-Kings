@@ -9,8 +9,8 @@ public:
 	int frameLimit;
 	std::string windowTitle;
 	sf::VideoMode resolution;
-	std::vector<Circle> enemies;
-	Goblin character;
+	std::vector<Goblin> enemies;
+	Giant character;
 
 	sf::RenderWindow window;
 
