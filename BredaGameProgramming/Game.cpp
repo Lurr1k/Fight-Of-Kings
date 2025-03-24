@@ -14,8 +14,8 @@ void Game::init_window(){
 }
 
 void Game::instantiate_characters() {
-    enemies.emplace_back(700,400);
-    enemies.emplace_back(400,200);
+    enemies.emplace_back((std::make_unique<Goblin>(700,400)));
+    enemies.emplace_back((std::make_unique<Giant>(400, 200)));
     character.set_position(width / 2, height / 2);
 }
 
@@ -40,7 +40,7 @@ void Game::update_screen() {
     window.clear();
     
     for (int i = 0; i < enemies.size(); i++) {
-        enemies[i].draw_character(window);
+        enemies[i]->draw_character(window);
         
     }
 
@@ -59,7 +59,7 @@ void Game::running() {
     while (window.isOpen()) {
         update_screen();
         for (int i = 0; i < enemies.size(); i++) {
-            character.move_towards_enemy(enemies[0], enemies);
+            character.move_towards_enemy(*enemies[0], enemies);
         }
         
         poll_events();

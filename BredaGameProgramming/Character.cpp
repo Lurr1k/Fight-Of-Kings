@@ -25,7 +25,7 @@ sf::Vector2f Circle::get_position() {
     return (circle.getPosition());
 }
 
-Character::Character(const std::string& TEXTUREPATH, std::string characterName, float healthLimit, float range, float attackDamage, float attackCoolDown, float characterVelocity) : texture(), character(texture) {
+Character::Character(const std::string& TEXTUREPATH, float xCoordinate, float yCoordinate, std::string characterName, float healthLimit, float range, float attackDamage, float attackCoolDown, float characterVelocity) : texture(), character(texture) {
     
     hp = healthLimit;
     attackRange = range;
@@ -33,7 +33,6 @@ Character::Character(const std::string& TEXTUREPATH, std::string characterName, 
     damage = attackDamage;
     coolDown = attackCoolDown;
     velocity = characterVelocity;
-
     
     if (!texture.loadFromFile(TEXTUREPATH)) {
 
@@ -42,14 +41,15 @@ Character::Character(const std::string& TEXTUREPATH, std::string characterName, 
         std::cout << "Shmobus";
         character.setTexture(texture, true);
     }
-    
+
+    character.setPosition({xCoordinate, yCoordinate});
 }
 
 void Character::set_position(float x, float y) {
     character.setPosition({ x,y });
 }
 
-void Character::move_towards_enemy(Circle& enemy, std::vector<Circle>& enemies) {
+void Character::move_towards_enemy(Character& enemy, std::vector<std::unique_ptr<Character>> enemies) {
     std::string moving = "";
     sf::Vector2f target = enemy.get_position();
     sf::Vector2f currentPosition = character.getPosition();
@@ -95,7 +95,7 @@ void Character::move_towards_enemy(Circle& enemy, std::vector<Circle>& enemies) 
     }
 }
 
-void Character::delete_target(Circle* target, std::vector<Circle>& enemies) {
+void Character::delete_target(Character* target, std::vector<std::unique_ptr<Character>> enemies) {
     for (std::size_t i = 0; i < enemies.size(); i++) {
         if (&enemies[i] == target) {
             enemies.erase(enemies.begin()+i);
@@ -104,6 +104,9 @@ void Character::delete_target(Circle* target, std::vector<Circle>& enemies) {
         }
     }
     
+}
+sf::Vector2f Character::get_position() {
+    return character.getPosition();
 }
 
 void Character::draw_character(sf::RenderWindow& window) {
