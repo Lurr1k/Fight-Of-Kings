@@ -49,7 +49,7 @@ void Character::set_position(float x, float y) {
     character.setPosition({ x,y });
 }
 
-void Character::move_towards_enemy(Character& enemy, std::vector<std::unique_ptr<Character>> enemies) {
+void Character::move_towards_enemy(Character& enemy, std::vector<std::unique_ptr<Character>> &enemies) {
     std::string moving = "";
     sf::Vector2f target = enemy.get_position();
     sf::Vector2f currentPosition = character.getPosition();
@@ -95,9 +95,9 @@ void Character::move_towards_enemy(Character& enemy, std::vector<std::unique_ptr
     }
 }
 
-void Character::delete_target(Character* target, std::vector<std::unique_ptr<Character>> enemies) {
+void Character::delete_target(Character *target, std::vector<std::unique_ptr<Character>> &enemies) {
     for (std::size_t i = 0; i < enemies.size(); i++) {
-        if (&enemies[i] == target) {
+        if (enemies[i].get() == target) {
             enemies.erase(enemies.begin()+i);
 
             break;

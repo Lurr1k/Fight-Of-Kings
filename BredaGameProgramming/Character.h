@@ -40,7 +40,7 @@ public:
     Character(const std::string& TEXTUREPATH, float xCoordinate, float yCoordinate, std::string characterName, float healthLimit, float range, float attackDamage, float attackCoolDown, float characterVelocity);
     
     
-    void move_towards_enemy(Character& enemy, std::vector<std::unique_ptr<Character>> enemies);
+    void move_towards_enemy(Character& enemy, std::vector<std::unique_ptr<Character>> &enemies);
 
     void set_position(float x, float y);
 
@@ -48,7 +48,7 @@ public:
     
     void take_damage(float damageTaken);
 
-    void delete_target(Character* target, std::vector<std::unique_ptr<Character>> enemies);
+    void delete_target(Character *target, std::vector<std::unique_ptr<Character>> &enemies);
 
     void draw_character(sf::RenderWindow& window);
     

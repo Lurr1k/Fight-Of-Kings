@@ -1,7 +1,8 @@
 #include "Game.h"
 #include "Character.h"
 
-
+// Form an array of heroes, working similarly to the list of enemies, making the characters walk and interact similarly no matter the team
+// 
 
 void Game::init_window(){
 	height = 960;
@@ -16,6 +17,7 @@ void Game::init_window(){
 void Game::instantiate_characters() {
     enemies.emplace_back((std::make_unique<Goblin>(700,400)));
     enemies.emplace_back((std::make_unique<Giant>(400, 200)));
+    enemies.emplace_back((std::make_unique<Tower>(200, 300)));
     character.set_position(width / 2, height / 2);
 }
 
