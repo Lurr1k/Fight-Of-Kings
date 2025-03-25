@@ -1,7 +1,9 @@
 #include "Game.h"
 #include "Character.h"
-
-// Form an array of heroes, working similarly to the list of enemies, making the characters walk and interact similarly no matter the team
+// Tasks:
+// Range x
+// Damage mechanics x
+// Health bar x
 // 
 
 void Game::init_window(){
@@ -15,10 +17,12 @@ void Game::init_window(){
 }
 
 void Game::instantiate_characters() {
-    enemies.emplace_back((std::make_unique<Goblin>(700,400)));
-    enemies.emplace_back((std::make_unique<Giant>(400, 200)));
-    enemies.emplace_back((std::make_unique<Tower>(200, 300)));
-    character.set_position(width / 2, height / 2);
+
+    enemies.emplace_back((std::make_unique<Tower>(187.5, 80)));
+    enemies.emplace_back((std::make_unique<Tower>(562.5, 80)));
+    enemies.emplace_back((std::make_unique<Tower>(375, 160)));
+    heroes.emplace_back((std::make_unique<Goblin>(width/2, height/2)));
+    heroes.emplace_back((std::make_unique<Giant>(width / 2 - 10, height / 2)));
 }
 
 void Game::poll_events() {
@@ -45,14 +49,17 @@ void Game::update_screen() {
         enemies[i]->draw_character(window);
         
     }
+    for (int i = 0; i < heroes.size(); i++) {
+        heroes[i]->draw_character(window);
 
+    }
     character.draw_character(window);
 	window.display();
 
 }
 
 
-Game::Game() : character(500, 750) {
+Game::Game() : character(1920, 1080) {
     init_window();
     instantiate_characters();
 }
@@ -60,10 +67,15 @@ Game::Game() : character(500, 750) {
 void Game::running() {
     while (window.isOpen()) {
         update_screen();
-        for (int i = 0; i < enemies.size(); i++) {
-            character.move_towards_enemy(*enemies[0], enemies);
+        for (int j = 0; j < heroes.size(); j++) {
+            for (int i = 0; i < enemies.size(); i++) {
+                if (heroes[j]->get_name() != "Tower") {
+                    heroes[j]->move_towards_enemy(*enemies[0], enemies);
+                    enemies[i]->move_towards_enemy(*heroes[0], heroes);
+                }
+                
+            }
         }
-        
         poll_events();
     }
 }

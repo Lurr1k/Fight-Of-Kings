@@ -9,6 +9,7 @@ public:
 	int frameLimit;
 	std::string windowTitle;
 	sf::VideoMode resolution;
+	std::vector<std::unique_ptr<Character>> heroes;
 	std::vector<std::unique_ptr<Character>> enemies;
 	Giant character;
 

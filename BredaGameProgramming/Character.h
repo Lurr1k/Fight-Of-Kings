@@ -54,6 +54,7 @@ public:
     
     float get_velocity();
 
+    std::string get_name();
 };
 
 class Goblin : public Character {

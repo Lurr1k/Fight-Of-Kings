@@ -38,7 +38,6 @@ Character::Character(const std::string& TEXTUREPATH, float xCoordinate, float yC
 
     }
     else {
-        std::cout << "Shmobus";
         character.setTexture(texture, true);
     }
 
@@ -53,19 +52,21 @@ void Character::move_towards_enemy(Character& enemy, std::vector<std::unique_ptr
     std::string moving = "";
     sf::Vector2f target = enemy.get_position();
     sf::Vector2f currentPosition = character.getPosition();
-
-    if (target.x < currentPosition.x) {
+    float xDistance = target.x - currentPosition.x;
+    float yDistance = target.y - currentPosition.y;
+    float distance = (std::sqrt(xDistance*xDistance + yDistance*yDistance));
+    if (xDistance < 0) {
         moving = "left";
         character.move({ -velocity,0 });
         character.setRotation(sf::degrees(-90));
     }
-    else if (target.x > currentPosition.x) {
+    else if (xDistance > 0) {
         moving = "right";
         character.move({ velocity,0 });
         character.setRotation(sf::degrees(90));
     }
 
-    if (target.y < currentPosition.y) {
+    if (yDistance < 0) {
         character.move({ 0, -velocity });
         if (moving == "left") {
             character.setRotation(sf::degrees(-45));
@@ -78,7 +79,7 @@ void Character::move_towards_enemy(Character& enemy, std::vector<std::unique_ptr
         }
     }
 
-    else if (target.y > currentPosition.y) {
+    else if (yDistance > 0) {
         character.move({ 0, velocity });
         if (moving == "left") {
             character.setRotation(sf::degrees(-135));
@@ -90,7 +91,7 @@ void Character::move_towards_enemy(Character& enemy, std::vector<std::unique_ptr
             character.setRotation(sf::degrees(180));
         }
     }
-    if ( target == currentPosition) {
+    if ( distance < 5) {
         delete_target(&enemy, enemies);
     }
 }
@@ -121,4 +122,9 @@ void Character::take_damage(float damageTaken) {
 float Character::get_velocity() {
 
     return velocity;
+}
+
+std::string Character::get_name() {
+
+    return name;
 }
