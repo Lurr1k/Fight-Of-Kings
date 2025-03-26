@@ -49,50 +49,52 @@ void Character::set_position(float x, float y) {
 }
 
 void Character::move_towards_enemy(Character& enemy, std::vector<std::unique_ptr<Character>> &enemies) {
-    std::string moving = "";
-    sf::Vector2f target = enemy.get_position();
-    sf::Vector2f currentPosition = character.getPosition();
-    float xDistance = target.x - currentPosition.x;
-    float yDistance = target.y - currentPosition.y;
-    float distance = (std::sqrt(xDistance*xDistance + yDistance*yDistance));
-    if (xDistance < 0) {
-        moving = "left";
-        character.move({ -velocity,0 });
-        character.setRotation(sf::degrees(-90));
-    }
-    else if (xDistance > 0) {
-        moving = "right";
-        character.move({ velocity,0 });
-        character.setRotation(sf::degrees(90));
-    }
+    if (name != "Tower") {
+        std::string moving = "";
+        sf::Vector2f target = enemy.get_position();
+        sf::Vector2f currentPosition = character.getPosition();
+        float xDistance = target.x - currentPosition.x;
+        float yDistance = target.y - currentPosition.y;
+        float distance = (std::sqrt(xDistance * xDistance + yDistance * yDistance));
+        if (xDistance < 0) {
+            moving = "left";
+            character.move({ -velocity,0 });
+            character.setRotation(sf::degrees(-90));
+        }
+        else if (xDistance > 0) {
+            moving = "right";
+            character.move({ velocity,0 });
+            character.setRotation(sf::degrees(90));
+        }
 
-    if (yDistance < 0) {
-        character.move({ 0, -velocity });
-        if (moving == "left") {
-            character.setRotation(sf::degrees(-45));
+        if (yDistance < 0) {
+            character.move({ 0, -velocity });
+            if (moving == "left") {
+                character.setRotation(sf::degrees(-45));
+            }
+            else if (moving == "right") {
+                character.setRotation(sf::degrees(45));
+            }
+            else {
+                character.setRotation(sf::degrees(0));
+            }
         }
-        else if (moving == "right") {
-            character.setRotation(sf::degrees(45));
-        }
-        else {
-            character.setRotation(sf::degrees(0));
-        }
-    }
 
-    else if (yDistance > 0) {
-        character.move({ 0, velocity });
-        if (moving == "left") {
-            character.setRotation(sf::degrees(-135));
+        else if (yDistance > 0) {
+            character.move({ 0, velocity });
+            if (moving == "left") {
+                character.setRotation(sf::degrees(-135));
+            }
+            else if (moving == "right") {
+                character.setRotation(sf::degrees(135));
+            }
+            else {
+                character.setRotation(sf::degrees(180));
+            }
         }
-        else if (moving == "right") {
-            character.setRotation(sf::degrees(135));
+        if (distance < 5) {
+            delete_target(&enemy, enemies);
         }
-        else {
-            character.setRotation(sf::degrees(180));
-        }
-    }
-    if ( distance < 5) {
-        delete_target(&enemy, enemies);
     }
 }
 
