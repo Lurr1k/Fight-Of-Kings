@@ -21,8 +21,8 @@ void Game::instantiate_characters() {
     enemies.emplace_back((std::make_unique<Tower>(187.5, 80)));
     enemies.emplace_back((std::make_unique<Tower>(562.5, 80)));
     enemies.emplace_back((std::make_unique<Tower>(375, 160)));
-    heroes.emplace_back((std::make_unique<Goblin>(width/2, height/2)));
-    heroes.emplace_back((std::make_unique<Giant>(width / 2 - 10, height / 2)));
+    heroes.emplace_back((std::make_unique<Giant>(width/2, height/2)));
+    heroes.emplace_back((std::make_unique<Giant>(width / 2 - 10, height / 2+10)));
 }
 
 void Game::poll_events() {
@@ -68,13 +68,13 @@ void Game::running() {
     while (window.isOpen()) {
         update_screen();
         for (int j = 0; j < heroes.size(); j++) {
-            for (int i = 0; i < enemies.size(); i++) {
-                if (heroes.size() > 0) {
-                    heroes[j]->move_towards_enemy(*enemies[0], enemies);
-                }
-                if (enemies.size() > 0) {
-                    enemies[i]->move_towards_enemy(*heroes[0], heroes);
-                }
+            if ((heroes.size() > 0) && (enemies.size() > 0)) {
+                heroes[j]->move_towards_enemy(*enemies[0], enemies);
+            } 
+        }
+        for (int i = 0; i < enemies.size(); i++) {
+            if ((heroes.size() > 0) && (enemies.size() > 0)) {
+                enemies[i]->move_towards_enemy(*heroes[0], heroes);
             }
         }
         poll_events();
