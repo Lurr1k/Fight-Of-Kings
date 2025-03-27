@@ -1,6 +1,10 @@
 #include "Game.h"
 #include "Character.h"
 // Tasks:
+// Calculate distance to target through a separate function
+// Return the distance for each one 
+// Find the shortest path 
+// Choose it
 // Range x
 // Damage mechanics x
 // Health bar x
@@ -21,7 +25,7 @@ void Game::instantiate_characters() {
     enemies.emplace_back((std::make_unique<Tower>(187.5, 80)));
     enemies.emplace_back((std::make_unique<Tower>(562.5, 80)));
     enemies.emplace_back((std::make_unique<Tower>(375, 160)));
-    heroes.emplace_back((std::make_unique<Giant>(width/2, height/2)));
+    heroes.emplace_back((std::make_unique<Goblin>(width/2, height/2)));
     heroes.emplace_back((std::make_unique<Giant>(width / 2 - 10, height / 2+10)));
 }
 

@@ -53,6 +53,8 @@ public:
     void draw_character(sf::RenderWindow& window);
     
     float get_velocity();
+    
+    int identify_closest_target(std::vector<std::unique_ptr<Character>>& enemies);
 
     std::string get_name();
 };

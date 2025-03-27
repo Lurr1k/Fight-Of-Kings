@@ -56,18 +56,18 @@ void Character::move_towards_enemy(Character& enemy, std::vector<std::unique_ptr
         float xDistance = target.x - currentPosition.x;
         float yDistance = target.y - currentPosition.y;
         float distance = (std::sqrt(xDistance * xDistance + yDistance * yDistance));
-        if (xDistance < 0) {
+        if (xDistance < -2) {
             moving = "left";
             character.move({ -velocity,0 });
             character.setRotation(sf::degrees(-90));
         }
-        else if (xDistance > 0) {
+        else if (xDistance > 2) {
             moving = "right";
             character.move({ velocity,0 });
             character.setRotation(sf::degrees(90));
         }
 
-        if (yDistance < 0) {
+        if (yDistance < -2) {
             character.move({ 0, -velocity });
             if (moving == "left") {
                 character.setRotation(sf::degrees(-45));
@@ -80,7 +80,7 @@ void Character::move_towards_enemy(Character& enemy, std::vector<std::unique_ptr
             }
         }
 
-        else if (yDistance > 0) {
+        else if (yDistance > 2) {
             character.move({ 0, velocity });
             if (moving == "left") {
                 character.setRotation(sf::degrees(-135));
@@ -129,4 +129,11 @@ float Character::get_velocity() {
 std::string Character::get_name() {
 
     return name;
+}
+
+int Character::identify_closest_target(std::vector<std::unique_ptr<Character>>& enemies) {
+    for (int i = 0; i < enemies.size(); i++) {
+        
+    }
+
 }
