@@ -48,10 +48,11 @@ void Character::set_position(float x, float y) {
     character.setPosition({ x,y });
 }
 
-void Character::move_towards_enemy(Character& enemy, std::vector<std::unique_ptr<Character>> &enemies) {
+void Character::move_towards_enemy(std::vector<std::unique_ptr<Character>> &enemies) {
     if (name != "Tower") {
         std::string moving = "";
-        sf::Vector2f target = enemy.get_position();
+        int targetIndex = identify_closest_target(enemies);
+        sf::Vector2f target = enemies[targetIndex]->get_position();
         sf::Vector2f currentPosition = character.getPosition();
         float xDistance = target.x - currentPosition.x;
         float yDistance = target.y - currentPosition.y;
@@ -93,7 +94,7 @@ void Character::move_towards_enemy(Character& enemy, std::vector<std::unique_ptr
             }
         }
         if (distance < 5) {
-            delete_target(&enemy, enemies);
+            delete_target(enemies[targetIndex].get(), enemies);
         }
     }
 }
@@ -132,8 +133,17 @@ std::string Character::get_name() {
 }
 
 int Character::identify_closest_target(std::vector<std::unique_ptr<Character>>& enemies) {
+    sf::Vector2f positionDifference;
+    float newDistance;
+    int chosenIndex = 0;
+    float distance = 1000;
     for (int i = 0; i < enemies.size(); i++) {
-        
+        positionDifference = character.getPosition() - enemies[i]->get_position();
+        newDistance = std::sqrt((positionDifference.x * positionDifference.x) + (positionDifference.y * positionDifference.y));
+        if (newDistance < distance) {
+            distance = newDistance;
+            chosenIndex = i;
+        }
     }
-
+    return chosenIndex;
 }

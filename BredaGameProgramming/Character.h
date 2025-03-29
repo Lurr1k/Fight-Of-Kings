@@ -40,7 +40,7 @@ public:
     Character(const std::string& TEXTUREPATH, float xCoordinate, float yCoordinate, std::string characterName, float healthLimit, float range, float attackDamage, float attackCoolDown, float characterVelocity);
     
     
-    void move_towards_enemy(Character& enemy, std::vector<std::unique_ptr<Character>> &enemies);
+    void move_towards_enemy(std::vector<std::unique_ptr<Character>> &enemies);
 
     void set_position(float x, float y);
 
@@ -54,7 +54,7 @@ public:
     
     float get_velocity();
     
-    int identify_closest_target(std::vector<std::unique_ptr<Character>>& enemies);
+    int identify_closest_target(std::vector<std::unique_ptr<Character>> &enemies);
 
     std::string get_name();
 };

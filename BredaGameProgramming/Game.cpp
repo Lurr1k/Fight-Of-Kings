@@ -73,12 +73,12 @@ void Game::running() {
         update_screen();
         for (int j = 0; j < heroes.size(); j++) {
             if ((heroes.size() > 0) && (enemies.size() > 0)) {
-                heroes[j]->move_towards_enemy(*enemies[0], enemies);
+                heroes[j]->move_towards_enemy(enemies);
             } 
         }
         for (int i = 0; i < enemies.size(); i++) {
             if ((heroes.size() > 0) && (enemies.size() > 0)) {
-                enemies[i]->move_towards_enemy(*heroes[0], heroes);
+                enemies[i]->move_towards_enemy(heroes);
             }
         }
         poll_events();
