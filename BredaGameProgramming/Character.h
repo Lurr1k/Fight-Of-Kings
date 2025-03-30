@@ -27,7 +27,6 @@ public:
 class Character {
 private:
     sf::Texture texture;
-    std::unordered_map<int, std::string> characters;
     float hp;
     float attackRange;
     std::string name;
