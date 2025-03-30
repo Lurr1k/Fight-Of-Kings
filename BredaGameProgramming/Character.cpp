@@ -93,8 +93,13 @@ void Character::move_towards_enemy(std::vector<std::unique_ptr<Character>> &enem
                 character.setRotation(sf::degrees(180));
             }
         }
-        if (distance < 5) {
-            delete_target(enemies[targetIndex].get(), enemies);
+        if (distance < attackRange) {
+            if (enemies[targetIndex]->get_hp() > 0) {
+                enemies[targetIndex]->take_damage(damage);
+            }
+            else {
+                delete_target(enemies[targetIndex].get(), enemies);
+            }
         }
     }
 }
@@ -146,4 +151,9 @@ int Character::identify_closest_target(std::vector<std::unique_ptr<Character>>& 
         }
     }
     return chosenIndex;
+}
+
+float Character::get_hp() {
+
+    return hp;
 }

@@ -56,17 +56,19 @@ public:
     int identify_closest_target(std::vector<std::unique_ptr<Character>> &enemies);
 
     std::string get_name();
+    
+    float get_hp();
 };
 
 class Goblin : public Character {
 public: 
-    Goblin(float xCoordinate, float yCoordinate) : Character("images/Goblin.png", xCoordinate, yCoordinate, "Goblin", 50, 50, 10, 1, 1) {}
+    Goblin(float xCoordinate, float yCoordinate) : Character("images/Goblin.png", xCoordinate, yCoordinate, "Goblin", 50, 10, 10, 1, 1) {}
     
 };
 
 class Giant : public Character {
 public:
-    Giant(float xCoordinate, float yCoordinate) : Character("images/Giant.png", xCoordinate, yCoordinate, "Giant", 1000, 200, 40, 3, 0.5) {}
+    Giant(float xCoordinate, float yCoordinate) : Character("images/Giant.png", xCoordinate, yCoordinate, "Giant", 1000, 5, 40, 3, 0.5) {}
 
 };
 
