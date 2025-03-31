@@ -70,15 +70,16 @@ Game::Game() : character(1920, 1080) {
 
 void Game::running() {
     while (window.isOpen()) {
+        float deltaTime = clock.restart().asSeconds();
         update_screen();
         for (int j = 0; j < heroes.size(); j++) {
             if ((heroes.size() > 0) && (enemies.size() > 0)) {
-                heroes[j]->move_towards_enemy(enemies);
+                heroes[j]->move_towards_enemy(enemies, deltaTime);
             } 
         }
         for (int i = 0; i < enemies.size(); i++) {
             if ((heroes.size() > 0) && (enemies.size() > 0)) {
-                enemies[i]->move_towards_enemy(heroes);
+                enemies[i]->move_towards_enemy(heroes, deltaTime);
             }
         }
         poll_events();

@@ -3,7 +3,7 @@
 #include "Character.h"
 class Game {
 public:
-
+	sf::Clock clock;
 	unsigned int height;
 	unsigned int width;
 	int frameLimit;

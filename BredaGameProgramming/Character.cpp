@@ -48,9 +48,11 @@ void Character::set_position(float x, float y) {
     character.setPosition({ x,y });
 }
 
-void Character::move_towards_enemy(std::vector<std::unique_ptr<Character>> &enemies) {
+void Character::move_towards_enemy(std::vector<std::unique_ptr<Character>> &enemies, float deltaTime) {
     if (name != "Tower") {
         std::string moving = "";
+        float time = deltaTime;
+        std::cout << deltaTime;
         int targetIndex = identify_closest_target(enemies);
         sf::Vector2f target = enemies[targetIndex]->get_position();
         sf::Vector2f currentPosition = character.getPosition();
@@ -59,17 +61,17 @@ void Character::move_towards_enemy(std::vector<std::unique_ptr<Character>> &enem
         float distance = (std::sqrt(xDistance * xDistance + yDistance * yDistance));
         if (xDistance < -2) {
             moving = "left";
-            character.move({ -velocity,0 });
+            character.move({ -velocity * time, 0.f });
             character.setRotation(sf::degrees(-90));
         }
         else if (xDistance > 2) {
             moving = "right";
-            character.move({ velocity,0 });
+            character.move({ velocity * time, 0.f });
             character.setRotation(sf::degrees(90));
         }
 
         if (yDistance < -2) {
-            character.move({ 0, -velocity });
+            character.move({ 0, -velocity * time });
             if (moving == "left") {
                 character.setRotation(sf::degrees(-45));
             }
@@ -82,7 +84,7 @@ void Character::move_towards_enemy(std::vector<std::unique_ptr<Character>> &enem
         }
 
         else if (yDistance > 2) {
-            character.move({ 0, velocity });
+            character.move({ 0.f, velocity * time });
             if (moving == "left") {
                 character.setRotation(sf::degrees(-135));
             }

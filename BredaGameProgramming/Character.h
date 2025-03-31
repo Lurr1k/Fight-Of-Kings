@@ -39,7 +39,7 @@ public:
     Character(const std::string& TEXTUREPATH, float xCoordinate, float yCoordinate, std::string characterName, float healthLimit, float range, float attackDamage, float attackCoolDown, float characterVelocity);
     
     
-    void move_towards_enemy(std::vector<std::unique_ptr<Character>> &enemies);
+    void move_towards_enemy(std::vector<std::unique_ptr<Character>> &enemies, float deltaTime);
 
     void set_position(float x, float y);
 
@@ -62,13 +62,13 @@ public:
 
 class Goblin : public Character {
 public: 
-    Goblin(float xCoordinate, float yCoordinate) : Character("images/Goblin.png", xCoordinate, yCoordinate, "Goblin", 50, 10, 10, 1, 1) {}
+    Goblin(float xCoordinate, float yCoordinate) : Character("images/Goblin.png", xCoordinate, yCoordinate, "Goblin", 50, 10, 10, 1, 50) {}
     
 };
 
 class Giant : public Character {
 public:
-    Giant(float xCoordinate, float yCoordinate) : Character("images/Giant.png", xCoordinate, yCoordinate, "Giant", 1000, 5, 40, 3, 0.5) {}
+    Giant(float xCoordinate, float yCoordinate) : Character("images/Giant.png", xCoordinate, yCoordinate, "Giant", 1000, 5, 40, 3, 10) {}
 
 };
 
