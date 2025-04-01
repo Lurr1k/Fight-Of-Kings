@@ -28,6 +28,7 @@ sf::Vector2f Circle::get_position() {
 Character::Character(const std::string& TEXTUREPATH, float xCoordinate, float yCoordinate, std::string characterName, float healthLimit, float range, float attackDamage, float attackCoolDown, float characterVelocity) : texture(), character(texture) {
     
     hp = healthLimit;
+    maxHp = healthLimit;
     attackRange = range;
     name = characterName;
     damage = attackDamage;
@@ -42,35 +43,46 @@ Character::Character(const std::string& TEXTUREPATH, float xCoordinate, float yC
     }
 
     character.setPosition({xCoordinate, yCoordinate});
+    sf::Vector2f bounds = character.getLocalBounds().size;
+    character.setOrigin({ bounds.x / 2, bounds.y / 2 });
 }
 
 void Character::set_position(float x, float y) {
     character.setPosition({ x,y });
 }
 
-void Character::move_towards_enemy(std::vector<std::unique_ptr<Character>> &enemies, float deltaTime) {
+void Character::move_towards_enemy(std::vector<std::unique_ptr<Character>> &enemies, float &deltaTime) {
     if (name != "Tower") {
         std::string moving = "";
+        bool attacking = false;
         float time = deltaTime;
-        std::cout << deltaTime;
         int targetIndex = identify_closest_target(enemies);
         sf::Vector2f target = enemies[targetIndex]->get_position();
         sf::Vector2f currentPosition = character.getPosition();
         float xDistance = target.x - currentPosition.x;
         float yDistance = target.y - currentPosition.y;
         float distance = (std::sqrt(xDistance * xDistance + yDistance * yDistance));
-        if (xDistance < -2) {
+        if (distance < attackRange) {
+            if (enemies[targetIndex]->get_hp() > 0) {
+                enemies[targetIndex]->take_damage(damage, deltaTime);
+                attacking = true;
+            }
+            else {
+                delete_target(enemies[targetIndex].get(), enemies);
+            }
+        }
+        if (xDistance < -2 and not attacking) {
             moving = "left";
             character.move({ -velocity * time, 0.f });
             character.setRotation(sf::degrees(-90));
         }
-        else if (xDistance > 2) {
+        else if (xDistance > 2 and not attacking) {
             moving = "right";
             character.move({ velocity * time, 0.f });
             character.setRotation(sf::degrees(90));
         }
 
-        if (yDistance < -2) {
+        if (yDistance < -2 and not attacking) {
             character.move({ 0, -velocity * time });
             if (moving == "left") {
                 character.setRotation(sf::degrees(-45));
@@ -83,7 +95,7 @@ void Character::move_towards_enemy(std::vector<std::unique_ptr<Character>> &enem
             }
         }
 
-        else if (yDistance > 2) {
+        else if (yDistance > 2 and not attacking) {
             character.move({ 0.f, velocity * time });
             if (moving == "left") {
                 character.setRotation(sf::degrees(-135));
@@ -95,14 +107,7 @@ void Character::move_towards_enemy(std::vector<std::unique_ptr<Character>> &enem
                 character.setRotation(sf::degrees(180));
             }
         }
-        if (distance < attackRange) {
-            if (enemies[targetIndex]->get_hp() > 0) {
-                enemies[targetIndex]->take_damage(damage);
-            }
-            else {
-                delete_target(enemies[targetIndex].get(), enemies);
-            }
-        }
+        
     }
 }
 
@@ -124,9 +129,8 @@ void Character::draw_character(sf::RenderWindow& window) {
     window.draw(character);
 }
 
-void Character::take_damage(float damageTaken) {
-    hp -= damageTaken;
-    std::cout << hp;
+void Character::take_damage(float damageTaken, float &deltaTime) {
+    hp -= damageTaken*deltaTime;
 }
 
 float Character::get_velocity() {
@@ -153,6 +157,27 @@ int Character::identify_closest_target(std::vector<std::unique_ptr<Character>>& 
         }
     }
     return chosenIndex;
+}
+
+void Character::display_health_bar(sf::RenderWindow &window) {
+    sf::RectangleShape barBackground;
+    sf::RectangleShape healthBar;
+    sf::Vector2f characterToBarDistance = { 0, 30 };
+    sf::Vector2f healthBarPosition = character.getPosition() + characterToBarDistance;
+    barBackground.setSize({ 40, 4 });
+    barBackground.setOrigin({20, 0});
+    barBackground.setPosition(healthBarPosition);
+    barBackground.setFillColor(sf::Color::Green);
+
+    healthBar.setSize({ 30 * (hp/maxHp), 2});
+    healthBar.setOrigin({0,0});
+    healthBar.setPosition(healthBarPosition + sf::Vector2f({-15, 1}));
+    healthBar.setFillColor(sf::Color::Red);
+
+    window.draw(barBackground);
+    window.draw(healthBar);
+    
+
 }
 
 float Character::get_hp() {

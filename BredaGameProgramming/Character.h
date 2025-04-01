@@ -27,6 +27,7 @@ public:
 class Character {
 private:
     sf::Texture texture;
+    float maxHp;
     float hp;
     float attackRange;
     std::string name;
@@ -39,13 +40,13 @@ public:
     Character(const std::string& TEXTUREPATH, float xCoordinate, float yCoordinate, std::string characterName, float healthLimit, float range, float attackDamage, float attackCoolDown, float characterVelocity);
     
     
-    void move_towards_enemy(std::vector<std::unique_ptr<Character>> &enemies, float deltaTime);
+    void move_towards_enemy(std::vector<std::unique_ptr<Character>> &enemies, float &deltaTime);
 
     void set_position(float x, float y);
 
     sf::Vector2f get_position();
     
-    void take_damage(float damageTaken);
+    void take_damage(float damageTaken, float &deltaTime);
 
     void delete_target(Character *target, std::vector<std::unique_ptr<Character>> &enemies);
 
@@ -56,13 +57,15 @@ public:
     int identify_closest_target(std::vector<std::unique_ptr<Character>> &enemies);
 
     std::string get_name();
+
+    void display_health_bar(sf::RenderWindow& window);
     
     float get_hp();
 };
 
 class Goblin : public Character {
 public: 
-    Goblin(float xCoordinate, float yCoordinate) : Character("images/Goblin.png", xCoordinate, yCoordinate, "Goblin", 50, 10, 10, 1, 50) {}
+    Goblin(float xCoordinate, float yCoordinate) : Character("images/Goblin.png", xCoordinate, yCoordinate, "Goblin", 50, 50, 2500, 1, 50) {}
     
 };
 

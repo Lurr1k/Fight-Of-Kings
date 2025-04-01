@@ -1,9 +1,6 @@
 #include "Game.h"
 #include "Character.h"
 // Tasks:
-// Range x
-// Damage mechanics x
-// Health bar x
 // 
 
 void Game::init_window(){
@@ -50,10 +47,12 @@ void Game::update_screen() {
     window.clear();
     
     for (int i = 0; i < enemies.size(); i++) {
+        enemies[i]->display_health_bar(window);
         enemies[i]->draw_character(window);
         
     }
     for (int i = 0; i < heroes.size(); i++) {
+        heroes[i]->display_health_bar(window);
         heroes[i]->draw_character(window);
 
     }
