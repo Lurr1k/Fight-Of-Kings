@@ -4,6 +4,8 @@
 class Game {
 public:
 	sf::Clock clock;
+	sf::Texture backgroundTexture;
+	sf::Sprite background;
 	unsigned int height;
 	unsigned int width;
 	int frameLimit;
@@ -16,6 +18,8 @@ public:
 	sf::RenderWindow window;
 
 	void init_window();
+
+	void load_background();
 
 	void instantiate_characters();
 

@@ -13,6 +13,11 @@ void Game::init_window(){
     window.setFramerateLimit(frameLimit);
 }
 
+void Game::load_background() {
+    backgroundTexture.loadFromFile("images/backgroundTexture.png");
+    background.setTexture(backgroundTexture);
+}
+
 void Game::instantiate_characters() {
 
     enemies.emplace_back(std::make_unique<Tower>(187.5, 80));
@@ -45,7 +50,7 @@ void Game::poll_events() {
 
 void Game::update_screen() {
     window.clear();
-    
+    window.draw(background);
     for (int i = 0; i < enemies.size(); i++) {
         enemies[i]->display_health_bar(window);
         enemies[i]->draw_character(window);
@@ -64,6 +69,7 @@ void Game::update_screen() {
 
 Game::Game() : character(1920, 1080) {
     init_window();
+    load_background();
     instantiate_characters();
 }
 
