@@ -26,15 +26,17 @@ sf::Vector2f Circle::get_position() {
     return (circle.getPosition());
 }
 
-Character::Character(const std::string& TEXTUREPATH, float xCoordinate, float yCoordinate, std::string characterName, float healthLimit, float range, float attackDamage, float attackCoolDown, float characterVelocity) : texture(), character(texture) {
+Character::Character(const std::string& TEXTUREPATH, float xCoordinate, float yCoordinate, std::string battleSide, std::string characterName, float healthLimit, float characterAttackRange, float attackDamage, float attackCoolDown, float characterVelocity, float targetRange) : texture(), character(texture) {
     
     hp = healthLimit;
     maxHp = healthLimit;
-    attackRange = range;
+    attackRange = characterAttackRange;
     name = characterName;
     damage = attackDamage;
     coolDown = attackCoolDown;
     velocity = characterVelocity;
+    sightRange = targetRange;
+    heroOrEnemy = battleSide;
     
     if (!texture.loadFromFile(TEXTUREPATH)) {
 
@@ -95,12 +97,12 @@ void Character::move_towards_enemy(std::vector<std::unique_ptr<Character>> &enem
 
 void Character::move_character(float xDistance, float yDistance, float &time, sf::Vector2f &currentPosition) {
     std::string moving = "";
-    if (xDistance < -2 and not (currentPosition.y > 450 and currentPosition.y < 510)) {
+    if (xDistance < -2 and not (currentPosition.y >= 450 and currentPosition.y <= 510)) {
         moving = "left";
         character.move({ -velocity * time, 0.f });
         character.setRotation(sf::degrees(-90));
     }
-    else if (xDistance > 2 and not (currentPosition.y > 450 and currentPosition.y < 510)) {
+    else if (xDistance > 2 and not (currentPosition.y >= 450 and currentPosition.y <= 510)) {
         moving = "right";
         character.move({ velocity * time, 0.f });
         character.setRotation(sf::degrees(90));
@@ -168,32 +170,53 @@ std::string Character::get_name() {
 int Character::identify_closest_target(std::vector<std::unique_ptr<Character>>& enemies) {
     sf::Vector2f positionDifference;
     float newDistance;
-    int chosenIndex = 0;
+    int chosenIndex = -1;
     float distance = 1000;
     for (int i = 0; i < enemies.size(); i++) {
         positionDifference = character.getPosition() - enemies[i]->get_position();
         newDistance = std::sqrt((positionDifference.x * positionDifference.x) + (positionDifference.y * positionDifference.y));
-        if (newDistance < distance) {
+        if (newDistance < distance and newDistance < sightRange) {
             distance = newDistance;
             chosenIndex = i;
         }
+    }
+    if (chosenIndex == -1) {
+        distance = 1000;
+        for (int i = 0; i < enemies.size(); i++) {
+            positionDifference = character.getPosition() - enemies[i]->get_position();
+            newDistance = std::sqrt((positionDifference.x * positionDifference.x) + (positionDifference.y * positionDifference.y));
+            if (newDistance < distance and (enemies[i]->get_name() == "Tower")) {
+                distance = newDistance;
+                chosenIndex = i;
+            }
+        }
+    }
+    if (chosenIndex == -1) {
+        chosenIndex = 0;
     }
     return chosenIndex;
 }
 
 void Character::display_health_bar(sf::RenderWindow &window) {
+    sf::Vector2f characterToBarDistance;
     if (hp < 0) {
         hp = 0;
     }
+    if (heroOrEnemy == "enemy") {
+        characterToBarDistance = { 0, -30 };
+    }
+    else {
+        characterToBarDistance = { 0, 30 };
+    }
     sf::RectangleShape barBackground;
     sf::RectangleShape healthBar;
-    sf::Vector2f characterToBarDistance = { 0, 30 };
+
     sf::Vector2f healthBarPosition = character.getPosition() + characterToBarDistance;
     barBackground.setSize({ 40, 4 });
     barBackground.setOrigin({20, 0});
     barBackground.setPosition(healthBarPosition);
     barBackground.setFillColor(sf::Color::Green);
-
+    
     healthBar.setSize({ 30 * (hp/maxHp), 2});
     healthBar.setOrigin({0,0});
     healthBar.setPosition(healthBarPosition + sf::Vector2f({-15, 1}));

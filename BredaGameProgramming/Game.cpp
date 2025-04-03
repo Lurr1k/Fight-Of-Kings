@@ -20,15 +20,15 @@ void Game::load_background() {
 
 void Game::instantiate_characters() {
 
-    enemies.emplace_back(std::make_unique<Tower>(187.5, 80));
-    enemies.emplace_back(std::make_unique<Tower>(562.5, 80));
-    enemies.emplace_back(std::make_unique<Tower>(375, 160));
-    enemies.emplace_back(std::make_unique<Goblin>(750, 960));
-    heroes.emplace_back(std::make_unique<Tower>(187.5, 880));
-    heroes.emplace_back(std::make_unique<Tower>(562.5, 880));
-    heroes.emplace_back(std::make_unique<Tower>(375, 800));
-    heroes.emplace_back(std::make_unique<Goblin>(width/2, height/2));
-    heroes.emplace_back(std::make_unique<Giant>(750, 0));
+    enemies.emplace_back(std::make_unique<Tower>(187.5, 80, "enemy"));
+    enemies.emplace_back(std::make_unique<Tower>(562.5, 80, "enemy"));
+    enemies.emplace_back(std::make_unique<Tower>(375, 160, "enemy"));
+    enemies.emplace_back(std::make_unique<Goblin>(750, 960, "enemy"));
+    heroes.emplace_back(std::make_unique<Tower>(187.5, 880, "hero"));
+    heroes.emplace_back(std::make_unique<Tower>(562.5, 880, "hero"));
+    heroes.emplace_back(std::make_unique<Tower>(375, 800, "hero"));
+    heroes.emplace_back(std::make_unique<Goblin>(width/2, height/2, "hero"));
+    heroes.emplace_back(std::make_unique<Giant>(750, 0, "hero"));
 }
 
 void Game::poll_events() {
@@ -67,7 +67,7 @@ void Game::update_screen() {
 }
 
 
-Game::Game() : character(1920, 1080) {
+Game::Game() : character(1920, 1080, "hero") {
     init_window();
     load_background();
     instantiate_characters();

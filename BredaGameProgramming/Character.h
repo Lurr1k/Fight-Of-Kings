@@ -34,10 +34,12 @@ private:
     float damage;
     float coolDown;
     float velocity;
+    float sightRange;
+    std::string heroOrEnemy;
 
 public:
     sf::Sprite character;
-    Character(const std::string& TEXTUREPATH, float xCoordinate, float yCoordinate, std::string characterName, float healthLimit, float range, float attackDamage, float attackCoolDown, float characterVelocity);
+    Character(const std::string& TEXTUREPATH, float xCoordinate, float yCoordinate, std::string battleSide, std::string characterName, float healthLimit, float characterAttackRange, float attackDamage, float attackCoolDown, float characterVelocity, float targetRange);
     
     
     void move_towards_enemy(std::vector<std::unique_ptr<Character>> &enemies, float &deltaTime);
@@ -67,17 +69,17 @@ public:
 
 class Goblin : public Character {
 public: 
-    Goblin(float xCoordinate, float yCoordinate) : Character("images/Goblin.png", xCoordinate, yCoordinate, "Goblin", 50, 50, 2500, 1, 50) {}
+    Goblin(float xCoordinate, float yCoordinate, std::string battleSide) : Character("images/Goblin.png", xCoordinate, yCoordinate, battleSide, "Goblin", 50, 50, 2500, 1, 50, 100) {}
     
 };
 
 class Giant : public Character {
 public:
-    Giant(float xCoordinate, float yCoordinate) : Character("images/Giant.png", xCoordinate, yCoordinate, "Giant", 1000, 5, 40, 3, 10) {}
+    Giant(float xCoordinate, float yCoordinate, std::string battleSide) : Character("images/Giant.png", xCoordinate, yCoordinate, battleSide, "Giant", 1000, 5, 40, 3, 10, 100) {}
 
 };
 
 class Tower : public Character {
 public:
-    Tower(float xCoordinate, float yCoordinate) : Character("images/Tower.png", xCoordinate, yCoordinate, "Tower", 5000, 50, 1, 1, 0) {}
+    Tower(float xCoordinate, float yCoordinate, std::string battleSide) : Character("images/Tower.png", xCoordinate, yCoordinate, battleSide, "Tower", 5000, 50, 1, 1, 0, 1) {}
 };
