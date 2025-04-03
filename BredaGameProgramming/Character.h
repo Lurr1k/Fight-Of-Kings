@@ -42,6 +42,8 @@ public:
     
     void move_towards_enemy(std::vector<std::unique_ptr<Character>> &enemies, float &deltaTime);
 
+    void move_character(float xDistance, float yDistance, float &time, sf::Vector2f &currentPosition);
+
     void set_position(float x, float y);
 
     sf::Vector2f get_position();

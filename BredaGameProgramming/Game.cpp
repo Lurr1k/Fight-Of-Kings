@@ -15,7 +15,7 @@ void Game::init_window(){
 
 void Game::load_background() {
     backgroundTexture.loadFromFile("images/backgroundTexture.png");
-    background.setTexture(backgroundTexture);
+    background.emplace(backgroundTexture); 
 }
 
 void Game::instantiate_characters() {
@@ -50,7 +50,7 @@ void Game::poll_events() {
 
 void Game::update_screen() {
     window.clear();
-    window.draw(background);
+    window.draw(*background);
     for (int i = 0; i < enemies.size(); i++) {
         enemies[i]->display_health_bar(window);
         enemies[i]->draw_character(window);

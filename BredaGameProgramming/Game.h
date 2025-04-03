@@ -5,7 +5,7 @@ class Game {
 public:
 	sf::Clock clock;
 	sf::Texture backgroundTexture;
-	sf::Sprite background;
+	std::optional<sf::Sprite> background;
 	unsigned int height;
 	unsigned int width;
 	int frameLimit;

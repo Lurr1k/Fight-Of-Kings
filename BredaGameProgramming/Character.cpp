@@ -20,6 +20,7 @@ void Circle::draw_circle(sf::RenderWindow& window) {
     window.draw(circle);
 }
 
+
 sf::Vector2f Circle::get_position() {
 
     return (circle.getPosition());
@@ -53,8 +54,6 @@ void Character::set_position(float x, float y) {
 
 void Character::move_towards_enemy(std::vector<std::unique_ptr<Character>> &enemies, float &deltaTime) {
     if (name != "Tower") {
-        std::string moving = "";
-        bool attacking = false;
         float time = deltaTime;
         int targetIndex = identify_closest_target(enemies);
         sf::Vector2f target = enemies[targetIndex]->get_position();
@@ -65,49 +64,72 @@ void Character::move_towards_enemy(std::vector<std::unique_ptr<Character>> &enem
         if (distance < attackRange) {
             if (enemies[targetIndex]->get_hp() > 0) {
                 enemies[targetIndex]->take_damage(damage, deltaTime);
-                attacking = true;
             }
             else {
                 delete_target(enemies[targetIndex].get(), enemies);
             }
         }
-        if (xDistance < -2 and not attacking) {
-            moving = "left";
-            character.move({ -velocity * time, 0.f });
-            character.setRotation(sf::degrees(-90));
-        }
-        else if (xDistance > 2 and not attacking) {
-            moving = "right";
-            character.move({ velocity * time, 0.f });
-            character.setRotation(sf::degrees(90));
-        }
-
-        if (yDistance < -2 and not attacking) {
-            character.move({ 0, -velocity * time });
-            if (moving == "left") {
-                character.setRotation(sf::degrees(-45));
-            }
-            else if (moving == "right") {
-                character.setRotation(sf::degrees(45));
+        else if ((currentPosition.y >= 450) and (currentPosition.y <= 510) and not ((currentPosition.x >= 50 and currentPosition.x <= 154) or (currentPosition.x >= 595 and currentPosition.x <= 700))) {
+            if (currentPosition.y < 480) {
+                character.setPosition({ currentPosition.x, 450 });
             }
             else {
-                character.setRotation(sf::degrees(0));
+                character.setPosition({ currentPosition.x, 510 });
             }
-        }
 
-        else if (yDistance > 2 and not attacking) {
-            character.move({ 0.f, velocity * time });
-            if (moving == "left") {
-                character.setRotation(sf::degrees(-135));
-            }
-            else if (moving == "right") {
-                character.setRotation(sf::degrees(135));
+            if (currentPosition.x < 375) {
+                character.move({ -velocity * time, 0.f });
+                character.setRotation(sf::degrees(-90));
             }
             else {
-                character.setRotation(sf::degrees(180));
+                character.move({ velocity * time, 0.f });
+                character.setRotation(sf::degrees(90));
             }
+        }
+        else {
+            move_character(xDistance, yDistance, time, currentPosition);
         }
         
+    }
+}
+
+void Character::move_character(float xDistance, float yDistance, float &time, sf::Vector2f &currentPosition) {
+    std::string moving = "";
+    if (xDistance < -2 and not (currentPosition.y > 450 and currentPosition.y < 510)) {
+        moving = "left";
+        character.move({ -velocity * time, 0.f });
+        character.setRotation(sf::degrees(-90));
+    }
+    else if (xDistance > 2 and not (currentPosition.y > 450 and currentPosition.y < 510)) {
+        moving = "right";
+        character.move({ velocity * time, 0.f });
+        character.setRotation(sf::degrees(90));
+    }
+
+    if (yDistance < -2) {
+        character.move({ 0, -velocity * time });
+        if (moving == "left") {
+            character.setRotation(sf::degrees(-45));
+        }
+        else if (moving == "right") {
+            character.setRotation(sf::degrees(45));
+        }
+        else {
+            character.setRotation(sf::degrees(0));
+        }
+    }
+
+    else if (yDistance > 2) {
+        character.move({ 0.f, velocity * time });
+        if (moving == "left") {
+            character.setRotation(sf::degrees(-135));
+        }
+        else if (moving == "right") {
+            character.setRotation(sf::degrees(135));
+        }
+        else {
+            character.setRotation(sf::degrees(180));
+        }
     }
 }
 
@@ -160,6 +182,9 @@ int Character::identify_closest_target(std::vector<std::unique_ptr<Character>>& 
 }
 
 void Character::display_health_bar(sf::RenderWindow &window) {
+    if (hp < 0) {
+        hp = 0;
+    }
     sf::RectangleShape barBackground;
     sf::RectangleShape healthBar;
     sf::Vector2f characterToBarDistance = { 0, 30 };
@@ -184,3 +209,11 @@ float Character::get_hp() {
 
     return hp;
 }
+
+
+
+
+
+
+
+
