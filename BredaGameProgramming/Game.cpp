@@ -20,13 +20,13 @@ void Game::load_background() {
 
 void Game::instantiate_characters() {
 
-    enemies.emplace_back(std::make_unique<Tower>(187.5, 80, "enemy"));
-    enemies.emplace_back(std::make_unique<Tower>(562.5, 80, "enemy"));
-    enemies.emplace_back(std::make_unique<Tower>(375, 160, "enemy"));
+    enemies.emplace_back(std::make_unique<Tower>(187.5, 280, "enemy"));
+    enemies.emplace_back(std::make_unique<Tower>(562.5, 280, "enemy"));
+    enemies.emplace_back(std::make_unique<Tower>(375, 200, "enemy"));
     enemies.emplace_back(std::make_unique<Goblin>(750, 960, "enemy"));
-    heroes.emplace_back(std::make_unique<Tower>(187.5, 880, "hero"));
-    heroes.emplace_back(std::make_unique<Tower>(562.5, 880, "hero"));
-    heroes.emplace_back(std::make_unique<Tower>(375, 800, "hero"));
+    heroes.emplace_back(std::make_unique<Tower>(187.5, 680, "hero"));
+    heroes.emplace_back(std::make_unique<Tower>(562.5, 680, "hero"));
+    heroes.emplace_back(std::make_unique<Tower>(375, 760, "hero"));
     heroes.emplace_back(std::make_unique<Goblin>(width/2, height/2, "hero"));
     heroes.emplace_back(std::make_unique<Giant>(750, 0, "hero"));
 }
