@@ -17,6 +17,7 @@ public:
 	std::vector<std::unique_ptr<Card>> cards;
 	Giant character;
 	sf::RenderWindow window;
+	sf::FloatRect cardDeck;
 
 	void init_window();
 
@@ -27,6 +28,8 @@ public:
 	void update_screen();
 
 	void poll_events();
+
+	void spawn_or_return();
 
 
 	void running();

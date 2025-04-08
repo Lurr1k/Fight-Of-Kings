@@ -2,7 +2,7 @@
 #include "Character.h"
 #include "Cards.h"
 // Tasks:
-// 
+// Coordinates of deck angle: 150, 849; Size: 450, 111
 
 void Game::init_window(){
 	height = 960;
@@ -12,6 +12,7 @@ void Game::init_window(){
 	resolution = sf::VideoMode({ width, height });
 	window = sf::RenderWindow(resolution, windowTitle);
     window.setFramerateLimit(frameLimit);
+    cardDeck = sf::FloatRect({ 150, 849 }, { 450, 111 });
 }
 
 void Game::load_background() {
@@ -45,7 +46,30 @@ void Game::poll_events() {
             }
         }
         else if (const auto* keyPressed = event->getIf<sf::Event::MouseButtonPressed>()) {
-            std::cout << "shmobus";
+            std::cout << "Mouse";
+            if (keyPressed->button == sf::Mouse::Button::Left) {
+                std::cout << "Left";
+                for (int i = 0; i < cards.size(); i++) {
+                    std::cout << i;
+                    if (cards[i]->mouse_on_card(window)) {
+                        std::cout << "selected";
+                        cards[i]->select_card();
+                    }
+                }
+            }
+        }
+        else if (const auto* keyPressed = event->getIf<sf::Event::MouseButtonReleased>()) {
+            if (keyPressed->button == sf::Mouse::Button::Left) {
+                std::cout << "Left";
+                for (int i = 0; i < cards.size(); i++) {
+                    std::cout << i;
+                    if (cards[i]->mouse_on_card(window)) {
+                        std::cout << "deselected";
+                        cards[i]->deselect_card();
+                        spawn_or_return();
+                    }
+                }
+            }
         }
     }
 }
@@ -84,8 +108,12 @@ void Game::running() {
         float deltaTime = clock.restart().asSeconds();
         update_screen();
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+            
             for (int i = 0; i < cards.size(); i++) {
-                cards[i]->card_dragging(window);
+                if (cards[i]->is_selected()) {
+                    cards[i]->card_dragging(window);
+                }
+                
             }
         }
         for (int j = 0; j < heroes.size(); j++) {
@@ -99,5 +127,24 @@ void Game::running() {
             }
         }
         poll_events();
+    }
+}
+
+void Game::spawn_or_return() {
+    sf::Vector2f cardPos;
+    for (int i = 0; i < cards.size(); i++) {
+        cardPos = cards[i]->get_position();
+
+        if (cardDeck.contains(cardPos)) {
+            cards[i]->return_to_position();
+        }
+        else {
+            if (cards[i]->get_type() == "goblin") {
+                heroes.emplace_back(std::make_unique<Goblin>(cardPos.x, cardPos.y, "hero"));
+            }        
+
+            cards.erase(cards.begin() + i);
+        }
+        
     }
 }

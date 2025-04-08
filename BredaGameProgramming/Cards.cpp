@@ -3,14 +3,19 @@
 #include <iostream>
 
 
-Card::Card(const std::string& TEXTUREPATH, float xPosition, float yPosition) : card(texture){
+Card::Card(const std::string& TEXTUREPATH, float xPosition, float yPosition, std::string type) : card(texture){
+
+    initialX = xPosition;
+    initialY = yPosition;
+    cardType = type;
     texture.loadFromFile(TEXTUREPATH);
 
     card.setTexture(texture, true);
+    
 
-    sf::Vector2f bounds = card.getLocalBounds().size;
+    sf::Vector2f boundCoordinates = card.getLocalBounds().size;
 
-    card.setOrigin({ bounds.x / 2, bounds.y / 2 });
+    card.setOrigin({ boundCoordinates.x / 2, boundCoordinates.y / 2 });
 
     card.setPosition({ xPosition, yPosition });
 
@@ -19,8 +24,48 @@ Card::Card(const std::string& TEXTUREPATH, float xPosition, float yPosition) : c
 void Card::card_dragging(sf::RenderWindow& window) {
     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
     card.setPosition({ static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y) });
+     card.getGlobalBounds().size;
 }
 
 void Card::draw_card(sf::RenderWindow& window) {
     window.draw(card);
+}
+
+bool Card::mouse_on_card(sf::RenderWindow &window) {
+    bool cardIsHovered = false;
+    sf::FloatRect bounds = card.getGlobalBounds();
+    std::cout << "thinking";
+    sf::Vector2i intCoords = sf::Mouse::getPosition(window);
+    sf::Vector2f mousePosition = { static_cast<float>(intCoords.x), static_cast<float>(intCoords.y) };
+    if (bounds.contains(mousePosition)) {
+        std::cout << "yes!";
+        cardIsHovered = true;
+    }
+
+    return cardIsHovered;
+}
+
+void Card::select_card() {
+    selected = true;
+}
+
+bool Card::is_selected() {
+    return selected;
+}
+
+void Card::deselect_card() {
+    selected = false;
+}
+
+void Card::return_to_position() {
+    card.setPosition({ initialX, initialY });
+}
+
+sf::Vector2f Card::get_position() {
+    return card.getPosition();
+}
+
+std::string Card::get_type() {
+
+    return cardType;
 }
