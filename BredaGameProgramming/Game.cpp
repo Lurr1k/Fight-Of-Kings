@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Character.h"
+#include "Cards.h"
 // Tasks:
 // 
 
@@ -19,7 +20,7 @@ void Game::load_background() {
 }
 
 void Game::instantiate_characters() {
-
+    cards.emplace_back(std::make_unique<GoblinCard>(213, 904.5));
     enemies.emplace_back(std::make_unique<Tower>(187.5, 280, "enemy"));
     enemies.emplace_back(std::make_unique<Tower>(562.5, 280, "enemy"));
     enemies.emplace_back(std::make_unique<Tower>(375, 200, "enemy"));
@@ -27,7 +28,7 @@ void Game::instantiate_characters() {
     heroes.emplace_back(std::make_unique<Tower>(187.5, 680, "hero"));
     heroes.emplace_back(std::make_unique<Tower>(562.5, 680, "hero"));
     heroes.emplace_back(std::make_unique<Tower>(375, 760, "hero"));
-    heroes.emplace_back(std::make_unique<Goblin>(width/2, height/2, "hero"));
+    heroes.emplace_back(std::make_unique<Goblin>(width / 2, height / 2, "hero"));
     heroes.emplace_back(std::make_unique<Giant>(750, 0, "hero"));
 }
 
@@ -43,7 +44,9 @@ void Game::poll_events() {
                 window.close();
             }
         }
-
+        else if (const auto* keyPressed = event->getIf<sf::Event::MouseButtonPressed>()) {
+            std::cout << "shmobus";
+        }
     }
 }
 
@@ -61,13 +64,16 @@ void Game::update_screen() {
         heroes[i]->draw_character(window);
 
     }
+    for (int i = 0; i < cards.size(); i++) {
+        cards[i]->draw_card(window);
+    }
     character.draw_character(window);
 	window.display();
 
 }
 
 
-Game::Game() : character(1920, 1080, "hero") {
+Game::Game() : character(1920, 1080, "aaa") {
     init_window();
     load_background();
     instantiate_characters();
@@ -77,6 +83,11 @@ void Game::running() {
     while (window.isOpen()) {
         float deltaTime = clock.restart().asSeconds();
         update_screen();
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+            for (int i = 0; i < cards.size(); i++) {
+                cards[i]->card_dragging(window);
+            }
+        }
         for (int j = 0; j < heroes.size(); j++) {
             if ((heroes.size() > 0) && (enemies.size() > 0)) {
                 heroes[j]->move_towards_enemy(enemies, deltaTime);

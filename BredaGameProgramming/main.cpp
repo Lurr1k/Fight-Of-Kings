@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Character.h"
 #include "Game.h"
-
+#include "Cards.h"
 int main()
 {   
     Game game;
