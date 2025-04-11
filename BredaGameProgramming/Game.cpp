@@ -103,7 +103,7 @@ void Game::update_screen() {
 }
 
 
-Game::Game() : character(1920, 1080, "aaa") {
+Game::Game() : character(1920, 1080, ""){
     init_window();
     load_background();
     instantiate_characters();
