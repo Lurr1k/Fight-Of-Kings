@@ -28,11 +28,15 @@ public:
 	void deselect_card();
 
 	void return_to_position();
-
+	
 	sf::Vector2f get_position();
 	
 	std::string get_type();
+
+	void set_card_position(float xPosition, float yPosition);
+
 };
+
 
 class GoblinCard : public Card {
 public:

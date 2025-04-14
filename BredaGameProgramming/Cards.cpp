@@ -69,3 +69,7 @@ std::string Card::get_type() {
 
     return cardType;
 }
+
+void Card::set_card_position(float xPosition, float yPosition) {
+    card.setPosition({ xPosition, yPosition });
+}
