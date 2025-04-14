@@ -4,7 +4,6 @@
 #include <random>
 
 Deck::Deck() {
-
 }
 
 
@@ -33,7 +32,7 @@ void Deck::card_shuffle(std::vector<std::unique_ptr<Card>> &cards) {
 void Deck::display_deck(sf::RenderWindow &window, std::vector<std::unique_ptr<Card>> &cards) {
 	// for i in selected cards, display every card with a gap of 81 pixels on the x-axis
 	for (int i = 0; i < 5; i++) {
-		cards[selectedCards[i]]->set_card_position(100, 200);
+		cards[selectedCards[i]]->set_card_position(215+(i*81), 900);
 		cards[selectedCards[i]]->draw_card(window);
 	}
 }
