@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Character.h"
 #include "Cards.h"
+#include "Deck.h"
 class Game {
 public:
 	sf::Clock clock;
@@ -18,6 +19,7 @@ public:
 	Giant character;
 	sf::RenderWindow window;
 	sf::FloatRect cardDeck;
+	Deck decky;
 
 	void init_window();
 

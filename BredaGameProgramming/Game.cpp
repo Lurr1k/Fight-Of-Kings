@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Character.h"
 #include "Cards.h"
+#include "Deck.h"
 // Tasks:
 // Coordinates of deck angle: 150, 849; Size: 450, 111
 // Create deck file and class
@@ -141,7 +142,7 @@ void Game::spawn_or_return() {
     for (int i = 0; i < cards.size(); i++) {
         cardPos = cards[i]->get_position();
 
-        if (cardDeck.contains(cardPos)) {
+        if (decky.is_hovered(cardPos)) {
             cards[i]->return_to_position();
         }
         else {
@@ -149,7 +150,9 @@ void Game::spawn_or_return() {
                 heroes.emplace_back(std::make_unique<Goblin>(cardPos.x, cardPos.y, "hero"));
             }        
 
+            decky.remove_from_deck(i);
             cards.erase(cards.begin() + i);
+            
         }
         
     }

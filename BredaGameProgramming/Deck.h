@@ -15,5 +15,10 @@ public:
 
 	void display_deck(sf::RenderWindow& window, std::vector<std::unique_ptr<Card>> &cards);
 
+	bool check_if_in_deck(int index);
+
+	bool is_hovered(sf::Vector2f position);
+
+	void remove_from_deck(int index);
 };
 

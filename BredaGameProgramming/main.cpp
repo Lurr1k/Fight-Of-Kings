@@ -3,6 +3,7 @@
 #include "Character.h"
 #include "Game.h"
 #include "Cards.h"
+#include "Deck.h"
 int main()
 {   
     Game game;
