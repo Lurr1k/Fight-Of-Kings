@@ -19,7 +19,6 @@ void Game::init_window(){
 	resolution = sf::VideoMode({ width, height });
 	window = sf::RenderWindow(resolution, windowTitle);
     window.setFramerateLimit(frameLimit);
-    cardDeck = sf::FloatRect({ 150, 849 }, { 450, 111 });
 }
 
 void Game::load_background() {
@@ -29,6 +28,7 @@ void Game::load_background() {
 
 void Game::instantiate_characters() {
     cards.emplace_back(std::make_unique<GoblinCard>(213, 904.5));
+    cards.emplace_back(std::make_unique<GoblinCard>(294, 904.5));
     enemies.emplace_back(std::make_unique<Tower>(187.5, 280, "enemy"));
     enemies.emplace_back(std::make_unique<Tower>(562.5, 280, "enemy"));
     enemies.emplace_back(std::make_unique<Tower>(375, 200, "enemy"));
@@ -58,7 +58,7 @@ void Game::poll_events() {
                 std::cout << "Left";
                 for (int i = 0; i < cards.size(); i++) {
                     std::cout << i;
-                    if (cards[i]->mouse_on_card(window)) {
+                    if (cards[i]->mouse_on_card(window) and decky.in_deck(i)) {
                         std::cout << "selected";
                         cards[i]->select_card();
                     }
@@ -70,10 +70,10 @@ void Game::poll_events() {
                 std::cout << "Left";
                 for (int i = 0; i < cards.size(); i++) {
                     std::cout << i;
-                    if (cards[i]->mouse_on_card(window)) {
+                    if (cards[i]->mouse_on_card(window) and decky.in_deck(i)) {
                         std::cout << "deselected";
                         cards[i]->deselect_card();
-                        spawn_or_return();
+                        decky.spawn_or_return(cards, heroes);
                     }
                 }
             }
@@ -95,9 +95,7 @@ void Game::update_screen() {
         heroes[i]->draw_character(window);
 
     }
-    for (int i = 0; i < cards.size(); i++) {
-        cards[i]->draw_card(window);
-    }
+    decky.display_deck(window, cards);
     character.draw_character(window);
 	window.display();
 
@@ -113,11 +111,12 @@ Game::Game() : character(1920, 1080, ""){
 void Game::running() {
     while (window.isOpen()) {
         float deltaTime = clock.restart().asSeconds();
+        decky.card_shuffle(cards);
         update_screen();
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
             
             for (int i = 0; i < cards.size(); i++) {
-                if (cards[i]->is_selected()) {
+                if (cards[i]->is_selected() and decky.in_deck(i)) {
                     cards[i]->card_dragging(window);
                 }
                 
@@ -133,27 +132,7 @@ void Game::running() {
                 enemies[i]->move_towards_enemy(heroes, deltaTime);
             }
         }
-        poll_events();
-    }
-}
-
-void Game::spawn_or_return() {
-    sf::Vector2f cardPos;
-    for (int i = 0; i < cards.size(); i++) {
-        cardPos = cards[i]->get_position();
-
-        if (decky.is_hovered(cardPos)) {
-            cards[i]->return_to_position();
-        }
-        else {
-            if (cards[i]->get_type() == "goblin") {
-                heroes.emplace_back(std::make_unique<Goblin>(cardPos.x, cardPos.y, "hero"));
-            }        
-
-            decky.remove_from_deck(i);
-            cards.erase(cards.begin() + i);
-            
-        }
         
+        poll_events();
     }
 }

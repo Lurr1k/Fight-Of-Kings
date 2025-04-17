@@ -15,6 +15,8 @@ public:
 
 	Card(const std::string& TEXTUREPATH, float xCoordinate, float yCoordinate, std::string type);
 
+	void set_initial_position(float xPosition, float yPosition);
+
 	void card_dragging(sf::RenderWindow& window);
 
 	void draw_card(sf::RenderWindow& window);

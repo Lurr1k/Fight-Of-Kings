@@ -21,6 +21,11 @@ Card::Card(const std::string& TEXTUREPATH, float xPosition, float yPosition, std
 
 };
 
+void Card::set_initial_position(float xPosition, float yPosition) {
+    initialX = xPosition;
+    initialY = yPosition;
+}
+
 void Card::card_dragging(sf::RenderWindow& window) {
     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
     card.setPosition({ static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y) });

@@ -18,7 +18,6 @@ public:
 	std::vector<std::unique_ptr<Card>> cards;
 	Giant character;
 	sf::RenderWindow window;
-	sf::FloatRect cardDeck;
 	Deck decky;
 
 	void init_window();
