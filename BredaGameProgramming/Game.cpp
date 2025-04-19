@@ -27,11 +27,12 @@ void Game::load_background() {
 }
 
 void Game::instantiate_characters() {
-    cards.emplace_back(std::make_unique<GoblinCard>(213, 904.5));
-    cards.emplace_back(std::make_unique<GoblinCard>(294, 904.5));
-    cards.emplace_back(std::make_unique<GoblinCard>(375, 904.5));
-    cards.emplace_back(std::make_unique<GoblinCard>(456, 904.5));
-    cards.emplace_back(std::make_unique<GoblinCard>(537, 904.5));
+    cards.emplace_back(std::make_unique<GoblinCard>());
+    cards.emplace_back(std::make_unique<GiantCard>());
+    cards.emplace_back(std::make_unique<GoblinCard>());
+    cards.emplace_back(std::make_unique<GoblinCard>());
+    cards.emplace_back(std::make_unique<GoblinCard>());
+    cards.emplace_back(std::make_unique<GoblinCard>());
     enemies.emplace_back(std::make_unique<Tower>(187.5, 280, "enemy"));
     enemies.emplace_back(std::make_unique<Tower>(562.5, 280, "enemy"));
     enemies.emplace_back(std::make_unique<Tower>(375, 200, "enemy"));

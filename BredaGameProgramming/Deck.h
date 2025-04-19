@@ -8,6 +8,7 @@ class Deck {
 private:
 	sf::FloatRect deckRectangle;
 	int selectedCards[5];
+	int previouslyPlacedCard;
 public:
 	
 	Deck();

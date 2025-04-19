@@ -30,8 +30,6 @@ public:
 
 	void poll_events();
 
-	void spawn_or_return();
-
 
 	void running();
 

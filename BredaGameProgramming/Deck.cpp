@@ -14,25 +14,20 @@ Deck::Deck() {
 
 
 void Deck::card_shuffle(std::vector<std::unique_ptr<Card>> &cards) {
-	bool alreadyInDeck = false;
-	int randomCard;
+	int nextCard;
 	int loopCount;
+	std::srand(std::time(0));
 	for (int i = 0; i < 5; i++) {
+		nextCard = 0;
 		if (selectedCards[i] == -1) {
-			std::srand(std::time(0));
 			loopCount = 0;
-			do {
-				loopCount += 1;
-				randomCard = std::rand() % cards.size();
 
-				for (int j = 0; j < 5; j++) {
-					if (randomCard == selectedCards[j]) {
-						alreadyInDeck = true;
-					}
-				}
-			} while (alreadyInDeck and (loopCount < 50));
+			while ((in_deck(nextCard) or (nextCard == previouslyPlacedCard)) and nextCard < cards.size()){
+				nextCard += 1;
+			}
 
-			selectedCards[i] = randomCard;
+			selectedCards[i] = nextCard;
+			cards[nextCard]->set_initial_position(215 + (i * 81), 900);
 		}
 	}		
 }
@@ -43,8 +38,6 @@ void Deck::display_deck(sf::RenderWindow &window, std::vector<std::unique_ptr<Ca
 	for (int i = 0; i < 5; i++) {
 		cardsIndex = selectedCards[i];
 		if (cardsIndex != -1) {
-			
-			cards[cardsIndex]->set_initial_position(215 + (i * 81), 900);
 
 			cards[cardsIndex]->draw_card(window);
 		}
@@ -95,8 +88,13 @@ void Deck::spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vecto
 				if (cards[index]->get_type() == "goblin") {
 					heroes.emplace_back(std::make_unique<Goblin>(cardPos.x, cardPos.y, "hero"));
 				}
-
+				else if (cards[index]->get_type() == "giant") {
+					heroes.emplace_back(std::make_unique<Giant>(cardPos.x, cardPos.y, "hero"));
+				}
+				previouslyPlacedCard = index;
+				cards[index]->return_to_position();
 				remove_from_deck(index);
+				card_shuffle(cards);
 			}
 		}
 	}

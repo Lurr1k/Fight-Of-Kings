@@ -3,10 +3,8 @@
 #include <iostream>
 
 
-Card::Card(const std::string& TEXTUREPATH, float xPosition, float yPosition, std::string type) : card(texture){
+Card::Card(const std::string& TEXTUREPATH, std::string type) : card(texture){
 
-    initialX = xPosition;
-    initialY = yPosition;
     cardType = type;
     texture.loadFromFile(TEXTUREPATH);
 
@@ -17,13 +15,12 @@ Card::Card(const std::string& TEXTUREPATH, float xPosition, float yPosition, std
 
     card.setOrigin({ boundCoordinates.x / 2, boundCoordinates.y / 2 });
 
-    card.setPosition({ xPosition, yPosition });
-
 };
 
 void Card::set_initial_position(float xPosition, float yPosition) {
     initialX = xPosition;
     initialY = yPosition;
+    card.setPosition({ xPosition, yPosition });
 }
 
 void Card::card_dragging(sf::RenderWindow& window) {

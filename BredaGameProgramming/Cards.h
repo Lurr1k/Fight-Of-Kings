@@ -13,7 +13,7 @@ private:
 
 public:
 
-	Card(const std::string& TEXTUREPATH, float xCoordinate, float yCoordinate, std::string type);
+	Card(const std::string& TEXTUREPATH, std::string type);
 
 	void set_initial_position(float xPosition, float yPosition);
 
@@ -42,5 +42,9 @@ public:
 
 class GoblinCard : public Card {
 public:
-	GoblinCard(float xCoordinate, float yCoordinate) : Card("images/GoblinCard.png", xCoordinate, yCoordinate, "goblin") {}
+	GoblinCard() : Card("images/GoblinCard.png", "goblin") {}
+};
+class GiantCard : public Card {
+public:
+	GiantCard() : Card("images/GiantCard.png", "giant") {}
 };
