@@ -39,11 +39,9 @@ void Card::draw_card(sf::RenderWindow& window) {
 bool Card::mouse_on_card(sf::RenderWindow &window) {
     bool cardIsHovered = false;
     sf::FloatRect bounds = card.getGlobalBounds();
-    std::cout << "thinking";
     sf::Vector2i intCoords = sf::Mouse::getPosition(window);
     sf::Vector2f mousePosition = { static_cast<float>(intCoords.x), static_cast<float>(intCoords.y) };
     if (bounds.contains(mousePosition)) {
-        std::cout << "yes!";
         cardIsHovered = true;
     }
 

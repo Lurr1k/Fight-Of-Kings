@@ -7,7 +7,7 @@
 class Deck {
 private:
 	sf::FloatRect deckRectangle;
-	int selectedCards[5] = {-1,-1,-1,-1,-1};
+	int selectedCards[5];
 public:
 	
 	Deck();
@@ -21,6 +21,8 @@ public:
 	bool is_hovered(sf::Vector2f position);
 
 	void remove_from_deck(int index);
+
+	int get_selected_card(int index);
 
 	void spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vector<std::unique_ptr<Character>>& heroes);
 };

@@ -29,6 +29,9 @@ void Game::load_background() {
 void Game::instantiate_characters() {
     cards.emplace_back(std::make_unique<GoblinCard>(213, 904.5));
     cards.emplace_back(std::make_unique<GoblinCard>(294, 904.5));
+    cards.emplace_back(std::make_unique<GoblinCard>(375, 904.5));
+    cards.emplace_back(std::make_unique<GoblinCard>(456, 904.5));
+    cards.emplace_back(std::make_unique<GoblinCard>(537, 904.5));
     enemies.emplace_back(std::make_unique<Tower>(187.5, 280, "enemy"));
     enemies.emplace_back(std::make_unique<Tower>(562.5, 280, "enemy"));
     enemies.emplace_back(std::make_unique<Tower>(375, 200, "enemy"));
@@ -41,6 +44,7 @@ void Game::instantiate_characters() {
 }
 
 void Game::poll_events() {
+    int cardIndex;
     while (const std::optional event = window.pollEvent())
     {
         if (event->is<sf::Event::Closed>()) {
@@ -56,11 +60,12 @@ void Game::poll_events() {
             std::cout << "Mouse";
             if (keyPressed->button == sf::Mouse::Button::Left) {
                 std::cout << "Left";
-                for (int i = 0; i < cards.size(); i++) {
+                for (int i = 0; i < 5; i++) {
                     std::cout << i;
-                    if (cards[i]->mouse_on_card(window) and decky.in_deck(i)) {
+                    cardIndex = decky.get_selected_card(i);
+                    if (cards[cardIndex]->mouse_on_card(window) and cardIndex != -1) {
                         std::cout << "selected";
-                        cards[i]->select_card();
+                        cards[cardIndex]->select_card();
                     }
                 }
             }
@@ -68,11 +73,12 @@ void Game::poll_events() {
         else if (const auto* keyPressed = event->getIf<sf::Event::MouseButtonReleased>()) {
             if (keyPressed->button == sf::Mouse::Button::Left) {
                 std::cout << "Left";
-                for (int i = 0; i < cards.size(); i++) {
+                for (int i = 0; i < 5; i++) {
+                    cardIndex = decky.get_selected_card(i);
                     std::cout << i;
-                    if (cards[i]->mouse_on_card(window) and decky.in_deck(i)) {
+                    if (cards[cardIndex]->mouse_on_card(window) and cardIndex != -1) {
                         std::cout << "deselected";
-                        cards[i]->deselect_card();
+                        cards[cardIndex]->deselect_card();
                         decky.spawn_or_return(cards, heroes);
                     }
                 }
@@ -109,15 +115,17 @@ Game::Game() : character(1920, 1080, ""){
 }
 
 void Game::running() {
+    int cardIndex;
     while (window.isOpen()) {
         float deltaTime = clock.restart().asSeconds();
         decky.card_shuffle(cards);
         update_screen();
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
             
-            for (int i = 0; i < cards.size(); i++) {
-                if (cards[i]->is_selected() and decky.in_deck(i)) {
-                    cards[i]->card_dragging(window);
+            for (int i = 0; i < 5; i++) {
+                cardIndex = decky.get_selected_card(i);
+                if (cards[cardIndex]->is_selected()) {
+                    cards[cardIndex]->card_dragging(window);
                 }
                 
             }

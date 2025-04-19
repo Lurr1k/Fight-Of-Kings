@@ -6,6 +6,9 @@
 
 Deck::Deck() {
 	deckRectangle = sf::FloatRect({ 150, 849 }, { 450, 111 });
+	for (int i = 0; i < 5; i++) {
+		selectedCards[i] = -1;
+	}
 }
 
 
@@ -21,6 +24,7 @@ void Deck::card_shuffle(std::vector<std::unique_ptr<Card>> &cards) {
 			do {
 				loopCount += 1;
 				randomCard = std::rand() % cards.size();
+
 				for (int j = 0; j < 5; j++) {
 					if (randomCard == selectedCards[j]) {
 						alreadyInDeck = true;
@@ -39,10 +43,10 @@ void Deck::display_deck(sf::RenderWindow &window, std::vector<std::unique_ptr<Ca
 	for (int i = 0; i < 5; i++) {
 		cardsIndex = selectedCards[i];
 		if (cardsIndex != -1) {
+			
+			cards[cardsIndex]->set_initial_position(215 + (i * 81), 900);
 
-			cards[selectedCards[i]]->set_initial_position(215 + (i * 81), 900);
-
-			cards[selectedCards[i]]->draw_card(window);
+			cards[cardsIndex]->draw_card(window);
 		}
 	}
 }
@@ -70,8 +74,8 @@ void Deck::remove_from_deck(int index){
 	if (in_deck(index)) {
 		for (int i = 0; i < 5; i++) {
 			if (selectedCards[i] == index) {
-				selectedCards[i] = -1;
 				std::cout << selectedCards[i];
+				selectedCards[i] = -1;
 			}
 		}
 	}
@@ -81,7 +85,7 @@ void Deck::spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vecto
 	sf::Vector2f cardPos;
 	for (int i = 0; i < 5; i++) {
 		int index = selectedCards[i];
-		if (in_deck(index) and (index != -1)) {
+		if (index != -1) {
 			cardPos = cards[index]->get_position();
 
 			if (is_hovered(cardPos)) {
@@ -93,8 +97,11 @@ void Deck::spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vecto
 				}
 
 				remove_from_deck(index);
-				cards.erase(cards.begin() + index);
 			}
 		}
 	}
+}
+
+int Deck::get_selected_card(int index) {
+	return selectedCards[index];
 }
