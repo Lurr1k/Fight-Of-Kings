@@ -1,30 +1,6 @@
 #include "Character.h"
 #include "SFML/Graphics.hpp"
 #include <iostream>
-sf::CircleShape circle;
-
-void Circle::go_up() {
-    circle.move({ 0, -1 });
-}
-
-void Circle::go_down() {
-    circle.move({ 0,10 });
-}
-void Circle::go_right() {
-    circle.move({ 10,0 });
-}
-void Circle::go_left() {
-    circle.move({ -10,0 });
-}
-void Circle::draw_circle(sf::RenderWindow& window) {
-    window.draw(circle);
-}
-
-
-sf::Vector2f Circle::get_position() {
-
-    return (circle.getPosition());
-}
 
 Character::Character(const std::string& TEXTUREPATH, float xCoordinate, float yCoordinate, std::string battleSide, std::string characterName, float healthLimit, float characterAttackRange, float attackDamage, float attackCoolDown, float characterVelocity, float targetRange) : texture(), character(texture) {
     
@@ -44,6 +20,10 @@ Character::Character(const std::string& TEXTUREPATH, float xCoordinate, float yC
     else {
         character.setTexture(texture, true);
     }
+
+    barBackground.setSize({ 40, 4 });
+    barBackground.setOrigin({ 20, 0 });
+    barBackground.setFillColor(sf::Color::Green);
 
     character.setPosition({xCoordinate, yCoordinate});
     sf::Vector2f bounds = character.getLocalBounds().size;
@@ -208,15 +188,9 @@ void Character::display_health_bar(sf::RenderWindow &window) {
     else {
         characterToBarDistance = { 0, 30 };
     }
-    sf::RectangleShape barBackground;
-    sf::RectangleShape healthBar;
 
     sf::Vector2f healthBarPosition = character.getPosition() + characterToBarDistance;
-    barBackground.setSize({ 40, 4 });
-    barBackground.setOrigin({20, 0});
     barBackground.setPosition(healthBarPosition);
-    barBackground.setFillColor(sf::Color::Green);
-    
     healthBar.setSize({ 30 * (hp/maxHp), 2});
     healthBar.setOrigin({0,0});
     healthBar.setPosition(healthBarPosition + sf::Vector2f({-15, 1}));

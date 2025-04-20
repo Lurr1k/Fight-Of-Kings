@@ -3,12 +3,9 @@
 #include "Cards.h"
 #include "Deck.h"
 // Tasks:
-// Coordinates of deck angle: 150, 849; Size: 450, 111
-// Create deck file and class
-// The deck class should manage the card sorting and the deck float rect
-// The sorting algorithm should control the pseudorandom distribution of cards
 // Create elexir that gradually increases with time.
 // Display it at the top
+// Set elixir requirement for every card type
 // If there is not enough elixir to spawn a card, then respawn the card
 
 void Game::init_window(){
