@@ -4,6 +4,8 @@
 #include "Game.h"
 #include "Cards.h"
 #include "Deck.h"
+#include "Potion.h"
+
 int main()
 {   
     Game game;

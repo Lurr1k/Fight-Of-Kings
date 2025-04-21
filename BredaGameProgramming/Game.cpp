@@ -2,6 +2,8 @@
 #include "Character.h"
 #include "Cards.h"
 #include "Deck.h"
+#include "Potion.h"
+
 // Tasks:
 // Create elexir that gradually increases with time.
 // Display it at the top
@@ -100,7 +102,7 @@ void Game::update_screen() {
 
     }
     decky.display_deck(window, cards);
-    character.draw_character(window);
+    
 	window.display();
 
 }

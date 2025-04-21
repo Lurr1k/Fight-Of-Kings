@@ -16,7 +16,7 @@ public:
 
 	void decrease_potion_level();
 
-	void display_potion_level();
+	void display_potion(sf::RenderWindow& window);
 
 
 

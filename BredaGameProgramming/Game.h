@@ -19,6 +19,7 @@ public:
 	Giant character;
 	sf::RenderWindow window;
 	Deck decky;
+	Potion potion;
 
 	void init_window();
 
