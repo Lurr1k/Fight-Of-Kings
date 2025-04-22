@@ -79,7 +79,7 @@ void Game::poll_events() {
                     if (cards[cardIndex]->mouse_on_card(window) and cardIndex != -1) {
                         std::cout << "deselected";
                         cards[cardIndex]->deselect_card();
-                        decky.spawn_or_return(cards, heroes);
+                        decky.spawn_or_return(cards, heroes, potion);
                     }
                 }
             }
@@ -102,7 +102,7 @@ void Game::update_screen() {
 
     }
     decky.display_deck(window, cards);
-    
+    potion.display_potion(window);
 	window.display();
 
 }
@@ -119,6 +119,7 @@ void Game::running() {
     while (window.isOpen()) {
         float deltaTime = clock.restart().asSeconds();
         decky.card_shuffle(cards);
+        potion.increase_potion_level(deltaTime);
         update_screen();
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
             

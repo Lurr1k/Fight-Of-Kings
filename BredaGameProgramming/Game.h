@@ -3,6 +3,7 @@
 #include "Character.h"
 #include "Cards.h"
 #include "Deck.h"
+#include "Potion.h"
 class Game {
 public:
 	sf::Clock clock;

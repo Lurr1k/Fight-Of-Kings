@@ -3,6 +3,7 @@
 #include "Character.h"
 #include <iostream>
 #include <random>
+#include "Potion.h"
 
 Deck::Deck() {
 	deckRectangle = sf::FloatRect({ 150, 849 }, { 450, 111 });
@@ -74,14 +75,14 @@ void Deck::remove_from_deck(int index){
 	}
 }
 
-void Deck::spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vector<std::unique_ptr<Character>>& heroes) {
+void Deck::spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vector<std::unique_ptr<Character>>& heroes, Potion &potion) {
 	sf::Vector2f cardPos;
 	for (int i = 0; i < 5; i++) {
 		int index = selectedCards[i];
 		if (index != -1) {
 			cardPos = cards[index]->get_position();
 
-			if (is_hovered(cardPos)) {
+			if (is_hovered(cardPos) or (cards[index]->get_cost() > potion.get_potion_level())) {
 				cards[index]->return_to_position();
 			}
 			else {
@@ -92,6 +93,7 @@ void Deck::spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vecto
 					heroes.emplace_back(std::make_unique<Giant>(cardPos.x, cardPos.y, "hero"));
 				}
 				previouslyPlacedCard = index;
+				potion.decrease_potion_level(cards[index]->get_cost());
 				cards[index]->return_to_position();
 				remove_from_deck(index);
 				card_shuffle(cards);

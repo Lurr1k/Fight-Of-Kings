@@ -3,9 +3,11 @@
 #include <iostream>
 
 
-Card::Card(const std::string& TEXTUREPATH, std::string type) : card(texture){
+Card::Card(const std::string& TEXTUREPATH, std::string type, float cost) : card(texture){
 
     cardType = type;
+    cardCost = cost;
+
     texture.loadFromFile(TEXTUREPATH);
 
     card.setTexture(texture, true);
@@ -72,4 +74,8 @@ std::string Card::get_type() {
 
 void Card::set_card_position(float xPosition, float yPosition) {
     card.setPosition({ xPosition, yPosition });
+}
+
+float Card::get_cost() {
+    return cardCost;
 }

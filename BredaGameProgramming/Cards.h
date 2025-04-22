@@ -10,10 +10,11 @@ private:
 	sf::Sprite card;
 	bool selected = false;
 	std::string cardType;
+	float cardCost;
 
 public:
 
-	Card(const std::string& TEXTUREPATH, std::string type);
+	Card(const std::string& TEXTUREPATH, std::string type, float cost);
 
 	void set_initial_position(float xPosition, float yPosition);
 
@@ -37,14 +38,16 @@ public:
 
 	void set_card_position(float xPosition, float yPosition);
 
+	float get_cost();
+
 };
 
 
 class GoblinCard : public Card {
 public:
-	GoblinCard() : Card("images/GoblinCard.png", "goblin") {}
+	GoblinCard() : Card("images/GoblinCard.png", "goblin", 2) {}
 };
 class GiantCard : public Card {
 public:
-	GiantCard() : Card("images/GiantCard.png", "giant") {}
+	GiantCard() : Card("images/GiantCard.png", "giant", 5) {}
 };

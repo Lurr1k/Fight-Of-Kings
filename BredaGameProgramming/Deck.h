@@ -3,6 +3,7 @@
 #include "Character.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "Potion.h"
 
 class Deck {
 private:
@@ -25,6 +26,6 @@ public:
 
 	int get_selected_card(int index);
 
-	void spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vector<std::unique_ptr<Character>>& heroes);
+	void spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vector<std::unique_ptr<Character>>& heroes, Potion &potion);
 };
 
