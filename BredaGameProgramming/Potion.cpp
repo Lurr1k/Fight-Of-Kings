@@ -12,11 +12,20 @@ Potion::Potion() {
     potionLevelBar.setFillColor(sf::Color::Yellow);
     potionLevelBar.setPosition({ 0,0 });
     potionLevel = 0;
+    levelCircle.setOrigin(levelCircle.getGeometricCenter());
+    levelCircle.setFillColor(sf::Color::Yellow);
+    levelCircle.setRadius(30);
+    levelCircle.setPosition({ 670, 10 });
+    levelSign.set_position(695, 30);
+
 }
 
 void Potion::display_potion(sf::RenderWindow &window) {
+    levelSign.update_text(std::to_string(static_cast<int>(std::floor(potionLevel))));
     window.draw(potionBarBackground);
     window.draw(potionLevelBar);
+    window.draw(levelCircle);
+    levelSign.display_text(window);
 }
 
 void Potion::increase_potion_level(float &deltaTime) {

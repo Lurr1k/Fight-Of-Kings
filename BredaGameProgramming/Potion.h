@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include "SFML/Graphics.hpp"
-
+#include "Text.h"
 
 class Potion {
 private:
@@ -9,6 +9,7 @@ private:
 	sf::RectangleShape potionBarBackground;
 	sf::RectangleShape potionLevelBar;
 	sf::CircleShape levelCircle;
+	Text levelSign = Text("", 23.0);
 public:
 
 	Potion();
