@@ -5,6 +5,7 @@
 #include "Deck.h"
 #include "Potion.h"
 #include "Distribution.h"
+#include "Screens.h"
 class Game {
 public:
 	sf::Clock clock;
@@ -18,11 +19,12 @@ public:
 	std::vector<std::unique_ptr<Character>> heroes;
 	std::vector<std::unique_ptr<Character>> enemies;
 	std::vector<std::unique_ptr<Card>> cards;
-	Giant character;
 	sf::RenderWindow window;
 	Deck decky;
 	Potion potion;
 	Distribution distribution;
+	StartingScreen startingScreen;
+	bool gameRunning = false;
 
 	void init_window();
 
@@ -34,6 +36,7 @@ public:
 
 	void poll_events();
 
+	void start_game();
 
 	void running();
 
