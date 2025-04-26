@@ -4,6 +4,7 @@
 #include "Cards.h"
 #include "Deck.h"
 #include "Potion.h"
+#include "Distribution.h"
 class Game {
 public:
 	sf::Clock clock;
@@ -21,6 +22,7 @@ public:
 	sf::RenderWindow window;
 	Deck decky;
 	Potion potion;
+	Distribution distribution;
 
 	void init_window();
 

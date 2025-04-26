@@ -3,6 +3,7 @@
 #include "Cards.h"
 #include "Deck.h"
 #include "Potion.h"
+#include "Distribution.h"
 
 // Tasks:
 // Enemies distribution
@@ -117,6 +118,7 @@ void Game::running() {
         float deltaTime = clock.restart().asSeconds();
         decky.card_shuffle(cards);
         potion.increase_potion_level(deltaTime);
+        distribution.spawn_enemies(deltaTime, heroes, enemies);
         update_screen();
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
             
