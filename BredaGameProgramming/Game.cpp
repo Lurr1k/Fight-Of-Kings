@@ -5,10 +5,7 @@
 #include "Potion.h"
 
 // Tasks:
-// Create elexir that gradually increases with time.
-// Display it at the top
-// Set elixir requirement for every card type
-// If there is not enough elixir to spawn a card, then respawn the card
+// Enemies distribution
 
 void Game::init_window(){
 	height = 960;

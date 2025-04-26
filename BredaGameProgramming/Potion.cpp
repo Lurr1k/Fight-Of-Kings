@@ -31,14 +31,14 @@ void Potion::display_potion(sf::RenderWindow &window) {
 void Potion::increase_potion_level(float &deltaTime) {
     float time = deltaTime;
     if (potionLevel < 10) {
-        potionLevel += 0.125 * time;
+        potionLevel += 0.357 * time;
     }
     else if (potionLevel > 10) {
         potionLevel = 10;
     }
     std::cout << potionLevel;
     std::cout << "\n";
-    potionLevelBar.setSize({potionLevel*75,10 });
+    potionLevelBar.setSize({potionLevel * 75,10 });
 }
 
 void Potion::decrease_potion_level(float amount) {

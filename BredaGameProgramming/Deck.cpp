@@ -82,7 +82,7 @@ void Deck::spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vecto
 		if (index != -1) {
 			cardPos = cards[index]->get_position();
 
-			if (is_hovered(cardPos) or (cards[index]->get_cost() > potion.get_potion_level())) {
+			if (is_hovered(cardPos) or (cards[index]->get_cost() > potion.get_potion_level()) or (cardPos.y < 510)) {
 				cards[index]->return_to_position();
 			}
 			else {
