@@ -6,8 +6,8 @@
 Potion::Potion() {
     potionBarBackground.setSize({ 750, 20 });
     potionBarBackground.setOrigin({ 0, 0 });
-    potionBarBackground.setPosition({0,0});
-    potionBarBackground.setFillColor(sf::Color(64,64,64));
+    potionBarBackground.setPosition({ 0,0 });
+    potionBarBackground.setFillColor(sf::Color(64, 64, 64));
     potionLevelBar.setSize({ 0,0 });
     potionLevelBar.setFillColor(sf::Color::Yellow);
     potionLevelBar.setPosition({ 0,0 });
@@ -16,7 +16,7 @@ Potion::Potion() {
     levelCircle.setFillColor(sf::Color::Yellow);
     levelCircle.setRadius(30);
     levelCircle.setPosition({ 670, 10 });
-    levelSign.set_position(695, 30);
+    levelSign.set_position({695, 30});
 
 }
 

@@ -17,5 +17,5 @@ public:
 
 	void display_text(sf::RenderWindow& window);
 
-	void set_position(float xPosition, float yPosition);
+	void set_position(sf::Vector2f coordinates);
 };

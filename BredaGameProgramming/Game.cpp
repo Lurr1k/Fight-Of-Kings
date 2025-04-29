@@ -19,7 +19,11 @@ void Game::init_window(){
 
 void Game::load_background() {
     backgroundTexture.loadFromFile("images/backgroundTexture.png");
-    background.emplace(backgroundTexture); 
+    helpPageTexture.loadFromFile("images/HelpPage.png");
+    startPageTexture.loadFromFile("images/StartPage.png");
+    background.emplace(backgroundTexture);
+    helpPageBackground.emplace(helpPageTexture);
+    startPageBackground.emplace(startPageTexture);
 }
 
 void Game::instantiate_characters() {
@@ -64,12 +68,18 @@ void Game::poll_events() {
                         }
                     }
                 }
-                else if (startingScreen.start_hovered(window)) {
+                else if (helpScreen.back_hovered(window)) {
+                    helpPage = false;
+                }
+                else if (startingScreen.start_hovered(window) and not (helpPage or gameRunning)) {
                     gameRunning = true;
+                    clock.restart();
                 }
-                else if (startingScreen.help_hovered(window)) {
-                    
+                else if (startingScreen.help_hovered(window) and not (helpPage or gameRunning)) {
+                    helpPage = true;
+                    std::cout << "shmobs";
                 }
+
             }
         }
         else if (const auto* keyPressed = event->getIf<sf::Event::MouseButtonReleased>()) {
@@ -95,8 +105,8 @@ void Game::poll_events() {
 
 void Game::update_screen() {
     window.clear();
-    window.draw(*background);
     if (gameRunning) {
+        window.draw(*background);
         for (int i = 0; i < enemies.size(); i++) {
             enemies[i]->display_health_bar(window);
             enemies[i]->draw_character(window);
@@ -110,8 +120,15 @@ void Game::update_screen() {
         decky.display_deck(window, cards);
         potion.display_potion(window);
     }
+    else if (helpPage) {
+        window.draw(*helpPageBackground);
+        helpScreen.draw_help_screen(window);
+        helpScreen.scan_hovered(window);
+    }
     else {
+        window.draw(*startPageBackground);
         startingScreen.draw_starting_screen(window);
+        startingScreen.scan_hovered(window);
     }
 	window.display();
 

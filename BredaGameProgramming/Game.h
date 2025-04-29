@@ -7,9 +7,14 @@
 #include "Distribution.h"
 #include "Screens.h"
 class Game {
-public:
+private:
+
 	sf::Clock clock;
 	sf::Texture backgroundTexture;
+	sf::Texture helpPageTexture;
+	sf::Texture startPageTexture;
+	std::optional<sf::Sprite> helpPageBackground;
+	std::optional<sf::Sprite> startPageBackground;
 	std::optional<sf::Sprite> background;
 	unsigned int height;
 	unsigned int width;
@@ -24,7 +29,11 @@ public:
 	Potion potion;
 	Distribution distribution;
 	StartingScreen startingScreen;
+	HelpScreen helpScreen;
 	bool gameRunning = false;
+	bool helpPage = false;
+
+public:
 
 	void init_window();
 

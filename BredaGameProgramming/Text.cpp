@@ -19,8 +19,8 @@ void Text::update_text(std::string text) {
 	sign.setString(text);
 
 }
-void Text::set_position(float xPosition, float yPosition) {
-	textPosition = { xPosition, yPosition };
+void Text::set_position(sf::Vector2f coordinates) {
+	textPosition = coordinates;
 	sf::Vector2f bounds = sign.getLocalBounds().size;
 	sign.setOrigin({ bounds.x / 2, bounds.y / 2 });
 	sign.setPosition(textPosition);
