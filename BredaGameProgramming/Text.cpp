@@ -3,7 +3,7 @@
 #include "SFML/Graphics.hpp"
 
 
-Text::Text(std::string text, float size) : sign(font, text, 20){
+Text::Text(std::string text, float size) : sign(font, text, size){
 	textToDisplay = text;
 
 	fontSize = size;
@@ -29,4 +29,8 @@ void Text::set_position(sf::Vector2f coordinates) {
 
 void Text::display_text(sf::RenderWindow &window) {
 	window.draw(sign);
+}
+
+void Text::set_colour(sf::Color colour) {
+	sign.setFillColor(colour);
 }

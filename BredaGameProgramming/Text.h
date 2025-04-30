@@ -18,4 +18,6 @@ public:
 	void display_text(sf::RenderWindow& window);
 
 	void set_position(sf::Vector2f coordinates);
+
+	void set_colour(sf::Color colour);
 };

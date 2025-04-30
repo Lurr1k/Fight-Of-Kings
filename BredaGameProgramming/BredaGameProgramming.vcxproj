@@ -137,6 +137,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Cards.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Crowns.cpp" />
     <ClCompile Include="Deck.cpp" />
     <ClCompile Include="Distribution.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Cards.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="Crowns.h" />
     <ClInclude Include="Deck.h" />
     <ClInclude Include="Distribution.h" />
     <ClInclude Include="Game.h" />

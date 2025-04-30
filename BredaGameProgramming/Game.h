@@ -6,6 +6,7 @@
 #include "Potion.h"
 #include "Distribution.h"
 #include "Screens.h"
+#include "Crowns.h"
 class Game {
 private:
 
@@ -13,8 +14,10 @@ private:
 	sf::Texture backgroundTexture;
 	sf::Texture helpPageTexture;
 	sf::Texture startPageTexture;
+	sf::Texture endPageTexture;
 	std::optional<sf::Sprite> helpPageBackground;
 	std::optional<sf::Sprite> startPageBackground;
+	std::optional<sf::Sprite> endPageBackground;
 	std::optional<sf::Sprite> background;
 	unsigned int height;
 	unsigned int width;
@@ -34,6 +37,7 @@ private:
 	bool gameRunning = false;
 	bool helpPage = false;
 	bool endPage = false;
+	bool startPage = true;
 	
 
 public:

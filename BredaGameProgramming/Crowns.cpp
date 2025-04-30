@@ -1,0 +1,21 @@
+#include "Crowns.h"
+#include <iostream>
+#include "SFML/Graphics.hpp"
+
+Crown::Crown() {
+
+	texturePath = "images/Crown.png";
+
+	texture.loadFromFile(texturePath);
+
+	crown.setTexture(texture, true);
+
+}
+
+void Crown::display_crown(sf::RenderWindow& window) {
+	window.draw(crown);
+}
+
+void Crown::set_position(sf::Vector2f coordinates) {
+	crown.setPosition(coordinates);
+}

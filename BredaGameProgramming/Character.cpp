@@ -14,12 +14,10 @@ Character::Character(const std::string& TEXTUREPATH, float xCoordinate, float yC
     sightRange = targetRange;
     heroOrEnemy = battleSide;
     
-    if (!texture.loadFromFile(TEXTUREPATH)) {
+    texture.loadFromFile(TEXTUREPATH);
 
-    }
-    else {
-        character.setTexture(texture, true);
-    }
+    character.setTexture(texture, true);
+
 
     barBackground.setSize({ 40, 4 });
     barBackground.setOrigin({ 20, 0 });
@@ -184,9 +182,13 @@ void Character::display_health_bar(sf::RenderWindow &window) {
     }
     if (heroOrEnemy == "enemy") {
         characterToBarDistance = { 0, -30 };
+        barBackground.setFillColor(sf::Color::Red);
+        healthBar.setFillColor(sf::Color::Green);
     }
     else {
         characterToBarDistance = { 0, 30 };
+        barBackground.setFillColor(sf::Color::Green);
+        healthBar.setFillColor(sf::Color::Red);
     }
 
     sf::Vector2f healthBarPosition = character.getPosition() + characterToBarDistance;
@@ -194,7 +196,6 @@ void Character::display_health_bar(sf::RenderWindow &window) {
     healthBar.setSize({ 30 * (hp/maxHp), 2});
     healthBar.setOrigin({0,0});
     healthBar.setPosition(healthBarPosition + sf::Vector2f({-15, 1}));
-    healthBar.setFillColor(sf::Color::Red);
 
     window.draw(barBackground);
     window.draw(healthBar);

@@ -21,9 +21,11 @@ void Game::load_background() {
     backgroundTexture.loadFromFile("images/backgroundTexture.png");
     helpPageTexture.loadFromFile("images/HelpPage.png");
     startPageTexture.loadFromFile("images/StartPage.png");
+    endPageTexture.loadFromFile("images/EndPage.png");
     background.emplace(backgroundTexture);
     helpPageBackground.emplace(helpPageTexture);
     startPageBackground.emplace(startPageTexture);
+    endPageBackground.emplace(endPageTexture);
 }
 
 void Game::instantiate_characters() {
@@ -70,18 +72,19 @@ void Game::poll_events() {
                 }
                 else if (helpScreen.back_hovered(window) and helpPage) {
                     helpPage = false;
+                    startPage = true;
                 }
-                else if (startingScreen.start_hovered(window) and not (helpPage or endPage or gameRunning)) {
+                else if (startingScreen.start_hovered(window) and startPage) {
                     clock.restart();
                     start_game();
                 }
-                else if (startingScreen.help_hovered(window) and not (helpPage or endPage or gameRunning)) {
+                else if (startingScreen.help_hovered(window) and startPage) {
+                    startPage = false;
                     helpPage = true;
-                    std::cout << "shmobs";
                 }
                 else if (endScreen.return_hovered(window) and endPage) {
                     endPage = false;
-                    std::cout << "Return works";
+                    startPage = true;
                 }
 
             }
@@ -130,11 +133,11 @@ void Game::update_screen() {
         helpScreen.scan_hovered(window);
     }
     else if (endPage) {
-        window.draw(*background);
+        window.draw(*endPageBackground);
         endScreen.draw_end_screen(window);
         endScreen.scan_hovered(window);
     }
-    else {
+    else if (startPage) {
         window.draw(*startPageBackground);
         startingScreen.draw_starting_screen(window);
         startingScreen.scan_hovered(window);
@@ -152,6 +155,9 @@ Game::Game() {
 void Game::start_game() {
     instantiate_characters();
     gameRunning = true;
+    startPage = false;
+    potion.decrease_potion_level(10);
+    distribution.reset_potion();
 }
 
 void Game::running() {
@@ -206,6 +212,8 @@ void Game::check_if_game_over() {
     if ((heroesTowerCount <= 0) or (enemiesTowerCount <= 0)) {
         gameRunning = false;
         endPage = true;
+        endScreen.crown_creation((3 - enemiesTowerCount), (3 - heroesTowerCount));
+        endScreen.set_result_text();
         enemies.clear();
         heroes.clear();
     }

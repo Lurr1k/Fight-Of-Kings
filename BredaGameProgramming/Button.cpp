@@ -4,7 +4,7 @@
 
 
 Button::Button(sf::Vector2f coordinates, std::string text) : buttonSign(text, 30) {
-	button.setSize({ 100, 50 });
+	button.setSize({ 250, 75 });
 	button.setFillColor(sf::Color::Yellow);
 	button.setOrigin(button.getGeometricCenter());
 	button.setPosition(coordinates);

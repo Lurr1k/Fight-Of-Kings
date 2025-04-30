@@ -24,4 +24,6 @@ public:
 	bool timing_correct(float &deltaTime);
 	
 	std::string choose_type();
+
+	void reset_potion();
 };

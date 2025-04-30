@@ -91,17 +91,21 @@ void Distribution::spawn_enemies(float &deltaTime, std::vector<std::unique_ptr<C
 		chosenType = choose_type();
 		spawnPosition = generate_spawn_location(heroes);
 		if (chosenType == "goblin") {
-			enemies.emplace_back(std::make_unique<Goblin>(spawnPosition.x, spawnPosition.y, ""));
+			enemies.emplace_back(std::make_unique<Goblin>(spawnPosition.x, spawnPosition.y, "enemy"));
 		}
 		else if (chosenType == "giant") {
-			enemies.emplace_back(std::make_unique<Giant>(spawnPosition.x, spawnPosition.y, ""));
+			enemies.emplace_back(std::make_unique<Giant>(spawnPosition.x, spawnPosition.y, "enemy"));
 		}
 		else if (chosenType == "archer") {
-			enemies.emplace_back(std::make_unique<Giant>(spawnPosition.x, spawnPosition.y, ""));
+			enemies.emplace_back(std::make_unique<Giant>(spawnPosition.x, spawnPosition.y, "enemy"));
 		}
 		else if (chosenType == "pig") {
 
 		}
 	}
 
+}
+
+void Distribution::reset_potion() {
+	enemyLevel.decrease_potion_level(10);
 }

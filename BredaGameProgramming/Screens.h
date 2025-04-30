@@ -3,6 +3,7 @@
 #include "SFML/Graphics.hpp"
 #include "Text.h"
 #include "Button.h"
+#include "Crowns.h"
 
 // Screen with three big buttons
 // + The buttons are start and help 
@@ -13,8 +14,8 @@
 
 class StartingScreen {
 private:
-	Button startButton = Button({ 375, 430 }, "Start");
-	Button helpButton = Button({ 375, 510 }, "Help");
+	Button startButton = Button({ 375, 490 }, "Start");
+	Button helpButton = Button({ 375, 690 }, "Help");
 
 public:
 	StartingScreen();
@@ -48,6 +49,10 @@ public:
 class EndScreen {
 private:
 	Button returnButton = Button({ 375, 770 }, "Return");
+	std::vector<std::unique_ptr<Crown>> crowns;
+	int destroyedTowers;
+	int lostTowers;
+	Text resultSign = Text("You ___", 50);
 
 public: 
 	void draw_end_screen(sf::RenderWindow& window);
@@ -56,4 +61,9 @@ public:
 
 	bool return_hovered(sf::RenderWindow& window);
 
+	void crown_creation(int dTowers, int lTowers);
+
+	void clear_crowns();
+
+	void set_result_text();
 };
