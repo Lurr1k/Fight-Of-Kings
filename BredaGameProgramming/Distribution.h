@@ -6,12 +6,16 @@
 
 class Distribution {
 private:
+	
 	float deltaTime;
 	sf::FloatRect enemySide;
 	float yLimit;
 	float xLimit;
 	float timer;
 	Potion enemyLevel;
+
+	float randomTime;
+
 public:
 
 	Distribution();

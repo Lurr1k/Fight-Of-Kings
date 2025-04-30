@@ -87,6 +87,7 @@ void Game::poll_events() {
                 else if (endScreen.return_hovered(window) and endPage) {
                     endPage = false;
                     startPage = true;
+                    bookSound.play();
                 }
 
             }

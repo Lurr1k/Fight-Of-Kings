@@ -9,6 +9,7 @@ Distribution::Distribution() {
 	xLimit = 750;
 	yLimit = 450;
 	enemySide = sf::FloatRect({ 0,0 }, { xLimit, yLimit });
+	randomTime = 5;
 }
 
 sf::Vector2f Distribution::generate_spawn_location(std::vector<std::unique_ptr<Character>>& heroes) {
@@ -50,9 +51,10 @@ sf::Vector2f Distribution::generate_spawn_location(std::vector<std::unique_ptr<C
 bool Distribution::timing_correct(float &deltaTime) {
 	timer += deltaTime;
 	bool timing = false;
-	if (timer >= 5) {
+	if (timer >= randomTime) {
 		timer = 0;
 		timing = true;
+		randomTime = 2 + (rand() % 5);
 	}
 	else {
 		timing = false;
