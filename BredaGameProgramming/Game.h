@@ -30,8 +30,11 @@ private:
 	Distribution distribution;
 	StartingScreen startingScreen;
 	HelpScreen helpScreen;
+	EndScreen endScreen;
 	bool gameRunning = false;
 	bool helpPage = false;
+	bool endPage = false;
+	
 
 public:
 
@@ -48,6 +51,8 @@ public:
 	void start_game();
 
 	void running();
+
+	void check_if_game_over();
 
 	Game();
 

@@ -68,16 +68,20 @@ void Game::poll_events() {
                         }
                     }
                 }
-                else if (helpScreen.back_hovered(window)) {
+                else if (helpScreen.back_hovered(window) and helpPage) {
                     helpPage = false;
                 }
-                else if (startingScreen.start_hovered(window) and not (helpPage or gameRunning)) {
-                    gameRunning = true;
+                else if (startingScreen.start_hovered(window) and not (helpPage or endPage or gameRunning)) {
                     clock.restart();
+                    start_game();
                 }
-                else if (startingScreen.help_hovered(window) and not (helpPage or gameRunning)) {
+                else if (startingScreen.help_hovered(window) and not (helpPage or endPage or gameRunning)) {
                     helpPage = true;
                     std::cout << "shmobs";
+                }
+                else if (endScreen.return_hovered(window) and endPage) {
+                    endPage = false;
+                    std::cout << "Return works";
                 }
 
             }
@@ -125,6 +129,11 @@ void Game::update_screen() {
         helpScreen.draw_help_screen(window);
         helpScreen.scan_hovered(window);
     }
+    else if (endPage) {
+        window.draw(*background);
+        endScreen.draw_end_screen(window);
+        endScreen.scan_hovered(window);
+    }
     else {
         window.draw(*startPageBackground);
         startingScreen.draw_starting_screen(window);
@@ -138,7 +147,6 @@ void Game::update_screen() {
 Game::Game() {
     init_window();
     load_background();
-    instantiate_characters();
 }
 
 void Game::start_game() {
@@ -176,7 +184,29 @@ void Game::running() {
                     enemies[i]->move_towards_enemy(heroes, deltaTime);
                 }
             }
+            check_if_game_over();
         }
         poll_events();
+    }
+}
+
+void Game::check_if_game_over() {
+    int heroesTowerCount = 0;
+    int enemiesTowerCount = 0;
+    for (int i = 0; i < heroes.size(); i++) {
+        if (heroes[i]->get_name() == "Tower") {
+            heroesTowerCount += 1;
+        }
+    }
+    for (int i = 0; i < enemies.size(); i++) {
+        if (enemies[i]->get_name() == "Tower") {
+            enemiesTowerCount += 1;
+        }
+    }
+    if ((heroesTowerCount <= 0) or (enemiesTowerCount <= 0)) {
+        gameRunning = false;
+        endPage = true;
+        enemies.clear();
+        heroes.clear();
     }
 }
