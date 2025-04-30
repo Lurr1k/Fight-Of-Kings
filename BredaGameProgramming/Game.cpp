@@ -31,7 +31,7 @@ void Game::load_background() {
 void Game::instantiate_characters() {
     cards.emplace_back(std::make_unique<GoblinCard>());
     cards.emplace_back(std::make_unique<GiantCard>());
-    cards.emplace_back(std::make_unique<GoblinCard>());
+    cards.emplace_back(std::make_unique<ArcherCard>());
     cards.emplace_back(std::make_unique<GoblinCard>());
     cards.emplace_back(std::make_unique<GoblinCard>());
     cards.emplace_back(std::make_unique<GoblinCard>());
@@ -73,6 +73,7 @@ void Game::poll_events() {
                 else if (helpScreen.back_hovered(window) and helpPage) {
                     helpPage = false;
                     startPage = true;
+                    bookSound.play();
                 }
                 else if (startingScreen.start_hovered(window) and startPage) {
                     clock.restart();
@@ -81,6 +82,7 @@ void Game::poll_events() {
                 else if (startingScreen.help_hovered(window) and startPage) {
                     startPage = false;
                     helpPage = true;
+                    huhSound.play();
                 }
                 else if (endScreen.return_hovered(window) and endPage) {
                     endPage = false;
@@ -149,6 +151,7 @@ void Game::update_screen() {
 
 Game::Game() {
     init_window();
+    init_sounds();
     load_background();
 }
 
@@ -158,6 +161,7 @@ void Game::start_game() {
     startPage = false;
     potion.decrease_potion_level(10);
     distribution.reset_potion();
+    slashSound.play();
 }
 
 void Game::running() {
@@ -217,4 +221,21 @@ void Game::check_if_game_over() {
         enemies.clear();
         heroes.clear();
     }
+}
+
+
+void Game::init_sounds() {
+    backgroundMusic.openFromFile("sounds/shrimp quartet.mp3");
+    backgroundMusic.setLooping(true);
+    backgroundMusic.play();
+    backgroundMusic.setVolume(3);
+    slashBuffer.loadFromFile("sounds/slash.mp3");
+    slashSound.setBuffer(slashBuffer);
+    slashSound.setVolume(10);
+    huhBuffer.loadFromFile("sounds/huh.mp3");
+    huhSound.setBuffer(huhBuffer);
+    huhSound.setVolume(10);
+    bookBuffer.loadFromFile("sounds/book.mp3");
+    bookSound.setBuffer(bookBuffer);
+    bookSound.setVolume(40);
 }

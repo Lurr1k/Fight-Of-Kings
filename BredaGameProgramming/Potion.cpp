@@ -36,8 +36,6 @@ void Potion::increase_potion_level(float &deltaTime) {
     else if (potionLevel > 10) {
         potionLevel = 10;
     }
-    std::cout << potionLevel;
-    std::cout << "\n";
     potionLevelBar.setSize({potionLevel * 75,10 });
 }
 

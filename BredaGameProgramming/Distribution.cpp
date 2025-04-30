@@ -97,10 +97,7 @@ void Distribution::spawn_enemies(float &deltaTime, std::vector<std::unique_ptr<C
 			enemies.emplace_back(std::make_unique<Giant>(spawnPosition.x, spawnPosition.y, "enemy"));
 		}
 		else if (chosenType == "archer") {
-			enemies.emplace_back(std::make_unique<Giant>(spawnPosition.x, spawnPosition.y, "enemy"));
-		}
-		else if (chosenType == "pig") {
-
+			enemies.emplace_back(std::make_unique<Archer>(spawnPosition.x, spawnPosition.y, "enemy"));
 		}
 	}
 

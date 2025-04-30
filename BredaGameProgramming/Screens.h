@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 #include "Text.h"
 #include "Button.h"
 #include "Crowns.h"
@@ -53,7 +54,8 @@ private:
 	int destroyedTowers;
 	int lostTowers;
 	Text resultSign = Text("You ___", 50);
-
+	sf::SoundBuffer endBuffer;
+	sf::Sound endSound = sf::Sound(endBuffer);
 public: 
 	void draw_end_screen(sf::RenderWindow& window);
 

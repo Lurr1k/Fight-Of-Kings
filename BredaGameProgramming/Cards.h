@@ -51,3 +51,7 @@ class GiantCard : public Card {
 public:
 	GiantCard() : Card("images/GiantCard.png", "giant", 5) {}
 };
+class ArcherCard : public Card {
+public:
+	ArcherCard() : Card("images/ArcherCard.png", "archer", 3) {}
+};

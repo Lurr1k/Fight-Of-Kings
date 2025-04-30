@@ -76,14 +76,21 @@ void EndScreen::clear_crowns() {
 }
 
 void EndScreen::set_result_text() {
+	std::string soundPath;
 	if (destroyedTowers > lostTowers) {
 		resultSign.update_text("You won!");
 		resultSign.set_colour(sf::Color::Green);
+		soundPath = "sounds/happy.mp3";
 	}
 	else {
 		resultSign.update_text("You lost!");
 		resultSign.set_colour(sf::Color::Red);
+		soundPath = "sounds/sad.mp3";
 	}
-	
+	endBuffer.loadFromFile(soundPath);
+	endSound.setBuffer(endBuffer);
+	endSound.setVolume(10);
+	endSound.play();
+
 	resultSign.set_position({ 375, 400 });
 }

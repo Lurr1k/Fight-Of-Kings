@@ -92,6 +92,9 @@ void Deck::spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vecto
 				else if (cards[index]->get_type() == "giant") {
 					heroes.emplace_back(std::make_unique<Giant>(cardPos.x, cardPos.y, "hero"));
 				}
+				else if (cards[index]->get_type() == "archer") {
+					heroes.emplace_back(std::make_unique<Archer>(cardPos.x, cardPos.y, "hero"));
+				}
 				previouslyPlacedCard = index;
 				potion.decrease_potion_level(cards[index]->get_cost());
 				cards[index]->return_to_position();

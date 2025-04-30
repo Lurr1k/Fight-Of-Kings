@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Character.h"
 #include "Cards.h"
 #include "Deck.h"
@@ -19,6 +20,13 @@ private:
 	std::optional<sf::Sprite> startPageBackground;
 	std::optional<sf::Sprite> endPageBackground;
 	std::optional<sf::Sprite> background;
+	sf::Music backgroundMusic;
+	sf::SoundBuffer slashBuffer;
+	sf::Sound slashSound = sf::Sound(slashBuffer);
+	sf::SoundBuffer huhBuffer;
+	sf::Sound huhSound = sf::Sound(huhBuffer);
+	sf::SoundBuffer bookBuffer;
+	sf::Sound bookSound = sf::Sound(bookBuffer);
 	unsigned int height;
 	unsigned int width;
 	int frameLimit;
@@ -39,10 +47,13 @@ private:
 	bool endPage = false;
 	bool startPage = true;
 	
+	
 
 public:
 
 	void init_window();
+	
+	void init_sounds();
 
 	void load_background();
 
