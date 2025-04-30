@@ -39,3 +39,15 @@ bool HelpScreen::back_hovered(sf::RenderWindow& window) {
 void HelpScreen::scan_hovered(sf::RenderWindow& window) {
 	backButton.scan_hovered(window);
 }
+
+void EndScreen::draw_end_screen(sf::RenderWindow & window) {
+	returnButton.display_button(window);
+}
+
+void EndScreen::scan_hovered(sf::RenderWindow& window) {
+	returnButton.scan_hovered(window);
+}
+
+bool EndScreen::return_hovered(sf::RenderWindow& window) {
+	return returnButton.detect_button_hovered(window);
+}

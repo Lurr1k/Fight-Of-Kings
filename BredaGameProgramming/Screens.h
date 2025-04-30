@@ -44,3 +44,16 @@ public:
 
 
 };
+
+class EndScreen {
+private:
+	Button returnButton = Button({ 375, 770 }, "Return");
+
+public: 
+	void draw_end_screen(sf::RenderWindow& window);
+
+	void scan_hovered(sf::RenderWindow& window);
+
+	bool return_hovered(sf::RenderWindow& window);
+
+};
