@@ -84,6 +84,9 @@ void Game::poll_events() {
                     helpPage = true;
                     huhSound.play();
                 }
+                else if (muteButton.detect_button_hovered(window) and startPage) {
+                    mute_music();
+                }
                 else if (endScreen.return_hovered(window) and endPage) {
                     endPage = false;
                     startPage = true;
@@ -142,8 +145,10 @@ void Game::update_screen() {
     }
     else if (startPage) {
         window.draw(*startPageBackground);
+        muteButton.display_button(window);
         startingScreen.draw_starting_screen(window);
         startingScreen.scan_hovered(window);
+        muteButton.scan_hovered(window);
     }
 	window.display();
 
@@ -239,4 +244,8 @@ void Game::init_sounds() {
     bookBuffer.loadFromFile("sounds/book.mp3");
     bookSound.setBuffer(bookBuffer);
     bookSound.setVolume(40);
+}
+
+void Game::mute_music() {
+    backgroundMusic.pause();
 }

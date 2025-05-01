@@ -42,6 +42,7 @@ private:
 	StartingScreen startingScreen;
 	HelpScreen helpScreen;
 	EndScreen endScreen;
+	Button muteButton = Button({ 375,0 }, "Mute music");
 	bool gameRunning = false;
 	bool helpPage = false;
 	bool endPage = false;
@@ -68,6 +69,8 @@ public:
 	void running();
 
 	void check_if_game_over();
+
+	void mute_music();
 
 	Game();
 
