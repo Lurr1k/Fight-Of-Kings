@@ -7,14 +7,14 @@ private:
 	float initialX;
 	float initialY;
 	sf::Texture texture;
-	sf::Sprite card;
+	sf::Sprite card = sf::Sprite(texture);
 	bool selected = false;
 	std::string cardType;
 	float cardCost;
 
 public:
 
-	Card(const std::string& TEXTUREPATH, std::string type, float cost);
+	Card(const std::string& TEXTUREPATH, const std::string& type, float cost);
 
 	void set_initial_position(float xPosition, float yPosition);
 

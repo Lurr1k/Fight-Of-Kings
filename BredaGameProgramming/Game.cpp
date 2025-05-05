@@ -57,15 +57,11 @@ void Game::poll_events() {
             }
         }
         else if (const auto* keyPressed = event->getIf<sf::Event::MouseButtonPressed>()) {
-            std::cout << "Mouse";
             if (keyPressed->button == sf::Mouse::Button::Left) {
-                std::cout << "Left";
                 if (gameRunning) {
                     for (int i = 0; i < 5; i++) {
-                        std::cout << i;
                         cardIndex = decky.get_selected_card(i);
                         if (cards[cardIndex]->mouse_on_card(window) and cardIndex != -1) {
-                            std::cout << "selected";
                             cards[cardIndex]->select_card();
                         }
                     }
@@ -97,13 +93,11 @@ void Game::poll_events() {
         }
         else if (const auto* keyPressed = event->getIf<sf::Event::MouseButtonReleased>()) {
             if (keyPressed->button == sf::Mouse::Button::Left) {
-                std::cout << "Left";
                 if (gameRunning) {
                     for (int i = 0; i < 5; i++) {
                         cardIndex = decky.get_selected_card(i);
-                        std::cout << i;
+                       
                         if (cards[cardIndex]->mouse_on_card(window) and cardIndex != -1) {
-                            std::cout << "deselected";
                             cards[cardIndex]->deselect_card();
                             decky.spawn_or_return(cards, heroes, potion);
                         }

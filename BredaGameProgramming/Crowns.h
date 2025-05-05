@@ -12,7 +12,7 @@ private:
 public:
 	Crown();
 
-	void display_crown(sf::RenderWindow &window);
+	void display_crown(sf::RenderWindow& window);
 
 	void set_position(sf::Vector2f coordinates);
 };

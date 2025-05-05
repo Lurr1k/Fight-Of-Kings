@@ -3,12 +3,12 @@
 #include <iostream>
 
 
-Card::Card(const std::string& TEXTUREPATH, std::string type, float cost) : card(texture){
+Card::Card(const std::string& texturePath, const std::string& type, float cost){
 
     cardType = type;
     cardCost = cost;
 
-    texture.loadFromFile(TEXTUREPATH);
+    texture.loadFromFile(texturePath);
 
     card.setTexture(texture, true);
     
@@ -20,8 +20,8 @@ Card::Card(const std::string& TEXTUREPATH, std::string type, float cost) : card(
 };
 
 void Card::set_initial_position(float xPosition, float yPosition) {
-    initialX = xPosition;
-    initialY = yPosition;
+   initialX = xPosition;
+   initialY = yPosition;
     card.setPosition({ xPosition, yPosition });
 }
 

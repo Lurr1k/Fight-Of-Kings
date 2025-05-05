@@ -2,7 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include <iostream>
 
-Character::Character(const std::string& TEXTUREPATH, float xCoordinate, float yCoordinate, const std::string& battleSide, const std::string& soundPath, const std::string& characterName, float healthLimit, float characterAttackRange, float attackDamage, float attackCoolDown, float characterVelocity, float targetRange) {
+Character::Character(const std::string& texturePath, float xCoordinate, float yCoordinate, const std::string& battleSide, const std::string& soundPath, const std::string& characterName, float healthLimit, float characterAttackRange, float attackDamage, float attackCoolDown, float characterVelocity, float targetRange) {
     
     hp = healthLimit;
     maxHp = healthLimit;
@@ -15,11 +15,10 @@ Character::Character(const std::string& TEXTUREPATH, float xCoordinate, float yC
     heroOrEnemy = battleSide;
 
     
-    texture.loadFromFile(TEXTUREPATH);
+    texture.loadFromFile(texturePath);
     character.setTexture(texture, true);
 
     if (name != "Tower") {
-        std::cout << soundPath;
         soundBuffer.loadFromFile(soundPath);
         characterSound.setBuffer(soundBuffer);
         characterSound.setVolume(40);

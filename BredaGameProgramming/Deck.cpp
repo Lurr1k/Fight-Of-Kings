@@ -68,7 +68,7 @@ void Deck::remove_from_deck(int index){
 	if (in_deck(index)) {
 		for (int i = 0; i < 5; i++) {
 			if (selectedCards[i] == index) {
-				std::cout << selectedCards[i];
+
 				selectedCards[i] = -1;
 			}
 		}

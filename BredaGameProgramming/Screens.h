@@ -6,12 +6,7 @@
 #include "Button.h"
 #include "Crowns.h"
 
-// Screen with three big buttons
-// + The buttons are start and help 
-// + Start button launches the game 
-// + Help button directs to the help screen, which explains the rules and how to play, etc 
-// Once the game ends (no towers left on one side) the final screen is displayed (check_if_game_over)
-// States the winner and offers to return to the main screen
+
 
 class StartingScreen {
 private:
