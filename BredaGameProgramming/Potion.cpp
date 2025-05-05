@@ -20,6 +20,7 @@ Potion::Potion() {
 
 }
 
+// Displays the potion level
 void Potion::display_potion(sf::RenderWindow &window) {
     levelSign.update_text(std::to_string(static_cast<int>(std::floor(potionLevel))));
     window.draw(potionBarBackground);
@@ -28,6 +29,7 @@ void Potion::display_potion(sf::RenderWindow &window) {
     levelSign.display_text(window);
 }
 
+// Increases the potion level
 void Potion::increase_potion_level(float &deltaTime) {
     float time = deltaTime;
     if (potionLevel < 10) {
@@ -39,6 +41,7 @@ void Potion::increase_potion_level(float &deltaTime) {
     potionLevelBar.setSize({potionLevel * 75,10 });
 }
 
+// Decreases the potion level
 void Potion::decrease_potion_level(float amount) {
     potionLevel -= amount;
     if (potionLevel < 0) {
@@ -46,6 +49,7 @@ void Potion::decrease_potion_level(float amount) {
     }
 }
 
+// Returns the potion level
 float Potion::get_potion_level() {
     return potionLevel;
 }

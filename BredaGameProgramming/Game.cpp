@@ -6,17 +6,17 @@
 #include "Distribution.h"
 #include "Screens.h"
 
-
+// Initialises the window and sets the window resolution
 void Game::init_window(){
 	height = 960;
 	width = 750;
-    frameLimit = 60;
 	windowTitle = "The Fight of Kings";
 	resolution = sf::VideoMode({ width, height });
 	window = sf::RenderWindow(resolution, windowTitle);
-    window.setFramerateLimit(frameLimit);
+    window.setVerticalSyncEnabled(true);
 }
 
+// Loads the backgrounds for all of the screens
 void Game::load_background() {
     backgroundTexture.loadFromFile("images/backgroundTexture.png");
     helpPageTexture.loadFromFile("images/HelpPage.png");
@@ -28,21 +28,23 @@ void Game::load_background() {
     endPageBackground.emplace(endPageTexture);
 }
 
+//Instantiates the towers and cards for the game.
 void Game::instantiate_characters() {
-    cards.emplace_back(std::make_unique<GoblinCard>());
-    cards.emplace_back(std::make_unique<GiantCard>());
-    cards.emplace_back(std::make_unique<ArcherCard>());
-    cards.emplace_back(std::make_unique<GoblinCard>());
-    cards.emplace_back(std::make_unique<GoblinCard>());
-    cards.emplace_back(std::make_unique<GoblinCard>());
-    enemies.emplace_back(std::make_unique<Tower>(187.5, 280, "enemy"));
-    enemies.emplace_back(std::make_unique<Tower>(562.5, 280, "enemy"));
-    enemies.emplace_back(std::make_unique<Tower>(375, 200, "enemy"));
-    heroes.emplace_back(std::make_unique<Tower>(187.5, 680, "hero"));
-    heroes.emplace_back(std::make_unique<Tower>(562.5, 680, "hero"));
-    heroes.emplace_back(std::make_unique<Tower>(375, 760, "hero"));
+    cards.push_back(std::make_unique<GoblinCard>());
+    cards.push_back(std::make_unique<GiantCard>());
+    cards.push_back(std::make_unique<ArcherCard>());
+    cards.push_back(std::make_unique<GoblinCard>());
+    cards.push_back(std::make_unique<GoblinCard>());
+    cards.push_back(std::make_unique<GoblinCard>());
+    enemies.push_back(std::make_unique<Tower>(187.5, 280, "enemy"));
+    enemies.push_back(std::make_unique<Tower>(562.5, 280, "enemy"));
+    enemies.push_back(std::make_unique<Tower>(375, 200, "enemy"));
+    heroes.push_back(std::make_unique<Tower>(187.5, 680, "hero"));
+    heroes.push_back(std::make_unique<Tower>(562.5, 680, "hero"));
+    heroes.push_back(std::make_unique<Tower>(375, 760, "hero"));
 }
 
+//Scans for events and performs their consequences
 void Game::poll_events() {
     int cardIndex;
     while (const std::optional event = window.pollEvent())
@@ -88,7 +90,6 @@ void Game::poll_events() {
                     startPage = true;
                     bookSound.play();
                 }
-
             }
         }
         else if (const auto* keyPressed = event->getIf<sf::Event::MouseButtonReleased>()) {
@@ -109,19 +110,19 @@ void Game::poll_events() {
     }
 }
 
-
+// Updates the screen
 void Game::update_screen() {
     window.clear();
     if (gameRunning) {
         window.draw(*background);
-        for (int i = 0; i < enemies.size(); i++) {
-            enemies[i]->display_health_bar(window);
-            enemies[i]->draw_character(window);
+        for (auto& enemy:enemies) {
+            enemy->display_health_bar(window);
+            enemy->draw_character(window);
 
         }
-        for (int i = 0; i < heroes.size(); i++) {
-            heroes[i]->display_health_bar(window);
-            heroes[i]->draw_character(window);
+        for (auto& hero : heroes) {
+            hero->display_health_bar(window);
+            hero->draw_character(window);
 
         }
         decky.display_deck(window, cards);
@@ -148,13 +149,14 @@ void Game::update_screen() {
 
 }
 
-
+// Game constructor, initialises the window, the sounds and loads the backgrounds
 Game::Game() {
     init_window();
     init_sounds();
     load_background();
 }
 
+// Performed each time the game starts, resets everything on the game screen and switches to the game screen
 void Game::start_game() {
     instantiate_characters();
     gameRunning = true;
@@ -164,10 +166,12 @@ void Game::start_game() {
     slashSound.play();
 }
 
+// The general game loop
 void Game::running() {
     int cardIndex;
     while (window.isOpen()) {
         update_screen();
+        poll_events();
         if (gameRunning) {
             float deltaTime = clock.restart().asSeconds();
             decky.card_shuffle(cards);
@@ -184,32 +188,33 @@ void Game::running() {
                 
                 }
             }
-            for (int j = 0; j < heroes.size(); j++) {
+            for (auto& hero:heroes) {
                 if ((heroes.size() > 0) && (enemies.size() > 0)) {
-                    heroes[j]->move_towards_enemy(enemies, deltaTime);
+                    hero->move_towards_enemy(enemies, deltaTime);
                 } 
             }
-            for (int i = 0; i < enemies.size(); i++) {
+            for (auto& enemy:enemies) {
                 if ((heroes.size() > 0) && (enemies.size() > 0)) {
-                    enemies[i]->move_towards_enemy(heroes, deltaTime);
+                    enemy->move_towards_enemy(heroes, deltaTime);
                 }
             }
             check_if_game_over();
         }
-        poll_events();
+
     }
 }
 
+// Checks if any of the sides has lost all three towers, and if that is the case, finishes the game and switches to the end screen.
 void Game::check_if_game_over() {
     int heroesTowerCount = 0;
     int enemiesTowerCount = 0;
-    for (int i = 0; i < heroes.size(); i++) {
-        if (heroes[i]->get_name() == "Tower") {
+    for (auto& hero : heroes) {
+        if (hero->get_name() == "Tower") {
             heroesTowerCount += 1;
         }
     }
-    for (int i = 0; i < enemies.size(); i++) {
-        if (enemies[i]->get_name() == "Tower") {
+    for (auto& enemy : enemies) {
+        if (enemy->get_name() == "Tower") {
             enemiesTowerCount += 1;
         }
     }
@@ -223,7 +228,7 @@ void Game::check_if_game_over() {
     }
 }
 
-
+// Initialises sounds 
 void Game::init_sounds() {
     backgroundMusic.openFromFile("sounds/shrimp quartet.mp3");
     backgroundMusic.setLooping(true);
@@ -240,6 +245,7 @@ void Game::init_sounds() {
     bookSound.setVolume(40);
 }
 
+// Mutes the music
 void Game::mute_music() {
     backgroundMusic.pause();
 }

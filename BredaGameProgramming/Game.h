@@ -29,7 +29,6 @@ private:
 	sf::Sound bookSound = sf::Sound(bookBuffer);
 	unsigned int height;
 	unsigned int width;
-	int frameLimit;
 	std::string windowTitle;
 	sf::VideoMode resolution;
 	std::vector<std::unique_ptr<Character>> heroes;
@@ -47,7 +46,7 @@ private:
 	bool helpPage = false;
 	bool endPage = false;
 	bool startPage = true;
-	
+
 	
 
 public:

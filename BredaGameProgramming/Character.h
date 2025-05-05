@@ -58,7 +58,7 @@ public:
 
 class Giant : public Character {
 public:
-    Giant(float xCoordinate, float yCoordinate, const std::string battleSide) : Character("images/Giant.png", xCoordinate, yCoordinate, battleSide, "sounds/giant.mp3", "Giant", 200, 10, 70, 3, 10, 100) {}
+    Giant(float xCoordinate, float yCoordinate, const std::string battleSide) : Character("images/Giant.png", xCoordinate, yCoordinate, battleSide, "sounds/giant.mp3", "Giant", 200, 10, 70, 3, 25, 100) {}
 
 };
 
@@ -69,6 +69,6 @@ public:
 
 class Archer : public Character {
 public:
-    Archer(float xCoordinate, float yCoordinate, const std::string battleSide) : Character("images/Archer.png", xCoordinate, yCoordinate, battleSide, "sounds/archer.mp3", "Archer", 20, 200, 15, 1, 50, 300) {}
+    Archer(float xCoordinate, float yCoordinate, const std::string battleSide) : Character("images/Archer.png", xCoordinate, yCoordinate, battleSide, "sounds/archer.mp3", "Archer", 20, 200, 15, 1, 40, 300) {}
 
 };

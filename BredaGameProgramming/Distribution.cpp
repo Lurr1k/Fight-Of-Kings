@@ -12,6 +12,7 @@ Distribution::Distribution() {
 	randomTime = 5;
 }
 
+// Generates the spawn location for the enemy characters
 sf::Vector2f Distribution::generate_spawn_location(std::vector<std::unique_ptr<Character>>& heroes) {
 	float generatedX;
 	float generatedY;
@@ -19,10 +20,10 @@ sf::Vector2f Distribution::generate_spawn_location(std::vector<std::unique_ptr<C
 	int characterCount = 0;
 	int rightCount = 0;
 	int leftCount = 0;
-	for (int i = 0; i < heroes.size(); i++) {
-		if (heroes[i]->get_name() != "Tower") {
+	for (auto& hero : heroes) {
+		if (hero->get_name() != "Tower") {
 			characterCount += 1;
-			if ((heroes[i]->get_position()).x > 375) {
+			if ((hero->get_position()).x > 375) {
 				rightCount += 1;
 			}
 			else {
@@ -48,6 +49,7 @@ sf::Vector2f Distribution::generate_spawn_location(std::vector<std::unique_ptr<C
 	return generatedPos;
 }
 
+// Checks whether the timer allows to spawn enemies and regenerates the pseudorandom time pause
 bool Distribution::timing_correct(float &deltaTime) {
 	timer += deltaTime;
 	bool timing = false;
@@ -62,6 +64,7 @@ bool Distribution::timing_correct(float &deltaTime) {
 	return timing;
 }
 
+// Chooses the type of the enemy to spawn
 std::string Distribution::choose_type() {
 	std::string chosenType;
 	float potionLevel = enemyLevel.get_potion_level();
@@ -81,11 +84,8 @@ std::string Distribution::choose_type() {
 	return chosenType;
 }
 
+// Spawns the enemies on the enemy side
 void Distribution::spawn_enemies(float &deltaTime, std::vector<std::unique_ptr<Character>>& heroes, std::vector<std::unique_ptr<Character>>& enemies) {
-	// wait for timing 
-	// choose enemy type
-	// generate position
-	// spawn the character
 	enemyLevel.increase_potion_level(deltaTime);
 	std::string chosenType;
 	sf::Vector2f spawnPosition;
@@ -105,6 +105,7 @@ void Distribution::spawn_enemies(float &deltaTime, std::vector<std::unique_ptr<C
 
 }
 
+// Resets the potion level for the enemy
 void Distribution::reset_potion() {
 	enemyLevel.decrease_potion_level(10);
 }
