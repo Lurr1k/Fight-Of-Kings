@@ -12,7 +12,8 @@ void Game::init_window(){
 	width = 750;
 	windowTitle = "The Fight of Kings";
 	resolution = sf::VideoMode({ width, height });
-	window = sf::RenderWindow(resolution, windowTitle);
+	window = sf::RenderWindow(resolution, windowTitle, sf::Style::Close);
+    window.setPosition({ 585, 20 });
     window.setVerticalSyncEnabled(true);
 }
 
@@ -20,10 +21,12 @@ void Game::init_window(){
 void Game::load_background() {
     backgroundTexture.loadFromFile("images/backgroundTexture.png");
     helpPageTexture.loadFromFile("images/HelpPage1.png");
+    helpPage2Texture.loadFromFile("images/HelpPage2.png");
     startPageTexture.loadFromFile("images/StartPage.png");
     endPageTexture.loadFromFile("images/EndPage.png");
     background.emplace(backgroundTexture);
     helpPageBackground.emplace(helpPageTexture);
+    helpPage2Background.emplace(helpPage2Texture);
     startPageBackground.emplace(startPageTexture);
     endPageBackground.emplace(endPageTexture);
 }
@@ -68,9 +71,21 @@ void Game::poll_events() {
                         }
                     }
                 }
-                else if (helpScreen.back_hovered(window) and helpPage) {
+                else if (helpScreen.back_hovered(window) and (helpPage or helpPage2)) {
                     helpPage = false;
+                    helpPage2 = false;
                     startPage = true;
+                    bookSound.play();
+                }
+                else if (helpScreen.next_hovered(window) and (helpPage or helpPage2)) {
+                    if (helpPage) {
+                        helpPage = false;
+                        helpPage2 = true;
+                    }
+                    else if (helpPage2) {
+                        helpPage = true;
+                        helpPage2 = false;
+                    }
                     bookSound.play();
                 }
                 else if (startingScreen.start_hovered(window) and startPage) {
@@ -128,8 +143,13 @@ void Game::update_screen() {
         decky.display_deck(window, cards);
         potion.display_potion(window);
     }
-    else if (helpPage) {
-        window.draw(*helpPageBackground);
+    else if (helpPage or helpPage2) {
+        if (helpPage) {
+            window.draw(*helpPageBackground);
+        }
+        else {
+            window.draw(*helpPage2Background);
+        }
         helpScreen.draw_help_screen(window);
         helpScreen.scan_hovered(window);
     }
@@ -237,7 +257,7 @@ void Game::init_sounds() {
     backgroundMusic.setVolume(3);
     slashBuffer.loadFromFile("sounds/slash.mp3");
     slashSound.setBuffer(slashBuffer);
-    slashSound.setVolume(10);
+    slashSound.setVolume(3);
     huhBuffer.loadFromFile("sounds/huh.mp3");
     huhSound.setBuffer(huhBuffer);
     huhSound.setVolume(10);
@@ -248,5 +268,10 @@ void Game::init_sounds() {
 
 // Mutes the music
 void Game::mute_music() {
-    backgroundMusic.pause();
+    if (backgroundMusic.getStatus() == sf::SoundSource::Status::Playing) {
+        backgroundMusic.pause();
+    }
+    else {
+        backgroundMusic.play();
+    }
 }

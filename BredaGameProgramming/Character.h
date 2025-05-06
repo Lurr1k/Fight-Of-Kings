@@ -48,6 +48,7 @@ public:
     void display_health_bar(sf::RenderWindow& window);
     
     float get_hp();
+
 };
 
 class Goblin : public Character {

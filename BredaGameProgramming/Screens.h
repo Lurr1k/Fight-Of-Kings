@@ -11,7 +11,7 @@
 class StartingScreen {
 private:
 	Button startButton = Button({ 375, 490 }, "Start");
-	Button helpButton = Button({ 375, 690 }, "Help");
+	Button helpButton = Button({ 375, 640 }, "Help");
 
 public:
 
@@ -32,7 +32,8 @@ public:
 
 class HelpScreen {
 private:
-	Button backButton = Button({ 375, 770 }, "Back"); 
+	Button backButton = Button({ 225, 800 }, "Back"); 
+	Button nextButton = Button({ 525, 800 }, ">>");
 public:
 	// Displays the help screen
 	void draw_help_screen(sf::RenderWindow& window);
@@ -40,6 +41,8 @@ public:
 	void scan_hovered(sf::RenderWindow& window);
 	// Returns whether the back button is hovered
 	bool back_hovered(sf::RenderWindow& window);
+	// Returns whether the next button is hovered
+	bool next_hovered(sf::RenderWindow& window);
 
 
 };

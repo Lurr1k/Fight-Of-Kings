@@ -29,16 +29,22 @@ void StartingScreen::scan_hovered(sf::RenderWindow& window) {
 // Displays the help screen
 void HelpScreen::draw_help_screen(sf::RenderWindow& window) {
 	backButton.display_button(window);
+	nextButton.display_button(window);
 }
 
 // Returns whether the back button is hovered
 bool HelpScreen::back_hovered(sf::RenderWindow& window) {
 	return backButton.detect_button_hovered(window);
 }
+// Returns whether the next button is hovered
+bool HelpScreen::next_hovered(sf::RenderWindow& window) {
+	return nextButton.detect_button_hovered(window);
+}
 
 // Scans whether any of the buttons are hovered
 void HelpScreen::scan_hovered(sf::RenderWindow& window) {
 	backButton.scan_hovered(window);
+	nextButton.scan_hovered(window);
 }
 
 // Displays the end screen

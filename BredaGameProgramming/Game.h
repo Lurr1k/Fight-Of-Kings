@@ -14,9 +14,11 @@ private:
 	sf::Clock clock;
 	sf::Texture backgroundTexture;
 	sf::Texture helpPageTexture;
+	sf::Texture helpPage2Texture;
 	sf::Texture startPageTexture;
 	sf::Texture endPageTexture;
 	std::optional<sf::Sprite> helpPageBackground;
+	std::optional<sf::Sprite> helpPage2Background;
 	std::optional<sf::Sprite> startPageBackground;
 	std::optional<sf::Sprite> endPageBackground;
 	std::optional<sf::Sprite> background;
@@ -41,9 +43,10 @@ private:
 	StartingScreen startingScreen;
 	HelpScreen helpScreen;
 	EndScreen endScreen;
-	Button muteButton = Button({ 375,0 }, "Mute music");
+	Button muteButton = Button({ 375,800 }, "Mute music");
 	bool gameRunning = false;
 	bool helpPage = false;
+	bool helpPage2 = false;
 	bool endPage = false;
 	bool startPage = true;
 	enum levels {START, HELP, GAME, END};

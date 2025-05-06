@@ -76,7 +76,7 @@ std::string Distribution::choose_type() {
 		chosenType = "archer";
 		enemyLevel.decrease_potion_level(3);
 	}
-	else if (potionLevel < 10 and potionLevel >= 5) {
+	else if (potionLevel <= 10 and potionLevel >= 5) {
 		chosenType = "giant";
 		enemyLevel.decrease_potion_level(5);
 	}
