@@ -46,6 +46,7 @@ private:
 	bool helpPage = false;
 	bool endPage = false;
 	bool startPage = true;
+	enum levels {START, HELP, GAME, END};
 
 	
 

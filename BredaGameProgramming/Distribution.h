@@ -6,8 +6,7 @@
 
 class Distribution {
 private:
-	
-	float deltaTime;
+
 	sf::FloatRect enemySide;
 	float yLimit;
 	float xLimit;

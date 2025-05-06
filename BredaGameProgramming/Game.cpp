@@ -19,7 +19,7 @@ void Game::init_window(){
 // Loads the backgrounds for all of the screens
 void Game::load_background() {
     backgroundTexture.loadFromFile("images/backgroundTexture.png");
-    helpPageTexture.loadFromFile("images/HelpPage.png");
+    helpPageTexture.loadFromFile("images/HelpPage1.png");
     startPageTexture.loadFromFile("images/StartPage.png");
     endPageTexture.loadFromFile("images/EndPage.png");
     background.emplace(backgroundTexture);
@@ -100,7 +100,7 @@ void Game::poll_events() {
                        
                         if (cards[cardIndex]->mouse_on_card(window) and cardIndex != -1) {
                             cards[cardIndex]->deselect_card();
-                            decky.spawn_or_return(cards, heroes, potion);
+                            decky.spawn_or_return(cards, heroes, potion, cardIndex);
                         }
                     }
                 }
@@ -175,6 +175,7 @@ void Game::running() {
         if (gameRunning) {
             float deltaTime = clock.restart().asSeconds();
             decky.card_shuffle(cards);
+            decky.update_timer(deltaTime);
             potion.increase_potion_level(deltaTime);
             distribution.spawn_enemies(deltaTime, heroes, enemies);
 

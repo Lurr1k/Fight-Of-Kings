@@ -10,6 +10,9 @@ Deck::Deck() {
 	for (int i = 0; i < 5; i++) {
 		selectedCards[i] = -1;
 	}
+	timer = 5;
+	errorSign.set_position({ 180, 600 });
+	errorSign.set_colour(sf::Color::Transparent);
 }
 
 
@@ -43,6 +46,16 @@ void Deck::display_deck(sf::RenderWindow &window, std::vector<std::unique_ptr<Ca
 			cards[cardsIndex]->draw_card(window);
 		}
 	}
+	errorSign.display_text(window);
+
+	if (timer < 5) {
+		errorSign.set_colour(sf::Color::Red);
+	}
+	else {
+		errorSign.set_colour(sf::Color::Transparent);
+		
+	}
+	
 }
 
 bool Deck::in_deck(int index) {
@@ -55,13 +68,11 @@ bool Deck::in_deck(int index) {
 }
 
 bool Deck::is_hovered(sf::Vector2f position) {
-
+	bool isHovered = false;
 	if (deckRectangle.contains(position)) {
-		return true;
+		isHovered = true;
 	}
-	else {
-		return false;
-	}
+	return isHovered;
 }
 
 void Deck::remove_from_deck(int index){
@@ -75,36 +86,52 @@ void Deck::remove_from_deck(int index){
 	}
 }
 
-void Deck::spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vector<std::unique_ptr<Character>>& heroes, Potion &potion) {
+void Deck::spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vector<std::unique_ptr<Character>>& heroes, Potion &potion, int cardIndex) {
 	sf::Vector2f cardPos;
-	for (int i = 0; i < 5; i++) {
-		int index = selectedCards[i];
-		if (index != -1) {
-			cardPos = cards[index]->get_position();
+	int index = cardIndex;
+	if (index != -1) {
+		cardPos = cards[index]->get_position();
 
-			if (is_hovered(cardPos) or (cards[index]->get_cost() > potion.get_potion_level()) or (cardPos.y < 510)) {
-				cards[index]->return_to_position();
+		if (is_hovered(cardPos) or (cardPos.y < 510)) {
+			incorrectPlacement = true;
+			errorSign.update_text("You can't place the card there!");
+			cards[index]->return_to_position();
+			timer = 0;
+		}
+		else if (cards[index]->get_cost() > potion.get_potion_level()) {
+			lowPotion = true;
+			errorSign.update_text("You need more potion to spawn this entity!");
+			cards[index]->return_to_position();
+			timer = 0;
+		}
+
+		else {
+			errorSign.update_text("");
+			if (cards[index]->get_type() == "goblin") {
+				heroes.emplace_back(std::make_unique<Goblin>(cardPos.x, cardPos.y, "hero"));
 			}
-			else {
-				if (cards[index]->get_type() == "goblin") {
-					heroes.emplace_back(std::make_unique<Goblin>(cardPos.x, cardPos.y, "hero"));
-				}
-				else if (cards[index]->get_type() == "giant") {
-					heroes.emplace_back(std::make_unique<Giant>(cardPos.x, cardPos.y, "hero"));
-				}
-				else if (cards[index]->get_type() == "archer") {
-					heroes.emplace_back(std::make_unique<Archer>(cardPos.x, cardPos.y, "hero"));
-				}
-				previouslyPlacedCard = index;
-				potion.decrease_potion_level(cards[index]->get_cost());
-				cards[index]->return_to_position();
-				remove_from_deck(index);
-				card_shuffle(cards);
+			else if (cards[index]->get_type() == "giant") {
+				heroes.emplace_back(std::make_unique<Giant>(cardPos.x, cardPos.y, "hero"));
 			}
+			else if (cards[index]->get_type() == "archer") {
+				heroes.emplace_back(std::make_unique<Archer>(cardPos.x, cardPos.y, "hero"));
+			}
+			previouslyPlacedCard = index;
+			potion.decrease_potion_level(cards[index]->get_cost());
+			cards[index]->return_to_position();
+			remove_from_deck(index);
+			card_shuffle(cards);
 		}
 	}
+	
 }
 
 int Deck::get_selected_card(int index) {
 	return selectedCards[index];
+}
+
+void Deck::update_timer(float& deltaTime) {
+	if (timer < 5) {
+		timer += deltaTime;
+	}
 }

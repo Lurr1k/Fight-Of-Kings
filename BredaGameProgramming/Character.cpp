@@ -2,14 +2,13 @@
 #include "SFML/Graphics.hpp"
 #include <iostream>
 
-Character::Character(const std::string& texturePath, float xCoordinate, float yCoordinate, const std::string& battleSide, const std::string& soundPath, const std::string& characterName, float healthLimit, float characterAttackRange, float attackDamage, float attackCoolDown, float characterVelocity, float targetRange) {
+Character::Character(const std::string& texturePath, float xCoordinate, float yCoordinate, const std::string& battleSide, const std::string& soundPath, const std::string& characterName, float healthLimit, float characterAttackRange, float attackDamage, float characterVelocity, float targetRange) {
     
     hp = healthLimit;
     maxHp = healthLimit;
     attackRange = characterAttackRange;
     name = characterName;
     damage = attackDamage;
-    coolDown = attackCoolDown;
     velocity = characterVelocity;
     sightRange = targetRange;
     heroOrEnemy = battleSide;

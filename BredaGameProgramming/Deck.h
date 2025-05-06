@@ -10,6 +10,10 @@ private:
 	sf::FloatRect deckRectangle;
 	int selectedCards[5];
 	int previouslyPlacedCard;
+	float timer;
+	bool incorrectPlacement;
+	bool lowPotion;
+	Text errorSign = Text("You ___", 30);
 public:
 	
 	Deck();
@@ -26,6 +30,8 @@ public:
 
 	int get_selected_card(int index);
 
-	void spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vector<std::unique_ptr<Character>>& heroes, Potion &potion);
+	void spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vector<std::unique_ptr<Character>>& heroes, Potion &potion, int cardIndex);
+
+	void update_timer(float& deltaTime);
 };
 

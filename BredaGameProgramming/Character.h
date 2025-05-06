@@ -22,7 +22,7 @@ private:
 
 public:
     sf::Sprite character = sf::Sprite(texture);
-    Character(const std::string& texturePath, float xCoordinate, float yCoordinate, const std::string& battleSide, const std::string& soundPath, const std::string& characterName, float healthLimit, float characterAttackRange, float attackDamage, float attackCoolDown, float characterVelocity, float targetRange);
+    Character(const std::string& texturePath, float xCoordinate, float yCoordinate, const std::string& battleSide, const std::string& soundPath, const std::string& characterName, float healthLimit, float characterAttackRange, float attackDamage, float characterVelocity, float targetRange);
     
     
     void move_towards_enemy(std::vector<std::unique_ptr<Character>> &enemies, float &deltaTime);
@@ -52,23 +52,23 @@ public:
 
 class Goblin : public Character {
 public: 
-    Goblin(float xCoordinate, float yCoordinate, const std::string battleSide) : Character("images/Goblin.png", xCoordinate, yCoordinate, battleSide, "sounds/goblin.mp3", "Goblin", 50, 50, 25, 1, 50, 100) {}
+    Goblin(float xCoordinate, float yCoordinate, const std::string battleSide) : Character("images/Goblin.png", xCoordinate, yCoordinate, battleSide, "sounds/goblin.mp3", "Goblin", 50, 50, 25, 50, 100) {}
     
 };
 
 class Giant : public Character {
 public:
-    Giant(float xCoordinate, float yCoordinate, const std::string battleSide) : Character("images/Giant.png", xCoordinate, yCoordinate, battleSide, "sounds/giant.mp3", "Giant", 200, 10, 70, 3, 25, 100) {}
+    Giant(float xCoordinate, float yCoordinate, const std::string battleSide) : Character("images/Giant.png", xCoordinate, yCoordinate, battleSide, "sounds/giant.mp3", "Giant", 200, 10, 70, 25, 100) {}
 
 };
 
 class Tower : public Character {
 public:
-    Tower(float xCoordinate, float yCoordinate, const std::string battleSide) : Character("images/Tower.png", xCoordinate, yCoordinate, battleSide, "", "Tower", 250, 50, 1, 1, 0, 1) {}
+    Tower(float xCoordinate, float yCoordinate, const std::string battleSide) : Character("images/Tower.png", xCoordinate, yCoordinate, battleSide, "", "Tower", 250, 50, 1, 0, 1) {}
 };
 
 class Archer : public Character {
 public:
-    Archer(float xCoordinate, float yCoordinate, const std::string battleSide) : Character("images/Archer.png", xCoordinate, yCoordinate, battleSide, "sounds/archer.mp3", "Archer", 20, 200, 15, 1, 40, 300) {}
+    Archer(float xCoordinate, float yCoordinate, const std::string battleSide) : Character("images/Archer.png", xCoordinate, yCoordinate, battleSide, "sounds/archer.mp3", "Archer", 20, 200, 15, 40, 300) {}
 
 };
