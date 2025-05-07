@@ -56,7 +56,7 @@ bool Distribution::timing_correct(float
 	if (timer >= randomTime) {
 		timer = 0;
 		timing = true;
-		randomTime = 3 + (rand() % 5);
+		randomTime = 4 + (rand() % 5);
 	}
 	else {
 		timing = false;
@@ -68,15 +68,15 @@ bool Distribution::timing_correct(float
 std::string Distribution::choose_type() {
 	std::string chosenType;
 	float potionLevel = enemyLevel.get_potion_level();
-	if (potionLevel < 3 and potionLevel >= 2) {
+	if (potionLevel < 4 and potionLevel >= 2) {
 		chosenType = "goblin";
 		enemyLevel.decrease_potion_level(2);
 	}
-	else if (potionLevel < 5 and potionLevel >= 3) {
+	else if (potionLevel < 6 and potionLevel >= 4) {
 		chosenType = "archer";
 		enemyLevel.decrease_potion_level(3);
 	}
-	else if (potionLevel <= 10 and potionLevel >= 5) {
+	else if (potionLevel <= 10 and potionLevel >= 6) {
 		chosenType = "giant";
 		enemyLevel.decrease_potion_level(5);
 	}
