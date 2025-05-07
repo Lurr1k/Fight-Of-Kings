@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 #include "Text.h"
 
 class Potion {
@@ -14,7 +14,7 @@ public:
 
 	Potion();
 	// Increases the potion level
-	void increase_potion_level(float &deltaTime);
+	void increase_potion_level(float& deltaTime);
 	// Decreases the potion level
 	void decrease_potion_level(float amount);
 	// Displays the potion level

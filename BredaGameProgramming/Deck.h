@@ -2,7 +2,7 @@
 #include "Cards.h"
 #include "Character.h"
 #include <iostream>
-#include <SFML/Graphics.hpp>
+#include <random>
 #include "Potion.h"
 
 class Deck {
@@ -18,19 +18,19 @@ public:
 	
 	Deck();
 
-	void card_shuffle(std::vector<std::unique_ptr<Card>> &cards);
+	void card_shuffle(std::vector<std::unique_ptr<Card>>& cards);
 
-	void display_deck(sf::RenderWindow& window, std::vector<std::unique_ptr<Card>> &cards);
+	void display_deck(sf::RenderWindow& window, std::vector<std::unique_ptr<Card>>& cards);
 
 	bool in_deck(int index);
 
-	bool is_hovered(sf::Vector2f position);
+	bool is_hovered(sf::Vector2f Pos);
 
 	void remove_from_deck(int index);
 
 	int get_selected_card(int index);
 
-	void spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vector<std::unique_ptr<Character>>& heroes, Potion &potion, int cardIndex);
+	void spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vector<std::unique_ptr<Character>>& heroes, Potion& potion, int cardIndex);
 
 	void update_timer(float& deltaTime);
 };

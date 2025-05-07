@@ -15,6 +15,6 @@ public:
 
 	bool detect_button_hovered(sf::RenderWindow& window);
 
-	void scan_hovered(sf::RenderWindow &window);
+	void scan_hovered(sf::RenderWindow& window);
 
 };

@@ -1,6 +1,5 @@
 #include "Crowns.h"
-#include <iostream>
-#include "SFML/Graphics.hpp"
+
 
 Crown::Crown() {
 

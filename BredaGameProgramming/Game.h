@@ -1,13 +1,10 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include "Character.h"
 #include "Cards.h"
 #include "Deck.h"
 #include "Potion.h"
 #include "Distribution.h"
 #include "Screens.h"
-#include "Crowns.h"
 class Game {
 private:
 

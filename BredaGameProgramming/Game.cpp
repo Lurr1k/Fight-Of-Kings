@@ -1,10 +1,4 @@
 #include "Game.h"
-#include "Character.h"
-#include "Cards.h"
-#include "Deck.h"
-#include "Potion.h"
-#include "Distribution.h"
-#include "Screens.h"
 
 // Initialises the window and sets the window resolution
 void Game::init_window(){
@@ -210,13 +204,13 @@ void Game::running() {
                 }
             }
             for (auto& hero:heroes) {
-                if ((heroes.size() > 0) && (enemies.size() > 0)) {
-                    hero->move_towards_enemy(enemies, deltaTime);
+                if ((heroes.size() > 0) and (enemies.size() > 0)) {
+                    hero->move_and_attack(enemies, deltaTime);
                 } 
             }
             for (auto& enemy:enemies) {
-                if ((heroes.size() > 0) && (enemies.size() > 0)) {
-                    enemy->move_towards_enemy(heroes, deltaTime);
+                if ((heroes.size() > 0) and (enemies.size() > 0)) {
+                    enemy->move_and_attack(heroes, deltaTime);
                 }
             }
             check_if_game_over();

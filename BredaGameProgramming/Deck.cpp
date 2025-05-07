@@ -1,9 +1,5 @@
 #include "Deck.h"
-#include "Cards.h"
-#include "Character.h"
-#include <iostream>
-#include <random>
-#include "Potion.h"
+
 
 Deck::Deck() {
 	deckRectangle = sf::FloatRect({ 150, 849 }, { 450, 111 });
@@ -17,7 +13,7 @@ Deck::Deck() {
 
 
 
-void Deck::card_shuffle(std::vector<std::unique_ptr<Card>> &cards) {
+void Deck::card_shuffle(std::vector<std::unique_ptr<Card>>& cards) {
 	int nextCard;
 	int loopCount;
 	std::srand(std::time(0));
@@ -36,7 +32,7 @@ void Deck::card_shuffle(std::vector<std::unique_ptr<Card>> &cards) {
 	}		
 }
 
-void Deck::display_deck(sf::RenderWindow &window, std::vector<std::unique_ptr<Card>> &cards) {
+void Deck::display_deck(sf::RenderWindow& window, std::vector<std::unique_ptr<Card>>& cards) {
 	// for i in selected cards, display every card with a gap of 81 pixels on the x-axis
 	int cardsIndex;
 	for (int i = 0; i < 5; i++) {
@@ -67,9 +63,9 @@ bool Deck::in_deck(int index) {
 	return false;
 }
 
-bool Deck::is_hovered(sf::Vector2f position) {
+bool Deck::is_hovered(sf::Vector2f pos) {
 	bool isHovered = false;
-	if (deckRectangle.contains(position)) {
+	if (deckRectangle.contains(pos)) {
 		isHovered = true;
 	}
 	return isHovered;
@@ -86,7 +82,7 @@ void Deck::remove_from_deck(int index){
 	}
 }
 
-void Deck::spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vector<std::unique_ptr<Character>>& heroes, Potion &potion, int cardIndex) {
+void Deck::spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vector<std::unique_ptr<Character>>& heroes, Potion& potion, int cardIndex) {
 	sf::Vector2f cardPos;
 	int index = cardIndex;
 	if (index != -1) {

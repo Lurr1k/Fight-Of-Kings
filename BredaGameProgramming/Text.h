@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 
 class Text {
 private:
@@ -8,7 +8,7 @@ private:
 	sf::Font font;
 	float fontSize;
 	std::string textToDisplay;
-	sf::Vector2f textPosition;
+	sf::Vector2f textPos;
 	sf::Text sign;
 public:
 	Text(std::string text, float size);

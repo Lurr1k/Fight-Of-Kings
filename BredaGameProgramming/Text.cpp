@@ -1,6 +1,5 @@
 #include "Text.h"
-#include <iostream>
-#include "SFML/Graphics.hpp"
+
 
 
 Text::Text(std::string text, float size) : sign(font, text, size){
@@ -20,14 +19,14 @@ void Text::update_text(std::string text) {
 
 }
 void Text::set_position(sf::Vector2f coordinates) {
-	textPosition = coordinates;
+	textPos = coordinates;
 	sf::Vector2f bounds = sign.getLocalBounds().size;
 	sign.setOrigin({ bounds.x / 2, bounds.y / 2 });
-	sign.setPosition(textPosition);
+	sign.setPosition(textPos);
 }
 
 
-void Text::display_text(sf::RenderWindow &window) {
+void Text::display_text(sf::RenderWindow& window) {
 	window.draw(sign);
 }
 

@@ -1,7 +1,5 @@
 #include "Screens.h"
-#include "Text.h"
-#include "Button.h"
-#include "Crowns.h"
+
 
 
 // Displays the starting screen
@@ -48,7 +46,7 @@ void HelpScreen::scan_hovered(sf::RenderWindow& window) {
 }
 
 // Displays the end screen
-void EndScreen::draw_end_screen(sf::RenderWindow & window) {
+void EndScreen::draw_end_screen(sf::RenderWindow&  window) {
 	for (auto& crown : crowns) {
 		crown->display_crown(window);
 	}

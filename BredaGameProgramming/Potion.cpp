@@ -1,6 +1,5 @@
 #include "Potion.h"
-#include <iostream>
-#include "SFML/Graphics.hpp"
+
 
 
 Potion::Potion() {
@@ -21,7 +20,7 @@ Potion::Potion() {
 }
 
 // Displays the potion level
-void Potion::display_potion(sf::RenderWindow &window) {
+void Potion::display_potion(sf::RenderWindow& window) {
     levelSign.update_text(std::to_string(static_cast<int>(std::floor(potionLevel))));
     window.draw(potionBarBackground);
     window.draw(potionLevelBar);
@@ -30,7 +29,7 @@ void Potion::display_potion(sf::RenderWindow &window) {
 }
 
 // Increases the potion level
-void Potion::increase_potion_level(float &deltaTime) {
+void Potion::increase_potion_level(float& deltaTime) {
     float time = deltaTime;
     if (potionLevel < 10) {
         potionLevel += 0.357 * time;

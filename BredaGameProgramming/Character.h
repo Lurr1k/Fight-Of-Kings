@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
+#include "Arrow.h"
 
 class Character {
 private:
@@ -19,29 +20,33 @@ private:
     sf::RectangleShape healthBar;
     sf::SoundBuffer soundBuffer;
     sf::Sound characterSound = sf::Sound(soundBuffer);
-
-public:
+protected:
+    float time;
+    sf::Vector2f target;
     sf::Sprite character = sf::Sprite(texture);
+    bool attacking;
+public:
+    
     Character(const std::string& texturePath, float xCoordinate, float yCoordinate, const std::string& battleSide, const std::string& soundPath, const std::string& characterName, float healthLimit, float characterAttackRange, float attackDamage, float characterVelocity, float targetRange);
     
     
-    void move_towards_enemy(std::vector<std::unique_ptr<Character>> &enemies, float &deltaTime);
+    void move_and_attack(std::vector<std::unique_ptr<Character>>& enemies, float& deltaTime);
 
-    void move_character(float xDistance, float yDistance, float &time, sf::Vector2f &currentPosition);
+    void move_character(float xDistance, float yDistance, float& time, sf::Vector2f& currentPos);
 
     void set_position(float x, float y);
 
     sf::Vector2f get_position();
     
-    void take_damage(float damageTaken, float &deltaTime);
+    void take_damage(float damageTaken);
 
-    void delete_target(Character *target, std::vector<std::unique_ptr<Character>> &enemies);
+    void delete_target(Character *targetCharacter, std::vector<std::unique_ptr<Character>>& enemies);
 
-    void draw_character(sf::RenderWindow& window);
+    virtual void draw_character(sf::RenderWindow& window);
     
     float get_velocity();
     
-    int identify_closest_target(std::vector<std::unique_ptr<Character>> &enemies);
+    int identify_closest_target(std::vector<std::unique_ptr<Character>>& enemies);
 
     std::string get_name();
 
@@ -69,7 +74,10 @@ public:
 };
 
 class Archer : public Character {
+private:
+    Arrow arrow;
 public:
+    
     Archer(float xCoordinate, float yCoordinate, const std::string battleSide) : Character("images/Archer.png", xCoordinate, yCoordinate, battleSide, "sounds/archer.mp3", "Archer", 20, 200, 15, 40, 300) {}
-
+    virtual void draw_character(sf::RenderWindow& window) override;
 };

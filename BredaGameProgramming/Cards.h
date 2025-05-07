@@ -16,7 +16,7 @@ public:
 
 	Card(const std::string& TEXTUREPATH, const std::string& type, float cost);
 
-	void set_initial_position(float xPosition, float yPosition);
+	void set_initial_position(float xPos, float yPos);
 
 	void card_dragging(sf::RenderWindow& window);
 
@@ -36,7 +36,7 @@ public:
 	
 	std::string get_type();
 
-	void set_card_position(float xPosition, float yPosition);
+	void set_card_position(float xPos, float yPos);
 
 	float get_cost();
 
@@ -53,5 +53,5 @@ public:
 };
 class ArcherCard : public Card {
 public:
-	ArcherCard() : Card("images/ArcherCard.png", "archer", 3) {}
+	ArcherCard() : Card("images/ArcherCard.png", "archer", 0) {}
 };

@@ -1,8 +1,5 @@
-#include <iostream>
-#include "SFML/Graphics.hpp"
 #include "Distribution.h"
-#include "Character.h"
-#include "Potion.h"
+
 
 
 Distribution::Distribution() {
@@ -50,7 +47,10 @@ sf::Vector2f Distribution::generate_spawn_location(std::vector<std::unique_ptr<C
 }
 
 // Checks whether the timer allows to spawn enemies and regenerates the pseudorandom time pause
-bool Distribution::timing_correct(float &deltaTime) {
+bool Distribution::timing_correct(float
+	
+	
+	deltaTime) {
 	timer += deltaTime;
 	bool timing = false;
 	if (timer >= randomTime) {
@@ -85,21 +85,21 @@ std::string Distribution::choose_type() {
 }
 
 // Spawns the enemies on the enemy side
-void Distribution::spawn_enemies(float &deltaTime, std::vector<std::unique_ptr<Character>>& heroes, std::vector<std::unique_ptr<Character>>& enemies) {
+void Distribution::spawn_enemies(float& deltaTime, std::vector<std::unique_ptr<Character>>& heroes, std::vector<std::unique_ptr<Character>>& enemies) {
 	enemyLevel.increase_potion_level(deltaTime);
 	std::string chosenType;
-	sf::Vector2f spawnPosition;
+	sf::Vector2f spawnPos;
 	if (timing_correct(deltaTime)) {
 		chosenType = choose_type();
-		spawnPosition = generate_spawn_location(heroes);
+		spawnPos = generate_spawn_location(heroes);
 		if (chosenType == "goblin") {
-			enemies.emplace_back(std::make_unique<Goblin>(spawnPosition.x, spawnPosition.y, "enemy"));
+			enemies.emplace_back(std::make_unique<Goblin>(spawnPos.x, spawnPos.y, "enemy"));
 		}
 		else if (chosenType == "giant") {
-			enemies.emplace_back(std::make_unique<Giant>(spawnPosition.x, spawnPosition.y, "enemy"));
+			enemies.emplace_back(std::make_unique<Giant>(spawnPos.x, spawnPos.y, "enemy"));
 		}
 		else if (chosenType == "archer") {
-			enemies.emplace_back(std::make_unique<Archer>(spawnPosition.x, spawnPosition.y, "enemy"));
+			enemies.emplace_back(std::make_unique<Archer>(spawnPos.x, spawnPos.y, "enemy"));
 		}
 	}
 

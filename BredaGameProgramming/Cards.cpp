@@ -1,6 +1,5 @@
 #include "Cards.h"
-#include "SFML/Graphics.hpp"
-#include <iostream>
+
 
 
 Card::Card(const std::string& texturePath, const std::string& type, float cost){
@@ -35,7 +34,7 @@ void Card::draw_card(sf::RenderWindow& window) {
     window.draw(card);
 }
 
-bool Card::mouse_on_card(sf::RenderWindow &window) {
+bool Card::mouse_on_card(sf::RenderWindow& window) {
     bool cardIsHovered = false;
     sf::FloatRect bounds = card.getGlobalBounds();
     sf::Vector2i intCoords = sf::Mouse::getPosition(window);

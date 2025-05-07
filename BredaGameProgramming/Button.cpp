@@ -1,6 +1,5 @@
 #include "Button.h"
-#include "Text.h"
-#include <iostream>
+
 
 
 Button::Button(sf::Vector2f coordinates, std::string text) : buttonSign(text, 30) {
@@ -37,7 +36,7 @@ void Button::scan_hovered(sf::RenderWindow& window) {
 	}
 }
 
-void Button::display_button(sf::RenderWindow &window){
+void Button::display_button(sf::RenderWindow& window){
 	window.draw(button);
 	buttonSign.display_text(window);
 }
