@@ -58,7 +58,7 @@ public:
 
 class Goblin : public Character {
 public: 
-    Goblin(float xCoordinate, float yCoordinate, const std::string battleSide) : Character("images/Goblin.png", xCoordinate, yCoordinate, battleSide, "sounds/goblin.mp3", "Goblin", 50, 50, 25, 50, 100) {}
+    Goblin(float xCoordinate, float yCoordinate, const std::string battleSide) : Character("images/Goblin.png", xCoordinate, yCoordinate, battleSide, "sounds/goblin.mp3", "Goblin", 50, 50, 20, 50, 100) {}
     
 };
 
@@ -78,6 +78,6 @@ private:
     Arrow arrow;
 public:
     
-    Archer(float xCoordinate, float yCoordinate, const std::string battleSide) : Character("images/Archer.png", xCoordinate, yCoordinate, battleSide, "sounds/archer.mp3", "Archer", 20, 200, 15, 40, 300) {}
+    Archer(float xCoordinate, float yCoordinate, const std::string battleSide) : Character("images/Archer.png", xCoordinate, yCoordinate, battleSide, "sounds/archer.mp3", "Archer", 20, 200, 10, 30, 300) {}
     virtual void draw_character(sf::RenderWindow& window) override;
 };

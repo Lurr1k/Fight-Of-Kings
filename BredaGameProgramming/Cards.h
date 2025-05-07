@@ -53,5 +53,5 @@ public:
 };
 class ArcherCard : public Card {
 public:
-	ArcherCard() : Card("images/ArcherCard.png", "archer", 0) {}
+	ArcherCard() : Card("images/ArcherCard.png", "archer", 3) {}
 };

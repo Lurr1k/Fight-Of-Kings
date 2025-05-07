@@ -56,7 +56,7 @@ bool Distribution::timing_correct(float
 	if (timer >= randomTime) {
 		timer = 0;
 		timing = true;
-		randomTime = 2 + (rand() % 5);
+		randomTime = 3 + (rand() % 5);
 	}
 	else {
 		timing = false;

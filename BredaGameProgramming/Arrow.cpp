@@ -70,7 +70,6 @@ void Arrow::shoot(sf::Vector2f initial, sf::Vector2f target) {
     targetPos = target;
     arrow.setPosition(startPos);
     arrowFlying = true;
-    std::cout << targetPos.x;
 }
 
 
