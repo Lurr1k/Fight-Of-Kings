@@ -94,7 +94,7 @@ void EndScreen::clear_crowns() {
 	crowns.clear();
 }
 
-// Sets the result text 
+// Sets the result text and plays the result sound.
 void EndScreen::set_result_text() {
 	std::string soundPath;
 	if (destroyedTowers > lostTowers) {
@@ -107,10 +107,7 @@ void EndScreen::set_result_text() {
 		resultSign.set_colour(sf::Color::Red);
 		soundPath = "sounds/sad.mp3";
 	}
-	endBuffer.loadFromFile(soundPath);
-	endSound.setBuffer(endBuffer);
-	endSound.setVolume(10);
-	endSound.play();
+	Audio::instance().end_sound(soundPath);
 
 	resultSign.set_position({ 375, 400 });
 }

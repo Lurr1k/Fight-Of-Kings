@@ -16,7 +16,8 @@ private:
 	sf::Sound pageSound = sf::Sound(pageBuffer);
 	sf::SoundBuffer characterBuffer;
 	sf::Sound characterSound = sf::Sound(characterBuffer);
-
+	sf::SoundBuffer endBuffer;
+	sf::Sound endSound = sf::Sound(endBuffer);
 
 
 public:
@@ -44,4 +45,7 @@ public:
 
 	// Plays the sound corresponding to the spawned character
 	void character_sound(const std::string& soundPath);
+
+	// Plays the sound once the game is over
+	void end_sound(const std::string& soundPath);
 };

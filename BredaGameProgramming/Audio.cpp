@@ -64,3 +64,12 @@ void Audio::character_sound(const std::string& soundPath) {
         characterSound.play();
     }
 }
+
+void Audio::end_sound(const std::string& soundPath) {
+    if (not paused) {
+        endBuffer.loadFromFile(soundPath);
+        endSound.setBuffer(characterBuffer);
+        endSound.setVolume(40);
+        endSound.play();
+    }
+}

@@ -1,10 +1,10 @@
 #pragma once
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "SFML/Audio.hpp"
 #include "Text.h"
 #include "Button.h"
 #include "Crowns.h"
+#include "Audio.h"
 
 
 
@@ -75,6 +75,6 @@ public:
 	//Removes all the crowns
 	void clear_crowns();
 
-	//Sets the result text 
+	//Sets the result text and plays the result sound.
 	void set_result_text();
 };
