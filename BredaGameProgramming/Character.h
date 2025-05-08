@@ -60,15 +60,13 @@ public:
     // Returns the character's current hp
     float get_hp();
 
-    // Toggles character spawn sounds
-    void toggle_sounds();
 
 };
 
 // Goblin
 class Goblin : public Character {
 public: 
-    Goblin(float xCoordinate, float yCoordinate, const std::string battleSide) : Character("images/Goblin.png", xCoordinate, yCoordinate, battleSide, "sounds/goblin.mp3", "Goblin", 70, 50, 20, 50, 100) {}
+    Goblin(float xCoordinate, float yCoordinate, const std::string battleSide) : Character("images/Goblin.png", xCoordinate, yCoordinate, battleSide, "sounds/goblin.mp3", "Goblin", 50, 50, 20, 50, 100) {}
     
 };
 

@@ -57,7 +57,6 @@ void Audio::play_page() {
 
 // Plays the sound corresponding to the spawned character
 void Audio::character_sound(const std::string& soundPath) {
-    std::cout << paused;
     if (not paused) {
         characterBuffer.loadFromFile(soundPath);
         characterSound.setBuffer(characterBuffer);
