@@ -39,7 +39,7 @@ void Game::instantiate_characters() {
     heroes.push_back(std::make_unique<Tower>(375, 760, "hero"));
 }
 
-//Scans for events and performs their consequences
+// Scans for events and performs their consequences
 void Game::poll_events() {
     int cardIndex;
     while (const std::optional event = window.pollEvent())
@@ -67,7 +67,7 @@ void Game::poll_events() {
                     helpPage = false;
                     helpPage2 = false;
                     startPage = true;
-                    audio.play_page();
+                    Audio::instance().play_page();
                 }
                 else if (helpScreen.next_hovered(window) and (helpPage or helpPage2)) {
                     if (helpPage) {
@@ -78,7 +78,7 @@ void Game::poll_events() {
                         helpPage = true;
                         helpPage2 = false;
                     }
-                    audio.play_page();
+                    Audio::instance().play_page();
                 }
                 else if (startingScreen.start_hovered(window) and startPage) {
                     clock.restart();
@@ -87,15 +87,15 @@ void Game::poll_events() {
                 else if (startingScreen.help_hovered(window) and startPage) {
                     startPage = false;
                     helpPage = true;
-                    audio.play_huh();
+                    Audio::instance().play_huh();
                 }
                 else if (startingScreen.mute_hovered(window) and startPage) {
-                    audio.toggle_sounds();
+                    Audio::instance().toggle_sounds();
                 }
                 else if (endScreen.return_hovered(window) and endPage) {
                     endPage = false;
                     startPage = true;
-                    audio.play_page();
+                    Audio::instance().play_page();
                 }
             }
         }
@@ -162,7 +162,7 @@ void Game::update_screen() {
 // Game constructor, initialises the window, the sounds and loads the backgrounds
 Game::Game() {
     init_window();
-    audio.init_sounds();
+    Audio::instance().init_sounds();
     load_background();
 }
 
@@ -173,7 +173,7 @@ void Game::start_game() {
     startPage = false;
     potion.decrease_potion_level(10);
     distribution.reset_potion();
-    audio.play_slash();
+    Audio::instance().play_slash();
 }
 
 // The general game loop

@@ -15,8 +15,10 @@ public:
 	Potion();
 	// Increases the potion level
 	void increase_potion_level(float& deltaTime);
+
 	// Decreases the potion level
 	void decrease_potion_level(float amount);
+
 	// Displays the potion level
 	void display_potion(sf::RenderWindow& window);
 

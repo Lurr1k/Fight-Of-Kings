@@ -19,15 +19,15 @@ private:
     std::string heroOrEnemy;
     sf::RectangleShape barBackground;
     sf::RectangleShape healthBar;
-    Audio audio;
+
 // Protected to be used later in the child classes
 protected:
     float time;
     sf::Vector2f target;
     sf::Sprite character = sf::Sprite(texture);
     bool attacking;
+
 public:
-    
     Character(const std::string& texturePath, float xCoordinate, float yCoordinate, const std::string& battleSide, const std::string& soundPath, const std::string& characterName, float healthLimit, float characterAttackRange, float attackDamage, float characterVelocity, float targetRange);
     
     // Coordinates the movement and attack logic for the character

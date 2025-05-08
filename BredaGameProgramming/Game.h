@@ -7,7 +7,6 @@
 #include "Screens.h"
 class Game {
 private:
-	Audio audio;
 	sf::Clock clock;
 	sf::Texture backgroundTexture;
 	sf::Texture helpPageTexture;
@@ -41,26 +40,31 @@ private:
 
 public:
 
+	// Initialises the window
 	void init_window();
-	
-	void init_sounds();
 
+	// Loads the background textures for all of the screens
 	void load_background();
 
+	// Instantiates the towers and cards for the game's start
 	void instantiate_characters();
 
+	// Updates the screen, displaying all of the screens and characters
 	void update_screen();
 
+	// Scans for events and performs their consequences
 	void poll_events();
 
+	// Performed each time the game starts, resets everything on the game screen and switches to the game screen
 	void start_game();
 
+	// The general game loop
 	void running();
 
+	// Checks if any of the sides has lost all three towers, and if that is the case, finishes the game and switches to the end screen.
 	void check_if_game_over();
 
-	void mute_music();
-
+	// Game constructor, initialises the window, the sounds and loads the backgrounds
 	Game();
 
 

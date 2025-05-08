@@ -18,7 +18,7 @@ Character::Character(const std::string& texturePath, float xCoordinate, float yC
     character.setTexture(texture, true);
 
     if (name != "Tower") {
-        audio.character_sound(soundPath);
+        Audio::instance().character_sound(soundPath);
     }
 
 

@@ -18,42 +18,44 @@ void Audio::init_sounds() {
     initialised = true;
 }
 
+// Toggles the sounds
 void Audio::toggle_sounds() {
     if (paused) {
         paused = false;
-        if (initialised) {
-            backgroundMusic.play();
-        }
+       
+        backgroundMusic.play();
         
-        std::cout << "Unpaused";
     }
     else {
         paused = true;
-        if (initialised) {
-            backgroundMusic.pause();
-        }
-        std::cout << "Paused";
+      
+        backgroundMusic.pause();
+        
     }
 }
 
+// Plays the slash sound
 void Audio::play_slash() {
     if (not paused) {
         slashSound.play();
     }
 }
 
+// Plays the huh sound
 void Audio::play_huh() {
     if (not paused) {
         huhSound.play();
     }
 }
 
+// Plays the page sound
 void Audio::play_page() {
     if (not paused) {
         pageSound.play();
     }
 }
 
+// Plays the sound corresponding to the spawned character
 void Audio::character_sound(const std::string& soundPath) {
     std::cout << paused;
     if (not paused) {
@@ -61,6 +63,5 @@ void Audio::character_sound(const std::string& soundPath) {
         characterSound.setBuffer(characterBuffer);
         characterSound.setVolume(40);
         characterSound.play();
-        std::cout << paused;
     }
 }

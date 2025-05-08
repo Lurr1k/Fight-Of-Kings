@@ -17,7 +17,14 @@ private:
 	sf::SoundBuffer characterBuffer;
 	sf::Sound characterSound = sf::Sound(characterBuffer);
 
+
+
 public:
+	// Makes the audio a singleton class
+	static Audio& instance() {
+		static Audio instance;
+		return instance;
+	}
 
 	// Plays the slash sound
 	void play_slash();
@@ -29,10 +36,12 @@ public:
 	// Plays the page sound
 	void play_page();
 
-	//
+	// Toggles the sounds 
 	void toggle_sounds();
 
+	// Initialises the background and page sounds
 	void init_sounds();
 
+	// Plays the sound corresponding to the spawned character
 	void character_sound(const std::string& soundPath);
 };
