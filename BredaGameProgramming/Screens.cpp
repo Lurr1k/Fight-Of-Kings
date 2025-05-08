@@ -18,7 +18,7 @@ bool StartingScreen::help_hovered(sf::RenderWindow& window) {
 
 	return helpButton.detect_button_hovered(window);
 }
-// scans whether any of the buttons are hovered
+// Scans whether any of the buttons are hovered and lights up the buttons if they are
 void StartingScreen::scan_hovered(sf::RenderWindow& window) {
 	startButton.scan_hovered(window);
 	helpButton.scan_hovered(window);
@@ -39,7 +39,7 @@ bool HelpScreen::next_hovered(sf::RenderWindow& window) {
 	return nextButton.detect_button_hovered(window);
 }
 
-// Scans whether any of the buttons are hovered
+// Scans whether any of the buttons are hovered and lights up the buttons if they are
 void HelpScreen::scan_hovered(sf::RenderWindow& window) {
 	backButton.scan_hovered(window);
 	nextButton.scan_hovered(window);
@@ -54,7 +54,7 @@ void EndScreen::draw_end_screen(sf::RenderWindow&  window) {
 	resultSign.display_text(window);
 }
 
-// Scans whether any of the buttons are hovered
+// Scans whether any of the buttons are hovered and lights up the buttons if they are
 void EndScreen::scan_hovered(sf::RenderWindow& window) {
 	returnButton.scan_hovered(window);
 }

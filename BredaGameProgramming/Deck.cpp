@@ -33,7 +33,6 @@ void Deck::card_shuffle(std::vector<std::unique_ptr<Card>>& cards) {
 }
 
 void Deck::display_deck(sf::RenderWindow& window, std::vector<std::unique_ptr<Card>>& cards) {
-	// for i in selected cards, display every card with a gap of 81 pixels on the x-axis
 	int cardsIndex;
 	for (int i = 0; i < 5; i++) {
 		cardsIndex = selectedCards[i];
@@ -55,12 +54,13 @@ void Deck::display_deck(sf::RenderWindow& window, std::vector<std::unique_ptr<Ca
 }
 
 bool Deck::in_deck(int index) {
+	bool inDeck = false;
 	for (int i = 0; i < 5; i++) {
 		if (selectedCards[i] == index) {
-			return true;
+			inDeck = true;
 		}
 	}
-	return false;
+	return inDeck;
 }
 
 bool Deck::is_hovered(sf::Vector2f pos) {

@@ -34,10 +34,7 @@ Character::Character(const std::string& texturePath, float xCoordinate, float yC
     character.setOrigin({ bounds.x / 2, bounds.y / 2 });
 }
 
-void Character::set_position(float x, float y) {
-    character.setPosition({ x,y });
-}
-
+// Coordinates the movement and attack logic for the character
 void Character::move_and_attack(std::vector<std::unique_ptr<Character>>& enemies, float& deltaTime) {
     time = deltaTime;
     if (name != "Tower") {
@@ -81,6 +78,7 @@ void Character::move_and_attack(std::vector<std::unique_ptr<Character>>& enemies
     }
 }
 
+// Moves the character towards the target
 void Character::move_character(float xDistance, float yDistance, float& time, sf::Vector2f& currentPos) {
     std::string moving = "";
     if (xDistance < -2 and not (currentPos.y >= 450 and currentPos.y <= 510)) {
@@ -121,6 +119,7 @@ void Character::move_character(float xDistance, float yDistance, float& time, sf
     }
 }
 
+// Deletes the enemy character
 void Character::delete_target(Character* targetCharacter, std::vector<std::unique_ptr<Character>>& enemies) {
     for (std::size_t i = 0; i < enemies.size(); i++) {
         if (enemies[i].get() == targetCharacter) {
@@ -131,14 +130,18 @@ void Character::delete_target(Character* targetCharacter, std::vector<std::uniqu
     }
 
 }
+
+// Returns character's current position
 sf::Vector2f Character::get_position() {
     return character.getPosition();
 }
 
+// Displays the character
 void Character::draw_character(sf::RenderWindow& window) {
     window.draw(character);
 }
 
+// Decreases the character's hp by the damage dealt to it
 void Character::take_damage(float damageTaken) {
     
 
@@ -146,16 +149,13 @@ void Character::take_damage(float damageTaken) {
     
 }
 
-float Character::get_velocity() {
-
-    return velocity;
-}
-
+// Returns the characters name (type)
 std::string Character::get_name() {
 
     return name;
 }
 
+// Identifies the closest enemy character and returns its index
 int Character::identify_closest_target(std::vector<std::unique_ptr<Character>>& enemies) {
     sf::Vector2f posDifference;
     float newDistance;
@@ -186,6 +186,7 @@ int Character::identify_closest_target(std::vector<std::unique_ptr<Character>>& 
     return chosenIndex;
 }
 
+// Displays and manages the healthbar
 void Character::display_health_bar(sf::RenderWindow& window) {
     sf::Vector2f characterToBarDistance;
     if (hp < 0) {
@@ -217,11 +218,13 @@ void Character::display_health_bar(sf::RenderWindow& window) {
 
 }
 
+// Returns the character's current hp
 float Character::get_hp() {
 
     return hp;
 }
 
+// Displays the character
 void Archer::draw_character(sf::RenderWindow& window){
     window.draw(character);
 

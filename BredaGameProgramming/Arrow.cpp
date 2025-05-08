@@ -8,11 +8,12 @@ Arrow::Arrow() {
     arrow.setOrigin({ arrowSize.x / 2, arrowSize.y / 2 });
     velocity = 250;
 }
-
+// Returns whether the arrow is currently flying
 bool Arrow::is_flying() {
     return arrowFlying;
 }
 
+// Moves the arrow towards the target
 void Arrow::move_arrow(sf::Vector2f target, float& deltaTime) {
     if (arrowFlying){
         sf::Vector2f distanceVector = targetPos - arrow.getPosition();
@@ -64,7 +65,7 @@ void Arrow::move_arrow(sf::Vector2f target, float& deltaTime) {
     }
     
 }
-
+// Launches the arrow from the initial position
 void Arrow::shoot(sf::Vector2f initial, sf::Vector2f target) {
     startPos = initial;
     targetPos = target;
@@ -72,7 +73,7 @@ void Arrow::shoot(sf::Vector2f initial, sf::Vector2f target) {
     arrowFlying = true;
 }
 
-
+// Displays the arrow
 void Arrow::draw_arrow(sf::RenderWindow& window) {
     window.draw(arrow);
 }

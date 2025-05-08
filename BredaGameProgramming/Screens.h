@@ -21,7 +21,7 @@ public:
 	// Returns whether the start button is hovered
 	bool start_hovered(sf::RenderWindow& window);
 
-	// scans whether any of the buttons are hovered
+	// Scans whether any of the buttons are hovered and lights up the buttons if they are
 	void scan_hovered(sf::RenderWindow& window);
 
 	// Returns whether the help button is hovered
@@ -37,7 +37,7 @@ private:
 public:
 	// Displays the help screen
 	void draw_help_screen(sf::RenderWindow& window);
-	// Scans whether any of the buttons are hovered
+	// Scans whether any of the buttons are hovered and lights up the buttons if they are
 	void scan_hovered(sf::RenderWindow& window);
 	// Returns whether the back button is hovered
 	bool back_hovered(sf::RenderWindow& window);
@@ -60,7 +60,7 @@ public:
 	// Displays the help screen
 	void draw_end_screen(sf::RenderWindow& window);
 
-	// Scans whether any of the buttons are hovered
+	// Scans whether any of the buttons are hovered and lights up the buttons if they are
 	void scan_hovered(sf::RenderWindow& window);
 
 	// Returns whether the return button is hovered
