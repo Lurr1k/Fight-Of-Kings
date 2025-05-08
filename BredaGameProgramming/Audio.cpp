@@ -68,7 +68,7 @@ void Audio::character_sound(const std::string& soundPath) {
 void Audio::end_sound(const std::string& soundPath) {
     if (not paused) {
         endBuffer.loadFromFile(soundPath);
-        endSound.setBuffer(characterBuffer);
+        endSound.setBuffer(endBuffer);
         endSound.setVolume(40);
         endSound.play();
     }
