@@ -18,10 +18,7 @@ Character::Character(const std::string& texturePath, float xCoordinate, float yC
     character.setTexture(texture, true);
 
     if (name != "Tower") {
-        soundBuffer.loadFromFile(soundPath);
-        characterSound.setBuffer(soundBuffer);
-        characterSound.setVolume(40);
-        characterSound.play();
+        audio.character_sound(soundPath);
     }
 
 

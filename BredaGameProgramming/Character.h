@@ -3,6 +3,7 @@
 #include <SFML/Audio.hpp>
 #include <iostream>
 #include "Arrow.h"
+#include "Audio.h"
 
 class Character {
 private:
@@ -18,8 +19,7 @@ private:
     std::string heroOrEnemy;
     sf::RectangleShape barBackground;
     sf::RectangleShape healthBar;
-    sf::SoundBuffer soundBuffer;
-    sf::Sound characterSound = sf::Sound(soundBuffer);
+    Audio audio;
 // Protected to be used later in the child classes
 protected:
     float time;
@@ -59,6 +59,9 @@ public:
     
     // Returns the character's current hp
     float get_hp();
+
+    // Toggles character spawn sounds
+    void toggle_sounds();
 
 };
 

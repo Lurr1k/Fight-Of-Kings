@@ -12,15 +12,13 @@ Deck::Deck() {
 }
 
 
-
+// Shuffles the cards and selects them into the deck
 void Deck::card_shuffle(std::vector<std::unique_ptr<Card>>& cards) {
 	int nextCard;
-	int loopCount;
 	std::srand(std::time(0));
 	for (int i = 0; i < 5; i++) {
 		nextCard = 0;
 		if (selectedCards[i] == -1) {
-			loopCount = 0;
 
 			while ((in_deck(nextCard) or (nextCard == previouslyPlacedCard)) and nextCard < cards.size()){
 				nextCard += 1;
@@ -32,6 +30,7 @@ void Deck::card_shuffle(std::vector<std::unique_ptr<Card>>& cards) {
 	}		
 }
 
+// Displays the selected cards in the deck
 void Deck::display_deck(sf::RenderWindow& window, std::vector<std::unique_ptr<Card>>& cards) {
 	int cardsIndex;
 	for (int i = 0; i < 5; i++) {
@@ -53,6 +52,7 @@ void Deck::display_deck(sf::RenderWindow& window, std::vector<std::unique_ptr<Ca
 	
 }
 
+// Returns whether a card of an input index is currently in the deck
 bool Deck::in_deck(int index) {
 	bool inDeck = false;
 	for (int i = 0; i < 5; i++) {
@@ -63,6 +63,7 @@ bool Deck::in_deck(int index) {
 	return inDeck;
 }
 
+// Returns whether the input position is hovered over the deck
 bool Deck::is_hovered(sf::Vector2f pos) {
 	bool isHovered = false;
 	if (deckRectangle.contains(pos)) {
@@ -71,6 +72,7 @@ bool Deck::is_hovered(sf::Vector2f pos) {
 	return isHovered;
 }
 
+// Removes the card of input index from the deck
 void Deck::remove_from_deck(int index){
 	if (in_deck(index)) {
 		for (int i = 0; i < 5; i++) {
@@ -82,6 +84,9 @@ void Deck::remove_from_deck(int index){
 	}
 }
 
+// Determines whether the card spawns the character or returns 
+// to the deck depending on potionLevel and placement position
+// And manages the corresponding errors
 void Deck::spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vector<std::unique_ptr<Character>>& heroes, Potion& potion, int cardIndex) {
 	sf::Vector2f cardPos;
 	int index = cardIndex;
@@ -122,10 +127,13 @@ void Deck::spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vecto
 	
 }
 
+
+// Returns the card that is stored at the input index at the deck
 int Deck::get_selected_card(int index) {
 	return selectedCards[index];
 }
 
+// Updates the error message timer
 void Deck::update_timer(float& deltaTime) {
 	if (timer < 5) {
 		timer += deltaTime;

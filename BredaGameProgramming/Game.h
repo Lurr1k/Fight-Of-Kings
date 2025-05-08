@@ -7,7 +7,7 @@
 #include "Screens.h"
 class Game {
 private:
-
+	Audio audio;
 	sf::Clock clock;
 	sf::Texture backgroundTexture;
 	sf::Texture helpPageTexture;
@@ -19,15 +19,6 @@ private:
 	std::optional<sf::Sprite> startPageBackground;
 	std::optional<sf::Sprite> endPageBackground;
 	std::optional<sf::Sprite> background;
-	sf::Music backgroundMusic;
-	sf::SoundBuffer slashBuffer;
-	sf::Sound slashSound = sf::Sound(slashBuffer);
-	sf::SoundBuffer huhBuffer;
-	sf::Sound huhSound = sf::Sound(huhBuffer);
-	sf::SoundBuffer bookBuffer;
-	sf::Sound bookSound = sf::Sound(bookBuffer);
-	unsigned int height;
-	unsigned int width;
 	std::string windowTitle;
 	sf::VideoMode resolution;
 	std::vector<std::unique_ptr<Character>> heroes;
@@ -40,13 +31,11 @@ private:
 	StartingScreen startingScreen;
 	HelpScreen helpScreen;
 	EndScreen endScreen;
-	Button muteButton = Button({ 375,800 }, "Mute music");
 	bool gameRunning = false;
 	bool helpPage = false;
 	bool helpPage2 = false;
 	bool endPage = false;
 	bool startPage = true;
-	enum levels {START, HELP, GAME, END};
 
 	
 

@@ -18,22 +18,22 @@ public:
 	
 	Deck();
 
-	// Shuffles the cards
+	// Shuffles the cards and selects them into the deck
 	void card_shuffle(std::vector<std::unique_ptr<Card>>& cards);
 
-	// Displays the deck 
+	// Displays the selected cards in the deck
 	void display_deck(sf::RenderWindow& window, std::vector<std::unique_ptr<Card>>& cards);
 
 	// Returns whether a card of an input index is currently in the deck
 	bool in_deck(int index);
 
-	// Returns whether the input position is over the deck
+	// Returns whether the input position is hovered over the deck
 	bool is_hovered(sf::Vector2f Pos);
 
 	// Removes the card of input index from the deck
 	void remove_from_deck(int index);
 
-	// Returns the card that is currently selected
+	// Returns the card that is stored at the input index at the deck
 	int get_selected_card(int index);
 
 	// Determines whether the card spawns the character or returns 
@@ -41,7 +41,7 @@ public:
 	// And manages the corresponding errors
 	void spawn_or_return(std::vector<std::unique_ptr<Card>>& cards, std::vector<std::unique_ptr<Character>>& heroes, Potion& potion, int cardIndex);
 
-	// Updates the error timer
+	// Updates the error message timer
 	void update_timer(float& deltaTime);
 };
 

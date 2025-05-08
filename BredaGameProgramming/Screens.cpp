@@ -6,6 +6,7 @@
 void StartingScreen::draw_starting_screen(sf::RenderWindow& window) {
 	startButton.display_button(window);
 	helpButton.display_button(window);
+	muteButton.display_button(window);
 }
 
 // Returns whether the start button is hovered
@@ -18,10 +19,18 @@ bool StartingScreen::help_hovered(sf::RenderWindow& window) {
 
 	return helpButton.detect_button_hovered(window);
 }
+
+// Returns whether the help button is hovered
+bool StartingScreen::mute_hovered(sf::RenderWindow& window) {
+
+	return muteButton.detect_button_hovered(window);
+}
+
 // Scans whether any of the buttons are hovered and lights up the buttons if they are
 void StartingScreen::scan_hovered(sf::RenderWindow& window) {
 	startButton.scan_hovered(window);
 	helpButton.scan_hovered(window);
+	muteButton.scan_hovered(window);
 }
 
 // Displays the help screen

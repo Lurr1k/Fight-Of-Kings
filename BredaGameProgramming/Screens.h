@@ -12,7 +12,7 @@ class StartingScreen {
 private:
 	Button startButton = Button({ 375, 490 }, "Start");
 	Button helpButton = Button({ 375, 640 }, "Help");
-
+	Button muteButton = Button({ 375,800 }, "Sound on/off");
 public:
 
 	// Displays the starting screen
@@ -26,6 +26,9 @@ public:
 
 	// Returns whether the help button is hovered
 	bool help_hovered(sf::RenderWindow& window);
+
+	// Returns whether the mute button is hovered
+	bool mute_hovered(sf::RenderWindow& window);
 
 
 };

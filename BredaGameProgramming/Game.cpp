@@ -2,10 +2,8 @@
 
 // Initialises the window and sets the window resolution
 void Game::init_window(){
-	height = 960;
-	width = 750;
 	windowTitle = "The Fight of Kings";
-	resolution = sf::VideoMode({ width, height });
+	resolution = sf::VideoMode({ 750, 960 });
 	window = sf::RenderWindow(resolution, windowTitle, sf::Style::Close);
     window.setPosition({ 585, 20 });
     window.setVerticalSyncEnabled(true);
@@ -69,7 +67,7 @@ void Game::poll_events() {
                     helpPage = false;
                     helpPage2 = false;
                     startPage = true;
-                    bookSound.play();
+                    audio.play_page();
                 }
                 else if (helpScreen.next_hovered(window) and (helpPage or helpPage2)) {
                     if (helpPage) {
@@ -80,7 +78,7 @@ void Game::poll_events() {
                         helpPage = true;
                         helpPage2 = false;
                     }
-                    bookSound.play();
+                    audio.play_page();
                 }
                 else if (startingScreen.start_hovered(window) and startPage) {
                     clock.restart();
@@ -89,15 +87,15 @@ void Game::poll_events() {
                 else if (startingScreen.help_hovered(window) and startPage) {
                     startPage = false;
                     helpPage = true;
-                    huhSound.play();
+                    audio.play_huh();
                 }
-                else if (muteButton.detect_button_hovered(window) and startPage) {
-                    mute_music();
+                else if (startingScreen.mute_hovered(window) and startPage) {
+                    audio.toggle_sounds();
                 }
                 else if (endScreen.return_hovered(window) and endPage) {
                     endPage = false;
                     startPage = true;
-                    bookSound.play();
+                    audio.play_page();
                 }
             }
         }
@@ -154,10 +152,8 @@ void Game::update_screen() {
     }
     else if (startPage) {
         window.draw(*startPageBackground);
-        muteButton.display_button(window);
         startingScreen.draw_starting_screen(window);
         startingScreen.scan_hovered(window);
-        muteButton.scan_hovered(window);
     }
 	window.display();
 
@@ -166,7 +162,7 @@ void Game::update_screen() {
 // Game constructor, initialises the window, the sounds and loads the backgrounds
 Game::Game() {
     init_window();
-    init_sounds();
+    audio.init_sounds();
     load_background();
 }
 
@@ -177,7 +173,7 @@ void Game::start_game() {
     startPage = false;
     potion.decrease_potion_level(10);
     distribution.reset_potion();
-    slashSound.play();
+    audio.play_slash();
 }
 
 // The general game loop
@@ -243,29 +239,5 @@ void Game::check_if_game_over() {
     }
 }
 
-// Initialises sounds 
-void Game::init_sounds() {
-    backgroundMusic.openFromFile("sounds/shrimp quartet.mp3");
-    backgroundMusic.setLooping(true);
-    backgroundMusic.play();
-    backgroundMusic.setVolume(3);
-    slashBuffer.loadFromFile("sounds/slash.mp3");
-    slashSound.setBuffer(slashBuffer);
-    slashSound.setVolume(3);
-    huhBuffer.loadFromFile("sounds/huh.mp3");
-    huhSound.setBuffer(huhBuffer);
-    huhSound.setVolume(10);
-    bookBuffer.loadFromFile("sounds/book.mp3");
-    bookSound.setBuffer(bookBuffer);
-    bookSound.setVolume(40);
-}
 
-// Mutes the music
-void Game::mute_music() {
-    if (backgroundMusic.getStatus() == sf::SoundSource::Status::Playing) {
-        backgroundMusic.pause();
-    }
-    else {
-        backgroundMusic.play();
-    }
-}
+
