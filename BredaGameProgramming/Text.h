@@ -4,7 +4,7 @@
 
 class Text {
 private:
-	const std::string FONTADDRESS = "fonts/Sacomin.otf";
+	const std::string fontAdress = "fonts/Sacomin.otf";
 	sf::Font font;
 	float fontSize;
 	std::string textToDisplay;

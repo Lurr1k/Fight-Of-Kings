@@ -7,7 +7,7 @@ Text::Text(std::string text, float size) : sign(font, text, size){
 
 	fontSize = size;
 
-	font.openFromFile(FONTADDRESS);
+	font.openFromFile(fontAdress);
 
 	sign.setFont(font);
 	sign.setString(textToDisplay);
