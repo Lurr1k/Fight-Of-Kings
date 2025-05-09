@@ -6,7 +6,7 @@
 
 ## Kirill Kaminskiy's 2025 Breda CMGT intake assignment
 
-#### *(Please launch the game using the **x86** configuration in Visual Studio)*
+#### *(Please launch the game using the **x64** configuration in Visual Studio)*
 
   
 
