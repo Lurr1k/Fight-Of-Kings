@@ -1,5 +1,4 @@
 #include "Game.h"
-// Launch with Release/Debug on x86 confirguration.
 
 
 int main()
