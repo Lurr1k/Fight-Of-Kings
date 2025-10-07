@@ -4,7 +4,8 @@
 
   
 
-## Kirill Kaminskiy's 2025 Breda CMGT intake assignment
+## 2025 Breda University CMGT intake assignment
+### The project is shared publicly for portfolio purposes only.
 
 #### *(Please launch the game using the **x64** configuration in Visual Studio)*
 
